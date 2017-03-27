@@ -6,12 +6,14 @@
   [[default]]
     [[[child0]]]
       fullscreen = False
+      last_active_term = 706f5747-05d4-4430-9bf9-e14264dc5638
       last_active_window = True
       maximised = False
       order = 0
       parent = ""
-      position = 898:506
-      size = 734, 362
+      position = 777:467
+      size = 747, 362
+      title = william@arzhon-pc: ~
       type = Window
     [[[terminal1]]]
       order = 0
