@@ -83,8 +83,9 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias chownapache="chown -R http:users"
-alias chmodapache="chmod -R 770"
+alias chownmodapache="sudo chown -R http:users * . && sudo chmod -R 770 * . && echo -e 'sudo chown -R http:users * .\nsudo chmod -R 770 * .'"
+alias chownapache="sudo chown -R http:users"
+alias chmodapache="sudo chmod -R 770"
 
 # Setting Palette
 echo -en "\e]P0000000"
@@ -118,3 +119,4 @@ if [ "$TERM" = "linux" ]; then
 else
 	screenfetch
 fi
+export PATH=$PATH:$HOME/.motivate
