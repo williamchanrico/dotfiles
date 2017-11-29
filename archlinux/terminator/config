@@ -11,9 +11,9 @@
       maximised = False
       order = 0
       parent = ""
-      position = 777:467
+      position = 859:538
       size = 747, 362
-      title = william@arzhon-pc: ~
+#      title = william@arzhon-pc: ~
       type = Window
     [[[terminal1]]]
       order = 0
@@ -30,5 +30,6 @@
     cursor_shape = ibeam
     font = DejaVu Sans Mono for Powerline 11
     palette = "#262626:#d01b24:#a7d32c:#d8cf67:#61b8d0:#695abb:#d53864:#ffffff:#1c1d19:#d01b24:#a7d32c:#d8cf67:#61b8d0:#695abb:#d53864:#ffffff"
+    scrollback_infinite = True
     show_titlebar = False
     use_system_font = False
