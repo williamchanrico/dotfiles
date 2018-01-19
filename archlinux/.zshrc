@@ -1,5 +1,5 @@
 # PATH environment variables
-export PATH=$HOME/bin:/usr/local/bin:$HOME/.config/composer/vendor/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to oh-my-zsh installation.
 export ZSH=/home/william/.oh-my-zsh
@@ -22,6 +22,8 @@ source $ZSH/oh-my-zsh.sh
 # Aliases
 alias chownmodapache="sudo chown -R william:http * . && sudo chmod -R 770 * . && echo -e 'sudo chown -R william:http * .\nsudo chmod -R 770 * .'"
 alias wow="WINEPREFIX=~/.wineWow __GL_THREADED_OPTIMIZATIONS=1 WINEDEBUG=-all wine /mnt/data/games/World\ of\ Warcraft/World\ of\ Warcraft\ Launcher.exe"
+alias nf="ntfy"
+alias nfmb="ntfy -o device_iden ujviRNYx41csjAiVsKnSTs -b pushbullet"
 
 # Skip running screenfetch on tty because screenfetch needs informations that will delay tty startup
 if [ "$TERM" = "linux" ]; then
@@ -37,3 +39,16 @@ if [ "$TERM" = "linux" ]; then
 else
 	screenfetch
 fi
+
+# Set up Node Version Manager
+export NVM_DIR="$HOME/.nvm"
+export NVM_SOURCE="/usr/share/nvm"	# The AUR package installs it to here.
+[ -s "$NVM_SOURCE/nvm.sh" ] && . "$NVM_SOURCE/nvm.sh"	# Load NVM
+
+# Set up Composer
+export PATH=$HOME/.config/composer/vendor/bin:$PATH
+
+# Go directory env
+export GOPATH=/mnt/data/collections/src/go
+export GOBIN=/mnt/data/collections/src/go/bin
+export PATH=$GOBIN:$PATH
