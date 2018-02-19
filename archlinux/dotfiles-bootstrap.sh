@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-# Check for system updates
-sudo pacman -Syyu
+# Synchronize package databases
+sudo pacman -Sy
 
 if [ ! -x "$(command -v pacaur)" ]; then
     # Install dependencies
@@ -27,5 +27,5 @@ if [ ! -x "$(command -v pacaur)" ]; then
 fi
 
 # Set up YADM and dotfiles
-pacaur -S yadm-git
+pacaur -S yadm-git --noconfirm
 yadm clone https://bitbucket.org/williamchanrico/dotfiles

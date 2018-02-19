@@ -1,7 +1,7 @@
 #/usr/bin/env bash
 
-# Check for system updates
-sudo pacman -Syyu
+# Synchronize package databases
+sudo pacman -Sy
 
 # Install zsh
 sudo pacman -S zsh wget curl git --noconfirm
