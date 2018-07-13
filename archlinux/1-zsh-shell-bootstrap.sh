@@ -1,10 +1,7 @@
 #/usr/bin/env bash
 
-# Synchronize package databases
-sudo pacman -Sy
-
 # Install zsh
-sudo pacman -S zsh wget curl git --noconfirm
+sudo pacman -S --noconfirm zsh wget curl git
 chsh -s /usr/bin/zsh william
 
 # Install oh-my-zsh
