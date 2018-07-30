@@ -1,0 +1,34 @@
+#/usr/bin/env bash
+
+# Synchronize package databases
+sudo pacman -Sy
+
+sudo pacman -S --noconfirm arc-gtk-theme filemanager-actions uget imagemagick libreoffice-fresh jre10-openjdk jdk10-openjdk openjdk10-doc deepin-screenshot gcolor2 tmux tcpdump htop iftop gimp mpv dosfstools tree bind-tools pavucontrol smartmontools traceroute xdotool ttf-dejavu ttf-liberation adobe-source-han-sans-otc-fonts ttf-hanazono go go-tools terminator zenity p7zip unrar rsync a52dec libmad x264 gst-libav gst-plugins-ugly dnscrypt-proxy totem
+
+sudo systemctl enable dnscrypt-proxy
+sudo systemctl start dnscrypt-proxy
+
+# Setup golang
+mkdir -p ~/src/go/{src,bin}
+
+# Remove gnome-terminal version of 'Open in Terminal' in nautilus
+sudo mv -vi /usr/lib/nautilus/extensions-3.0/libterminal-nautilus.so{,.bak}
+
+yay -S --noconfirm dropbox nautilus-dropbox transmission-gtk peek adobe-source-han-sans-otc-fonts nvm spotify visual-studio-code-bin
+
+# Prevent dropbox automatic updates
+rm -rf ~/.dropbox-dist
+install -dm0 ~/.dropbox-dist
+
+# Post-install messages
+echo "=== DNSCrypt ==="
+echo "Uncomment 'name_servers=127.0.0.1' in /etc/resolvconf.conf"
+echo "Select resolver for dnscrypt at '/etc/dnscrypt-proxy/dnscrypt-proxy.toml'"
+echo "server_names = ['cloudflare', 'cloudflare-ipv6']"
+echo "Don't forget to restart dnscrypt-proxy.service"
+echo "https://welcome.opendns.com/welcome/"
+echo ""
+echo "=== FileManager-Actions ==="
+echo "Config for 'Open in Terminal' with terminator"
+echo "Path: terminator"
+echo "Parameters: --working-directory=%f"
