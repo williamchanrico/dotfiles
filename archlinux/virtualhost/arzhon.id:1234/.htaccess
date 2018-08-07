@@ -1,0 +1,218 @@
+#
+# Custom .htaccess by William Chanrico (www.arzhon.id)
+#
+# Verify the use of apache2 or httpd
+#
+# Install apache2-utils
+# sudo htpasswd -c /path/.htpasswd name
+# sudo htpasswd /path/.htpasswd another_name
+#
+# Enable mod_rewrite in /etc/apache2/apache2.conf
+# Enable .htaccess in /etc/apache2/apache2.conf
+# AllowOverride All in <Directory /var/www/>
+#
+#AuthType Basic
+#AuthName "Private Files"
+#AuthUserFile /path/.htpasswd
+#Require user william
+#Require valid-user
+#
+AuthName 'Admin'
+AuthType Digest
+AuthDigestDomain /
+AuthDigestProvider file
+AuthUserFile /home/william/virtualhost/.htdigest
+#Require user william
+#Require valid-user
+
+# Some Options
+#
+#Options -Indexes +FollowSymLinks +Includes
+#Options +Indexes +FollowSymLinks +Includes
+#IndexIgnore .htaccess
+
+# Display custom error pages 
+#
+#ErrorDocument 400 /errors/400.html 
+#ErrorDocument 404 /errors/404.html 
+#ErrorDocument 500 /errors/500.html
+
+# Enables mod_rewrite
+RewriteEngine On
+
+# Redirect to /home/
+#
+#RedirectMatch ^/$ /home/
+
+# Redirect http://example.com/folder1/ to http://example.com/folder2/
+#
+#RewriteRule ^folder1.*$ http://example.com/folder2/ [R=301,L]
+
+# Redirect http://example.com/folder1/ to plain http://example.com/
+#
+#RewriteRule ^folder1.*$ http://example.com/ [R=301,L]
+
+# Rewrite "domain.com -> www.domain.com"
+#
+#RewriteCond %{HTTPS} !=on
+#RewriteCond %{HTTP_HOST} !^www\..+$ [NC]
+#RewriteCond %{HTTP_HOST} (.+)$ [NC]
+#RewriteRule ^(.*)$ http://www.%1/$1 [R=301,L]
+
+# Suppress index.php from URL
+#
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteCond %{REQUEST_FILENAME} !-d
+# If in web root
+#RewriteRule ^(.*)$ index.php?/$1 [L]
+# If in subdir
+#RewriteRule ^(.*)$ /<path>/index.php?/$1 [L]
+
+# Disable the server signature
+#
+ServerSignature Off
+
+# Disguise php files as html files 
+#
+#AddType application/x-httpd-html .php
+
+# Expires caching
+#
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresDefault "access plus 10 days"
+    ExpiresByType text/css "access plus 1 week"
+    ExpiresByType text/plain "access plus 1 month"
+    ExpiresByType image/gif "access plus 1 month"
+    ExpiresByType image/png "access plus 1 month"
+    ExpiresByType image/jpeg "access plus 1 month"
+    ExpiresByType application/x-javascript "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 week"
+    ExpiresByType application/x-icon "access plus 1 year"
+</IfModule>
+
+# Restrict access to IP's & domains (replace x with numbers)
+#
+#<Limit GET POST PUT>
+#   Order allow,deny
+#   allow from all
+#   deny from xx.xxx.xx.xxx
+#   deny from .*domain\.com.*
+#</Limit>
+
+# Control access to files.ext
+#
+#<Files files.ext>
+#   Order deny,allow
+#   Deny from all
+#   Allow from 127.0.0.1
+#</Files>
+
+# Prevent access to .htaccess (one file)
+#
+<Files .htaccess>
+    Order allow,deny
+    Deny from all
+</Files>
+
+# Block access to multiple file types
+#
+#<FilesMatch "\.(htaccess|htpasswd|ini|psd|log|sh|txt)$">
+#   Order allow,deny
+#   Deny from all
+#</FilesMatch>
+
+# Protect a single file
+#
+#<Files myfile.php>
+#   AuthType Basic
+#   AuthName "Password"
+#   AuthUserFile /path/.htpasswd
+#   Require valid-user
+#</Files>
+
+# Protect multiple files
+#
+#<FilesMatch "^(execute|index|myfile|anotherfile)*$">
+#   AuthType Basic
+#   AuthName "Password"
+#   AuthUserFile /path/.htpasswd
+#   Require valid-user
+#</FilesMatch>
+
+
+#
+# Apaxy by @adamwhitcroft modified by William Chanrico
+#
+
+# ENABLE INDEXING
+Options +Indexes
+
+# INDEX OPTIONS
+IndexOptions +Charset=UTF-8 +FancyIndexing +IgnoreCase +FoldersFirst +XHTML +HTMLTable +SuppressRules +SuppressDescription +NameWidth=* +IconsAreLinks
+
+# META VIEWPORT
+IndexHeadInsert "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />"
+
+# HIDE /theme DIRECTORY
+IndexIgnore .htaccess /apaxy/theme /apaxy
+
+# GENERAL ICONS (BLANK, DIRECTORY, PARENT DIRECTORY)
+AddIcon /apaxy/theme/icons/blank.png ^^BLANKICON^^
+AddIcon /apaxy/theme/icons/folder.png ^^DIRECTORY^^
+AddIcon /apaxy/theme/icons/folder-home.png ..
+
+AddIconByType (TXT,/apaxy/theme/icons/text.png) text/*
+AddIconByType (IMG,/apaxy/theme/icons/image.png) image/*
+AddIconByType (SND,/apaxy/theme/icons/audio.png) audio/*
+AddIconByType (VID,/apaxy/theme/icons/video.png) video/*
+
+
+# EXTENSION SPECIFIC ICONS
+AddIcon /apaxy/theme/icons/archive.png .7z .bz2 .cab .gz .tar
+AddIcon /apaxy/theme/icons/audio.png .aac .aif .aifc .aiff .ape .au .flac .iff .m4a .mid .mp3 .mpa .ra .wav .wma .f4a .f4b .oga .ogg .xm .it .s3m .mod
+AddIcon /apaxy/theme/icons/bin.png .bin .hex
+AddIcon /apaxy/theme/icons/bmp.png .bmp
+AddIcon /apaxy/theme/icons/c.png .c
+AddIcon /apaxy/theme/icons/calc.png .xlsx .xlsm .xltx .xltm .xlam .xlr .xls .csv
+AddIcon /apaxy/theme/icons/cd.png .iso
+AddIcon /apaxy/theme/icons/cpp.png .cpp
+AddIcon /apaxy/theme/icons/css.png .css .sass .scss
+AddIcon /apaxy/theme/icons/deb.png .deb
+AddIcon /apaxy/theme/icons/doc.png .doc .docx .docm .dot .dotx .dotm .log .msg .odt .pages .rtf .tex .wpd .wps
+AddIcon /apaxy/theme/icons/draw.png .svg .svgz
+AddIcon /apaxy/theme/icons/eps.png .ai .eps
+AddIcon /apaxy/theme/icons/exe.png .exe
+AddIcon /apaxy/theme/icons/gif.png .gif
+AddIcon /apaxy/theme/icons/h.png .h
+AddIcon /apaxy/theme/icons/html.png .html .xhtml .shtml .htm .URL .url
+AddIcon /apaxy/theme/icons/ico.png .ico
+AddIcon /apaxy/theme/icons/java.png .jar
+AddIcon /apaxy/theme/icons/jpg.png .jpg .jpeg .jpe
+AddIcon /apaxy/theme/icons/js.png .js .json
+AddIcon /apaxy/theme/icons/markdown.png .md
+AddIcon /apaxy/theme/icons/package.png .pkg .dmg
+AddIcon /apaxy/theme/icons/pdf.png .pdf
+AddIcon /apaxy/theme/icons/php.png .php .phtml
+AddIcon /apaxy/theme/icons/playlist.png .m3u .m3u8 .pls .pls8
+AddIcon /apaxy/theme/icons/png.png .png
+AddIcon /apaxy/theme/icons/ps.png .ps
+AddIcon /apaxy/theme/icons/psd.png .psd
+AddIcon /apaxy/theme/icons/py.png .py
+AddIcon /apaxy/theme/icons/rar.png .rar
+AddIcon /apaxy/theme/icons/rb.png .rb
+AddIcon /apaxy/theme/icons/rpm.png .rpm
+AddIcon /apaxy/theme/icons/rss.png .rss
+AddIcon /apaxy/theme/icons/script.png .bat .cmd .sh
+AddIcon /apaxy/theme/icons/sql.png .sql
+AddIcon /apaxy/theme/icons/tiff.png .tiff .tif
+AddIcon /apaxy/theme/icons/text.png .txt .nfo
+AddIcon /apaxy/theme/icons/video.png .asf .asx .avi .flv .mkv .mov .mp4 .mpg .rm .srt .swf .vob .wmv .m4v .f4v .f4p .ogv
+AddIcon /apaxy/theme/icons/xml.png .xml
+AddIcon /apaxy/theme/icons/zip.png .zip
+DefaultIcon /apaxy/theme/icons/default.png
+
+# THEME FILES
+HeaderName /apaxy/theme/header.html
+ReadmeName /apaxy/theme/footer.html
+IndexStyleSheet /apaxy/theme/style.css

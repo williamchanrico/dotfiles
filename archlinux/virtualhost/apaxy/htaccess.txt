@@ -1,0 +1,141 @@
+#
+# Custom .htaccess by William Chanrico (www.arzhon.id)
+#
+# Verify the use of apache2 or httpd
+#
+# Install apache2-utils
+# sudo htpasswd -c /path/.htpasswd name
+# sudo htpasswd /path/.htpasswd another_name
+#
+# Enable mod_rewrite in /etc/apache2/apache2.conf
+# Enable .htaccess in /etc/apache2/apache2.conf
+# AllowOverride All in <Directory /var/www/>
+#
+#AuthType Basic
+#AuthName "Private Files"
+#AuthUserFile /path/.htpasswd
+#Require user william
+#Require valid-user
+#
+#AuthName 'Admin'
+#AuthType Digest
+#AuthDigestDomain /
+#AuthDigestProvider file
+#AuthUserFile /path/.htdigest
+#Require user william
+#Require valid-user
+
+# Some Options
+#
+Options -Indexes +FollowSymLinks +Includes
+#Options +Indexes +FollowSymLinks +Includes
+#IndexIgnore .htaccess
+
+# Display custom error pages 
+#
+#ErrorDocument 400 /errors/400.html 
+#ErrorDocument 404 /errors/404.html 
+#ErrorDocument 500 /errors/500.html
+
+# Enables mod_rewrite
+RewriteEngine On
+
+# Redirect to /home/
+#
+#RedirectMatch ^/$ /home/
+
+# Redirect http://example.com/folder1/ to http://example.com/folder2/
+#
+#RewriteRule ^folder1.*$ http://example.com/folder2/ [R=301,L]
+
+# Redirect http://example.com/folder1/ to plain http://example.com/
+#
+#RewriteRule ^folder1.*$ http://example.com/ [R=301,L]
+
+# Rewrite "domain.com -> www.domain.com"
+#
+#RewriteCond %{HTTPS} !=on
+#RewriteCond %{HTTP_HOST} !^www\..+$ [NC]
+#RewriteCond %{HTTP_HOST} (.+)$ [NC]
+#RewriteRule ^(.*)$ http://www.%1/$1 [R=301,L]
+
+# Suppress index.php from URL
+#
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteCond %{REQUEST_FILENAME} !-d
+# If in web root
+#RewriteRule ^(.*)$ index.php?/$1 [L]
+# If in subdir
+#RewriteRule ^(.*)$ /<path>/index.php?/$1 [L]
+
+# Disable the server signature
+#
+ServerSignature Off
+
+# Disguise php files as html files 
+#
+#AddType application/x-httpd-html .php
+
+# Expires caching
+#
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresDefault "access plus 10 days"
+    ExpiresByType text/css "access plus 1 week"
+    ExpiresByType text/plain "access plus 1 month"
+    ExpiresByType image/gif "access plus 1 month"
+    ExpiresByType image/png "access plus 1 month"
+    ExpiresByType image/jpeg "access plus 1 month"
+    ExpiresByType application/x-javascript "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 week"
+    ExpiresByType application/x-icon "access plus 1 year"
+</IfModule>
+
+# Restrict access to IP's & domains (replace x with numbers)
+#
+#<Limit GET POST PUT>
+#	Order allow,deny
+#	allow from all
+#	deny from xx.xxx.xx.xxx
+#	deny from .*domain\.com.*
+#</Limit>
+
+# Control access to files.ext
+#
+#<Files files.ext>
+#   Order deny,allow
+#   Deny from all
+#   Allow from 127.0.0.1
+#</Files>
+
+# Prevent access to .htaccess (one file)
+#
+<Files .htaccess>
+	Order allow,deny
+	Deny from all
+</Files>
+
+# Block access to multiple file types
+#
+#<FilesMatch "\.(htaccess|htpasswd|ini|psd|log|sh|txt)$">
+#	Order allow,deny
+#	Deny from all
+#</FilesMatch>
+
+# Protect a single file
+#
+#<Files myfile.php>
+#	AuthType Basic
+#	AuthName "Password"
+#	AuthUserFile /path/.htpasswd
+#	Require valid-user
+#</Files>
+
+# Protect multiple files
+#
+#<FilesMatch "^(execute|index|myfile|anotherfile)*$">
+#	AuthType Basic
+#	AuthName "Password"
+#	AuthUserFile /path/.htpasswd
+#	Require valid-user
+#</FilesMatch>
