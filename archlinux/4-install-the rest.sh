@@ -3,7 +3,7 @@
 # Synchronize package databases
 sudo pacman -Sy
 
-sudo pacman -S --noconfirm arc-gtk-theme filemanager-actions uget imagemagick libreoffice-fresh jre10-openjdk jdk10-openjdk openjdk10-doc deepin-screenshot gcolor2 tmux tcpdump htop iftop gimp mpv dosfstools tree bind-tools pavucontrol smartmontools traceroute xdotool ttf-dejavu ttf-liberation adobe-source-han-sans-otc-fonts ttf-hanazono go go-tools terminator zenity p7zip unrar rsync a52dec libmad x264 gst-libav gst-plugins-ugly dnscrypt-proxy totem
+sudo pacman -S --noconfirm arc-gtk-theme filemanager-actions uget imagemagick lshw libreoffice-fresh jre10-openjdk jdk10-openjdk openjdk10-doc deepin-screenshot gcolor2 tmux tcpdump htop iftop gimp mpv dosfstools tree bind-tools pavucontrol smartmontools traceroute xdotool ttf-dejavu ttf-liberation adobe-source-han-sans-otc-fonts ttf-hanazono go go-tools terminator zenity p7zip unrar rsync a52dec libmad x264 gst-libav gst-plugins-ugly dnscrypt-proxy totem
 
 sudo systemctl enable dnscrypt-proxy
 sudo systemctl start dnscrypt-proxy
