@@ -4,12 +4,6 @@
 # PATH environment variables
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-# Aliases
-alias ls='ls --color=auto'
-alias chownmodapache="sudo chown -R william:http * . && sudo chmod -R 770 * . && echo -e 'sudo chown -R william:http * .\nsudo chmod -R 770 * .'"
-alias wow="WINEPREFIX=~/.wineWow __GL_THREADED_OPTIMIZATIONS=1 WINEDEBUG=-all wine /mnt/data/games/World\ of\ Warcraft/World\ of\ Warcraft\ Launcher.exe"
-alias ntfymb="ntfy -o device_iden ujviRNYx41csjAiVsKnSTs -b pushbullet"
-
 # Custom prompt
 PS1='[\u@\h \W]\$ '
 
@@ -29,13 +23,47 @@ fi
 
 # Set up Node Version Manager
 export NVM_DIR="$HOME/.nvm"
-export NVM_SOURCE="/usr/share/nvm"  # The AUR package installs it to here.
-[ -s "$NVM_SOURCE/nvm.sh" ] && . "$NVM_SOURCE/nvm.sh"   # Load NVM
+export NVM_SOURCE="/usr/share/nvm"	# The AUR package installs it to here.
+[ -s "$NVM_SOURCE/nvm.sh" ] && . "$NVM_SOURCE/nvm.sh"	# Load NVM
 
 # Set up Composer
 export PATH=$HOME/.config/composer/vendor/bin:$PATH
 
 # Go directory env
-export GOPATH=/mnt/data/collections/src/go
-export GOBIN=/mnt/data/collections/src/go/bin
+export GOPATH=/home/william/src/go
+export GOBIN=/home/william/src/go/bin
 export PATH=$GOBIN:$PATH
+
+export ANSIBLE_ROLES_PATH=/etc/ansible/roles
+
+# Functions
+ipinfo() {
+	curl ipinfo.io/$1
+}
+
+tkp-ssh() {
+	# https://phab.tokopedia.com/w/tech/devops/teleport/
+	# tsh-tkp binary: https://github.com/tokopedia/teleport/releases/tag/v2.4.5.1
+	if [[ $1 == "ls" ]]; then
+		tsh-tkp ls | grep "$2"
+	elif [[ $1 == "login" ]]; then
+		tsh-tkp login --proxy=ports2.tokopedia.net:3080 --user=william.chanrico
+	else
+		tsh-tkp ssh root@$1
+	fi
+}
+
+# Aliases
+alias nf="ntfy"
+alias nfmb="ntfy -o device_iden ujviRNYx41csjAiVsKnSTs -b pushbullet"
+
+alias yee="yeecli"
+alias yeeb="yeecli brightness"
+alias yeet="yeecli toggle"
+
+alias dpoff="xset dpms force off"
+
+alias spnd="systemctl suspend"
+
+alias cdgo="cd $GOPATH/src"
+alias cdgoo="cd $GOPATH/src/github.com/williamchanrico"
