@@ -14,7 +14,7 @@ mkdir -p ~/src/go/{src,bin}
 # Remove gnome-terminal version of 'Open in Terminal' in nautilus
 sudo mv -vi /usr/lib/nautilus/extensions-3.0/libterminal-nautilus.so{,.bak}
 
-yay -S --noconfirm dropbox nautilus-dropbox transmission-gtk peek adobe-source-han-sans-otc-fonts nvm spotify visual-studio-code-bin
+yay -S --noconfirm dropbox nautilus-dropbox transmission-gtk peek adobe-source-han-sans-otc-fonts nvm spotify visual-studio-code-bin vokoscreen
 
 # Prevent dropbox automatic updates
 rm -rf ~/.dropbox-dist
