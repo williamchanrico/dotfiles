@@ -1,0 +1,24 @@
+[/]
+screenshot-clip=''
+area-screenshot-clip=''
+screenshot='<Primary>Print'
+window-screenshot-clip=''
+screencast='<Primary><Shift>Print'
+window-screenshot=''
+area-screenshot=''
+custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/']
+
+[custom-keybindings/custom2]
+binding='<Primary><Alt>r'
+command='vokoscreen --stoprecord'
+name='Vokoscreen stop screencast'
+
+[custom-keybindings/custom1]
+binding='<Primary><Shift>r'
+command='vokoscreen --setAreaReset --startrecord'
+name='Vokoscreen screencast an area'
+
+[custom-keybindings/custom0]
+binding='Print'
+command='deepin-screenshot'
+name='Deepin-screenshot Area'
