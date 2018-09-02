@@ -1,6 +1,0 @@
-[user]
-	email = williamchanrico@gmail.com
-	name = William Chanrico
-	signingkey = 22173DAA7BB0DB38CAF454A257B90A601EB14234
-[commit]
-	gpgSign = true
