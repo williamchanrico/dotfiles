@@ -3,7 +3,12 @@
 # Synchronize package databases
 sudo pacman -Sy
 
-sudo pacman -S --noconfirm arc-gtk-theme filemanager-actions uget imagemagick lshw libreoffice-fresh jre10-openjdk jdk10-openjdk openjdk10-doc deepin-screenshot gcolor2 tmux tcpdump htop iftop gimp mpv dosfstools tree bind-tools pavucontrol smartmontools traceroute xdotool ttf-dejavu ttf-liberation adobe-source-han-sans-otc-fonts ttf-hanazono go go-tools terminator zenity p7zip unrar rsync a52dec libmad x264 gst-libav gst-plugins-ugly dnscrypt-proxy totem dconf-editor
+sudo pacman -S --noconfirm \
+	arc-gtk-theme filemanager-actions uget imagemagick lshw libreoffice-fresh jre10-openjdk \
+	jdk10-openjdk openjdk10-doc deepin-screenshot gcolor2 tmux tcpdump htop iftop gimp mpv dosfstools tree bind-tools \
+	pavucontrol smartmontools traceroute xdotool ttf-dejavu ttf-liberation adobe-source-han-sans-otc-fonts ttf-hanazono \
+	go go-tools terminator zenity p7zip unrar rsync a52dec libmad x264 gst-libav gst-plugins-ugly dnscrypt-proxy totem \
+	dconf-editor
 
 sudo systemctl enable dnscrypt-proxy
 sudo systemctl start dnscrypt-proxy
@@ -14,7 +19,9 @@ mkdir -p ~/src/go/{src,bin}
 # Remove gnome-terminal version of 'Open in Terminal' in nautilus
 sudo mv -vi /usr/lib/nautilus/extensions-3.0/libterminal-nautilus.so{,.bak}
 
-yay -S --noconfirm dropbox nautilus-dropbox transmission-gtk peek adobe-source-han-sans-otc-fonts nvm spotify visual-studio-code-bin vokoscreen
+yay -S --noconfirm \
+	dropbox nautilus-dropbox transmission-gtk peek adobe-source-han-sans-otc-fonts nvm spotify visual-studio-code-bin \
+	vokoscreen
 
 # Prevent dropbox automatic updates
 rm -rf ~/.dropbox-dist
