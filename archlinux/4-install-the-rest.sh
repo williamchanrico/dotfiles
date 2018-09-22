@@ -8,7 +8,7 @@ sudo pacman -S --noconfirm \
 	jdk10-openjdk openjdk10-doc deepin-screenshot gcolor2 tmux tcpdump htop iftop gimp mpv dosfstools tree bind-tools \
 	pavucontrol smartmontools traceroute xdotool ttf-dejavu ttf-liberation adobe-source-han-sans-otc-fonts ttf-hanazono \
 	go go-tools terminator zenity p7zip unrar rsync a52dec libmad x264 gst-libav gst-plugins-ugly dnscrypt-proxy totem \
-	dconf-editor
+	dconf-editor ntfs-3g
 
 sudo systemctl enable dnscrypt-proxy
 sudo systemctl start dnscrypt-proxy
@@ -21,11 +21,14 @@ sudo mv -vi /usr/lib/nautilus/extensions-3.0/libterminal-nautilus.so{,.bak}
 
 yay -S --noconfirm \
 	dropbox nautilus-dropbox transmission-gtk peek adobe-source-han-sans-otc-fonts nvm spotify visual-studio-code-bin \
-	vokoscreen
+	vokoscreen drive-bin
 
 # Prevent dropbox automatic updates
 rm -rf ~/.dropbox-dist
 install -dm0 ~/.dropbox-dist
+
+# Setup drive environment (Google Drive CLI)
+mkdir ~/.drive
 
 # Post-install messages
 echo "Notes:"
@@ -53,3 +56,7 @@ echo "User themes"
 echo "System-monitor"
 echo ""
 echo "Apply extensions setting in dconf dir"
+echo ""
+echo "=== Drive ==="
+echo "cd ~/.drive && drive init"
+echo ""
