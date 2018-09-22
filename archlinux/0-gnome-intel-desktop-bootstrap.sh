@@ -1,5 +1,8 @@
 #/usr/bin/env bash
 
+# Include multilib repository
+sudo sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
+
 # Synchronize package databases
 sudo pacman -Sy
 
