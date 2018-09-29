@@ -21,14 +21,11 @@ sudo mv -vi /usr/lib/nautilus/extensions-3.0/libterminal-nautilus.so{,.bak}
 
 yay -S --noconfirm \
 	dropbox nautilus-dropbox transmission-gtk peek adobe-source-han-sans-otc-fonts nvm spotify visual-studio-code-bin \
-	vokoscreen drive-bin
+	vokoscreen
 
 # Prevent dropbox automatic updates
 rm -rf ~/.dropbox-dist
 install -dm0 ~/.dropbox-dist
-
-# Setup drive environment (Google Drive CLI)
-mkdir ~/.drive
 
 # Post-install messages
 echo "Notes:"
@@ -38,11 +35,6 @@ echo "Uncomment 'name_servers=127.0.0.1' in /etc/resolvconf.conf"
 echo "Select resolver for dnscrypt at '/etc/dnscrypt-proxy/dnscrypt-proxy.toml'"
 echo "server_names = ['cloudflare', 'cloudflare-ipv6']"
 echo "Don't forget to restart dnscrypt-proxy.service"
-echo ""
-echo "=== FileManager-Actions ==="
-echo "Config for 'Open in Terminal' with terminator"
-echo "Path: terminator"
-echo "Parameters: --working-directory=%f"
 echo ""
 echo "=== Gnome Exts ==="
 echo "Alternatetab"
@@ -56,7 +48,4 @@ echo "User themes"
 echo "System-monitor"
 echo ""
 echo "Apply extensions setting in dconf dir"
-echo ""
-echo "=== Drive ==="
-echo "cd ~/.drive && drive init"
 echo ""
