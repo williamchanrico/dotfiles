@@ -11,7 +11,7 @@ sudo pacman -S --noconfirm \
 	xdotool ttf-dejavu ttf-liberation adobe-source-han-sans-otc-fonts \
 	ttf-hanazono go go-tools terminator zenity p7zip unrar rsync a52dec \
 	libmad x264 gst-libav gst-plugins-ugly totem dconf-editor ntfs-3g \
-	jq tcpdump asciinema unbound expat
+	jq tcpdump asciinema dnscrypt-proxy unbound expat
 
 # Setup golang
 mkdir -p ~/src/go/{src,bin}
@@ -21,11 +21,51 @@ sudo mv -vi /usr/lib/nautilus/extensions-3.0/libterminal-nautilus.so{,.bak}
 
 yay -S --noconfirm \
 	dropbox nautilus-dropbox transmission-gtk peek vokoscreen \
-	adobe-source-han-sans-otc-fonts nvm spotify visual-studio-code-bin	
+	adobe-source-han-sans-otc-fonts nvm spotify visual-studio-code-bin
 
 # Prevent dropbox automatic updates
 rm -rf ~/.dropbox-dist
 install -dm0 ~/.dropbox-dist
+
+# Change DNSCrypt-proxy port to 53000
+sed -i -E -e "/^listen_addresses/s/:53'/:53000'/g" /etc/dnscrypt-proxy/dnscrypt-proxy.toml
+
+# Get root servers list for unbound
+curl -o /etc/unbound/root.hints https://www.internic.net/domain/named.cache
+
+# Unbound configuration
+cat <<-EOF > /etc/unbound/unbound.conf
+server:
+  use-syslog: yes
+  do-daemonize: no
+  username: "unbound"
+  directory: "/etc/unbound"
+  trust-anchor-file: trusted-key.key
+  private-domain: "intranet"
+  private-domain: "internal"
+  private-domain: "private"
+  private-domain: "corp"
+  private-domain: "home"
+  private-domain: "lan"
+  unblock-lan-zones: yes
+  insecure-lan-zones: yes
+  domain-insecure: "intranet"
+  domain-insecure: "internal"
+  domain-insecure: "private"
+  domain-insecure: "corp"
+  domain-insecure: "home"
+  domain-insecure: "lan"
+  root-hints: root.hints
+  do-not-query-localhost: no
+forward-zone:
+  name: "."
+  forward-addr: ::1@53000
+  forward-addr: 127.0.0.1@53000
+EOF
+
+# DNSSEC test
+echo "DNSSEC Test, you should see the ip address with '(secure)' next to"
+unbound-host -C /etc/unbound/unbound.conf -v sigok.verteiltesysteme.net
 
 # Post-install messages
 echo "Notes:"
