@@ -11,7 +11,7 @@ sudo pacman -S --noconfirm \
 	xdotool ttf-dejavu ttf-liberation adobe-source-han-sans-otc-fonts \
 	ttf-hanazono go go-tools terminator zenity p7zip unrar rsync a52dec \
 	libmad x264 gst-libav gst-plugins-ugly totem dconf-editor ntfs-3g \
-	jq tcpdump asciinema dnscrypt-proxy unbound expat
+	jq tcpdump asciinema dnscrypt-proxy unbound expat restic
 
 # Setup golang
 mkdir -p ~/src/go/{src,bin}
@@ -27,6 +27,7 @@ yay -S --noconfirm \
 rm -rf ~/.dropbox-dist
 install -dm0 ~/.dropbox-dist
 
+# DNS request -> unbound :53 -> dnscrypt-proxy :53000 -> enabled dnscrypt resolver
 # Change DNSCrypt-proxy port to 53000
 sed -i -E -e "/^listen_addresses/s/:53'/:53000'/g" /etc/dnscrypt-proxy/dnscrypt-proxy.toml
 
