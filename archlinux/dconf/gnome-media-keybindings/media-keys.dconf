@@ -5,8 +5,9 @@ screenshot='<Primary>Print'
 window-screenshot-clip=''
 screencast='<Primary><Shift>Print'
 window-screenshot=''
+screensaver=''
 area-screenshot=''
-custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/']
+custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/']
 
 [custom-keybindings/custom2]
 binding='<Primary><Alt>r'
@@ -22,3 +23,8 @@ name='Vokoscreen screencast an area'
 binding='Print'
 command='deepin-screenshot'
 name='Deepin-screenshot Area'
+
+[custom-keybindings/custom3]
+binding='<Super>l'
+command='betterlockscreen -l'
+name='Betterlockscreen'
