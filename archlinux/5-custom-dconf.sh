@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
-# Title: custom-dconf 
-# Description: Apply dconf config 
+# Title: custom-dconf
+# Description: Apply dconf config
 # Author: William Chanrico
-# Date: 2-Sept-2018 
+# Date: 2-Sept-2018
 
 ARRAY=( "dconf/gnome-extentions:/org/gnome/shell/extensions"
         "dconf/gnome-desktop-keybindings:/org/gnome/desktop/wm"
-        "dconf/gnome-media-keybindings:/org/gnome/settings-daemon/plugins" )
+        "dconf/gnome-media-keybindings:/org/gnome/settings-daemon/plugins"
+		"dconf/gnome-desktop:/org/gnome/desktop" )
 
 for data in "${ARRAY[@]}"; do
 	dir="${data%%:*}"
@@ -19,4 +20,3 @@ for data in "${ARRAY[@]}"; do
 		dconf load $dconf_key/$filename/ < $filename_full
 	done
 done
-

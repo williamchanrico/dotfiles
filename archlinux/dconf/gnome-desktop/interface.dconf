@@ -1,0 +1,10 @@
+[/]
+font-name='Noto Sans 11'
+document-font-name='Noto Sans 11'
+show-battery-percentage=true
+gtk-im-module='gtk-im-context-simple'
+clock-show-seconds=true
+icon-theme='Flat Remix'
+monospace-font-name='Noto Mono for Powerline 11'
+gtk-theme='Arc'
+clock-show-date=true

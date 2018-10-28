@@ -21,11 +21,17 @@ sudo mv -vi /usr/lib/nautilus/extensions-3.0/libterminal-nautilus.so{,.bak}
 
 yay -S --noconfirm \
 	dropbox nautilus-dropbox transmission-gtk peek vokoscreen \
-	adobe-source-han-sans-otc-fonts nvm spotify visual-studio-code-bin
+	adobe-source-han-sans-otc-fonts nvm spotify visual-studio-code-bin \
+	betterlockscreen-git
 
 # Prevent dropbox automatic updates
 rm -rf ~/.dropbox-dist
 install -dm0 ~/.dropbox-dist
+
+# Setup wallpapers and betterlockscreen-git cache image
+mkdir -p ~/Pictures/Wallpapers
+cp ./wallpapers/* ~/Pictures/Wallpapers/
+betterlockscreen -u ~/Pictures/Wallpapers/wallpaper-arch-1920x1280.png
 
 # DNS request -> unbound :53 -> dnscrypt-proxy :53000 -> enabled dnscrypt resolver
 # Change DNSCrypt-proxy port to 53000
