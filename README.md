@@ -1,5 +1,5 @@
 # linux-config-files
-Config files for my Arch Linux PC and VPS running Ubuntu Server
+Config files for archlinux running gnome on xorg
 
-## Desktop & Terminator Setup
+## Desktop
 ![screenshot](screenshot.png?raw=true "Screenshot")
