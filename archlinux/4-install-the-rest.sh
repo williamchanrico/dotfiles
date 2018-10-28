@@ -28,6 +28,11 @@ yay -S --noconfirm \
 rm -rf ~/.dropbox-dist
 install -dm0 ~/.dropbox-dist
 
+# Setup wallpapers and betterlockscreen-git cache image
+mkdir -p ~/Pictures/Wallpapers
+cp ./wallpapers/* ~/Pictures/Wallpapers/
+betterlockscreen -u ~/Pictures/Wallpapers/wallpaper-arch-1920x1280.png
+
 # DNS request -> unbound :53 -> dnscrypt-proxy :53000 -> enabled dnscrypt resolver
 # Change DNSCrypt-proxy port to 53000
 sed -i -E -e "/^listen_addresses/s/:53'/:53000'/g" /etc/dnscrypt-proxy/dnscrypt-proxy.toml
