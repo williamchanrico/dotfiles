@@ -1,3 +1,4 @@
 [/]
 panel-run-dialog=['<Super>r']
 show-desktop=['<Super>d']
+toggle-fullscreen=['F12']
