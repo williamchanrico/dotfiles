@@ -20,6 +20,3 @@ for data in "${ARRAY[@]}"; do
 		dconf load $dconf_key/$filename/ < $filename_full
 	done
 done
-
-gsettings set org.gnome.desktop.interface clock-show-date true
-gsettings set org.gnome.desktop.calendar show-weekdate true
