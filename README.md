@@ -2,4 +2,7 @@
 Config files for archlinux running gnome on xorg
 
 ## Desktop
-![screenshot](screenshot.png?raw=true "Screenshot")
+![screenshot-desktop](screenshot01.png?raw=true "Screenshot desktop")
+
+## Terminator
+![screenshot-terminator](screenshot02.png?raw=true "Screenshot terminator")
