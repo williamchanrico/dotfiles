@@ -8,3 +8,4 @@ icon-theme='Flat Remix'
 monospace-font-name='Noto Mono for Powerline 11'
 gtk-theme='Arc'
 clock-show-date=true
+enable-animations=false
