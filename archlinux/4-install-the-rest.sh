@@ -12,7 +12,7 @@ sudo pacman -S --noconfirm \
 	ttf-hanazono go go-tools terminator zenity p7zip unrar rsync a52dec \
 	libmad x264 gst-libav gst-plugins-ugly totem dconf-editor ntfs-3g \
 	jq tcpdump asciinema dnscrypt-proxy unbound expat restic figlet \
-	cowsay
+	cowsay global
 
 # Setup golang
 mkdir -p ~/src/go/{src,bin}
