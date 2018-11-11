@@ -13,7 +13,7 @@ sudo pacman -S --noconfirm \
 	libmad x264 gst-libav gst-plugins-ugly totem dconf-editor ntfs-3g \
 	jq tcpdump asciinema dnscrypt-proxy unbound expat restic figlet \
 	cowsay python python2 python-pip python2-pip python-virtualenv \
-	python2-virtualenv
+	python2-virtualenv fzf
 
 # Setup golang
 mkdir -p ~/src/go/{src,bin}
