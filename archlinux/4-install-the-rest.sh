@@ -76,6 +76,11 @@ EOF
 echo "DNSSEC Test, you should see the ip address with '(secure)' next to"
 unbound-host -C /etc/unbound/unbound.conf -v sigok.verteiltesysteme.net
 
+# Install Powerline fonts
+git clone https://github.com/powerline/fonts
+./fonts/install.sh
+rm -rf fonts
+
 # Post-install messages
 echo "Notes:"
 echo "=== Gnome Exts ==="
