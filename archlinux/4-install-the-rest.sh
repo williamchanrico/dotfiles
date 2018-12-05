@@ -13,7 +13,7 @@ sudo pacman -S --noconfirm \
 	libmad x264 gst-libav gst-plugins-ugly totem dconf-editor ntfs-3g \
 	jq tcpdump asciinema dnscrypt-proxy unbound expat restic figlet \
 	cowsay python python2 python-pip python2-pip python-virtualenv \
-	python2-virtualenv fzf
+	python2-virtualenv fzf xcb-util-xrm
 
 # Setup golang
 mkdir -p ~/src/go/{src,bin}
@@ -23,7 +23,7 @@ sudo mv -vi /usr/lib/nautilus/extensions-3.0/libterminal-nautilus.so{,.bak}
 
 yay -S --noconfirm \
 	dropbox nautilus-dropbox transmission-gtk peek vokoscreen \
-	adobe-source-han-sans-otc-fonts nvm spotify visual-studio-code-bin \
+	adobe-source-han-sans-otc-fonts nvm spotify-stable visual-studio-code-bin \
 	betterlockscreen-git standardnotes-desktop global
 
 # Prevent dropbox automatic updates
