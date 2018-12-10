@@ -13,7 +13,13 @@ sudo pacman -S --noconfirm \
 	libmad x264 gst-libav gst-plugins-ugly totem dconf-editor ntfs-3g \
 	jq tcpdump asciinema dnscrypt-proxy unbound expat restic figlet \
 	cowsay python python2 python-pip python2-pip python-virtualenv \
-	python2-virtualenv fzf xcb-util-xrm tldr
+	python2-virtualenv python-pylint python2-pylint flake8 fzf \
+	xcb-util-xrm tldr
+
+yay -S --noconfirm \
+	dropbox nautilus-dropbox transmission-gtk peek vokoscreen \
+	adobe-source-han-sans-otc-fonts nvm spotify-stable visual-studio-code-bin \
+	betterlockscreen-git global
 
 # Install vundle, Vim plugin manager
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
@@ -23,12 +29,7 @@ vim +PluginInstall +qall
 mkdir -p ~/src/go/{src,bin}
 
 # Remove gnome-terminal version of 'Open in Terminal' in nautilus
-sudo mv -vi /usr/lib/nautilus/extensions-3.0/libterminal-nautilus.so{,.bak}
-
-yay -S --noconfirm \
-	dropbox nautilus-dropbox transmission-gtk peek vokoscreen \
-	adobe-source-han-sans-otc-fonts nvm spotify-stable visual-studio-code-bin \
-	betterlockscreen-git standardnotes-desktop global
+#sudo mv -vi /usr/lib/nautilus/extensions-3.0/libterminal-nautilus.so{,.bak}
 
 # Prevent dropbox automatic updates
 rm -rf ~/.dropbox-dist
