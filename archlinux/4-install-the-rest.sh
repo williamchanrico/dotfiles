@@ -21,6 +21,10 @@ yay -S --noconfirm \
 	adobe-source-han-sans-otc-fonts nvm spotify-stable visual-studio-code-bin \
 	betterlockscreen-git global
 
+# Setup neovim
+ln -s ~/.vimrc ~/.config/nvim/init.vim
+ln -fs /usr/bin/nvim /usr/bin/vim
+
 # Install vundle, Vim plugin manager
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 vim +PluginInstall +qall

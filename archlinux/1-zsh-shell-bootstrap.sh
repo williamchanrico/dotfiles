@@ -1,7 +1,7 @@
 #/usr/bin/env bash
 
 # Install zsh
-sudo pacman -S --noconfirm zsh wget curl git vim gvim
+sudo pacman -S --noconfirm zsh wget curl git vim gvim neovim
 chsh -s /usr/bin/zsh william
 
 # Install oh-my-zsh
