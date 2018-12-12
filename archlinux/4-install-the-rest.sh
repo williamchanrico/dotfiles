@@ -23,6 +23,7 @@ yay -S --noconfirm \
 
 # Setup neovim
 ln -s ~/.vimrc ~/.config/nvim/init.vim
+cp /usr/bin/vim /usr/bin/vim8
 ln -fs /usr/bin/nvim /usr/bin/vim
 
 # Install vundle, Vim plugin manager
