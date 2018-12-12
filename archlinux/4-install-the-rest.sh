@@ -9,33 +9,38 @@ sudo pacman -S --noconfirm \
 	deepin-screenshot gcolor2 tmux tcpdump htop iftop gimp mpv \
 	dosfstools tree bind-tools pavucontrol smartmontools traceroute \
 	xdotool ttf-dejavu ttf-liberation adobe-source-han-sans-otc-fonts \
-	ttf-hanazono go go-tools terminator zenity p7zip unrar rsync a52dec \
+	ttf-hanazono terminator zenity p7zip unrar rsync a52dec \
 	libmad x264 gst-libav gst-plugins-ugly totem dconf-editor ntfs-3g \
 	jq tcpdump asciinema dnscrypt-proxy unbound expat restic figlet \
-	cowsay python python2 python-pip python2-pip python-virtualenv \
-	python2-virtualenv python-pylint python2-pylint yapf flake8 fzf \
-	xcb-util-xrm tldr the_silver_searcher
+	cowsay fzf xcb-util-xrm tldr the_silver_searcher
 
 yay -S --noconfirm \
 	dropbox nautilus-dropbox transmission-gtk peek vokoscreen \
-	adobe-source-han-sans-otc-fonts nvm spotify-stable visual-studio-code-bin \
-	betterlockscreen-git global
+	nvm spotify-stable betterlockscreen-git global
+
+# Setup python
+sudo pacman -S --noconfirm python python2 python-pip python2-pip \
+	python-virtualenv python2-virtualenv python-pylint \
+	python2-pylint yapf flake8
+
+# Setup golang
+sudo pacman -S --noconfirm go go-tools
+mkdir -p ~/src/go/{src,bin}
+
+# Setup kubectl
+yay -S --noconfirm google-cloud-sdk kubectl
+git clone https://github.com/jonmosco/kube-ps1 ~/.oh-my-zsh/custom/plugins/kube-ps1
 
 # Setup neovim
-mkdir -p ~/.config/nvim
-ln -s ~/.vimrc ~/.config/nvim/init.vim
+sudo pacman -S --noconfirm gvim neovim
 cp /usr/bin/vim /usr/bin/vim8
+mkdir -p ~/.config/nvim
+ln -fs ~/.vimrc ~/.config/nvim/init.vim
 ln -fs /usr/bin/nvim /usr/bin/vim
 
 # Install vundle, Vim plugin manager
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 vim +PluginInstall +qall
-
-# Setup golang
-mkdir -p ~/src/go/{src,bin}
-
-# Remove gnome-terminal version of 'Open in Terminal' in nautilus
-#sudo mv -vi /usr/lib/nautilus/extensions-3.0/libterminal-nautilus.so{,.bak}
 
 # Prevent dropbox automatic updates
 rm -rf ~/.dropbox-dist
@@ -91,6 +96,9 @@ unbound-host -C /etc/unbound/unbound.conf -v sigok.verteiltesysteme.net
 git clone https://github.com/powerline/fonts
 ./fonts/install.sh
 rm -rf fonts
+
+# Remove gnome-terminal version of 'Open in Terminal' in nautilus
+#sudo mv -vi /usr/lib/nautilus/extensions-3.0/libterminal-nautilus.so{,.bak}
 
 # Post-install messages
 echo "Notes:"
