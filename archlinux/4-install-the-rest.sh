@@ -22,6 +22,7 @@ yay -S --noconfirm \
 	betterlockscreen-git global
 
 # Setup neovim
+mkdir -p ~/.config/nvim
 ln -s ~/.vimrc ~/.config/nvim/init.vim
 cp /usr/bin/vim /usr/bin/vim8
 ln -fs /usr/bin/nvim /usr/bin/vim
