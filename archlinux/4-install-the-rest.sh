@@ -14,7 +14,7 @@ sudo pacman -S --noconfirm \
 	jq tcpdump asciinema dnscrypt-proxy unbound expat restic figlet \
 	cowsay python python2 python-pip python2-pip python-virtualenv \
 	python2-virtualenv python-pylint python2-pylint yapf flake8 fzf \
-	xcb-util-xrm tldr
+	xcb-util-xrm tldr the_silver_searcher
 
 yay -S --noconfirm \
 	dropbox nautilus-dropbox transmission-gtk peek vokoscreen \
