@@ -12,7 +12,7 @@ sudo pacman -S --noconfirm \
 	ttf-hanazono terminator zenity p7zip unrar rsync a52dec \
 	libmad x264 gst-libav gst-plugins-ugly totem dconf-editor ntfs-3g \
 	jq tcpdump asciinema dnscrypt-proxy unbound expat restic figlet \
-	cowsay fzf xcb-util-xrm tldr the_silver_searcher
+	cowsay fzf xcb-util-xrm tldr the_silver_searcher xsel
 
 yay -S --noconfirm \
 	dropbox nautilus-dropbox transmission-gtk peek vokoscreen \
