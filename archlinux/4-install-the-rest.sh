@@ -29,7 +29,7 @@ mkdir -p ~/src/go/{src,bin}
 
 # Setup kubectl
 yay -S --noconfirm google-cloud-sdk kubectl
-git clone https://github.com/jonmosco/kube-ps1 ~/.oh-my-zsh/custom/plugins/kube-ps1
+git clone https://github.com/williamchanrico/kube-ps1 ~/.oh-my-zsh/custom/plugins/kube-ps1
 
 # Setup neovim
 sudo pacman -S --noconfirm gvim neovim
