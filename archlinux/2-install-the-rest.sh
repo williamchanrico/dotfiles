@@ -1,8 +1,5 @@
 #/usr/bin/env bash
 
-# Synchronize package databases
-sudo pacman -Sy
-
 sudo pacman -S --noconfirm \
 	arc-gtk-theme filemanager-actions uget imagemagick lshw \
 	libreoffice-fresh jre10-openjdk jdk10-openjdk openjdk10-doc \
