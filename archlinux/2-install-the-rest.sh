@@ -89,11 +89,6 @@ EOF
 echo "DNSSEC Test, you should see the ip address with '(secure)' next to"
 unbound-host -C /etc/unbound/unbound.conf -v sigok.verteiltesysteme.net
 
-# Install Powerline fonts
-git clone https://github.com/powerline/fonts
-./fonts/install.sh
-rm -rf fonts
-
 # Remove gnome-terminal version of 'Open in Terminal' in nautilus
 #sudo mv -vi /usr/lib/nautilus/extensions-3.0/libterminal-nautilus.so{,.bak}
 

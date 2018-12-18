@@ -37,5 +37,6 @@ yay -S --noconfirm yadm-git
 yadm clone https://bitbucket.org/williamchanrico/dotfiles
 #yadm decrypt
 
-# Install powerline-shell
-yay -S --noconfirm powerline-shell
+# Install powerline fonts
+pacman -S --noconfirm powerline-fonts
+yay -S --noconfirm nerd-fonts-dejavu-complete
