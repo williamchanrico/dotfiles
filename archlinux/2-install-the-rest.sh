@@ -15,6 +15,10 @@ yay -S --noconfirm \
 	dropbox nautilus-dropbox transmission-gtk peek vokoscreen \
 	nvm spotify-stable betterlockscreen-git global
 
+# Setup docker
+pacman -S --noconfirm docker
+yay -S --noconfirm hadolint
+
 # Setup python
 sudo pacman -S --noconfirm python python2 python-pip python2-pip \
 	python-virtualenv python2-virtualenv python-pylint \
@@ -23,6 +27,12 @@ sudo pacman -S --noconfirm python python2 python-pip python2-pip \
 # Setup golang
 sudo pacman -S --noconfirm go go-tools
 mkdir -p ~/src/go/{src,bin}
+
+# Setup go packages
+go get -u -v mvdan.cc/sh/cmd/shfmt
+go get -u -v github.com/golang/dep/cmd/dep
+go get -u -v github.com/mrtazz/checkmake
+go get -u -v github.com/jackc/sqlfmt/...
 
 # Setup kubectl
 yay -S --noconfirm google-cloud-sdk kubectl
@@ -56,33 +66,33 @@ sed -i -E -e "/^listen_addresses/s/:53'/:53000'/g" /etc/dnscrypt-proxy/dnscrypt-
 curl -o /etc/unbound/root.hints https://www.internic.net/domain/named.cache
 
 # Unbound configuration
-cat <<-EOF > /etc/unbound/unbound.conf
-server:
-  use-syslog: yes
-  do-daemonize: no
-  username: "unbound"
-  directory: "/etc/unbound"
-  trust-anchor-file: trusted-key.key
-  private-domain: "intranet"
-  private-domain: "internal"
-  private-domain: "private"
-  private-domain: "corp"
-  private-domain: "home"
-  private-domain: "lan"
-  unblock-lan-zones: yes
-  insecure-lan-zones: yes
-  domain-insecure: "intranet"
-  domain-insecure: "internal"
-  domain-insecure: "private"
-  domain-insecure: "corp"
-  domain-insecure: "home"
-  domain-insecure: "lan"
-  root-hints: root.hints
-  do-not-query-localhost: no
-forward-zone:
-  name: "."
-  forward-addr: ::1@53000
-  forward-addr: 127.0.0.1@53000
+cat <<-EOF >/etc/unbound/unbound.conf
+	server:
+	  use-syslog: yes
+	  do-daemonize: no
+	  username: "unbound"
+	  directory: "/etc/unbound"
+	  trust-anchor-file: trusted-key.key
+	  private-domain: "intranet"
+	  private-domain: "internal"
+	  private-domain: "private"
+	  private-domain: "corp"
+	  private-domain: "home"
+	  private-domain: "lan"
+	  unblock-lan-zones: yes
+	  insecure-lan-zones: yes
+	  domain-insecure: "intranet"
+	  domain-insecure: "internal"
+	  domain-insecure: "private"
+	  domain-insecure: "corp"
+	  domain-insecure: "home"
+	  domain-insecure: "lan"
+	  root-hints: root.hints
+	  do-not-query-localhost: no
+	forward-zone:
+	  name: "."
+	  forward-addr: ::1@53000
+	  forward-addr: 127.0.0.1@53000
 EOF
 
 # DNSSEC test
