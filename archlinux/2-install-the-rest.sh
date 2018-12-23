@@ -19,6 +19,9 @@ yay -S --noconfirm \
 pacman -S --noconfirm docker
 yay -S --noconfirm hadolint
 
+# Setup ansible
+pacman -S --noconfirm ansible ansible-lint
+
 # Setup python
 sudo pacman -S --noconfirm python python2 python-pip python2-pip \
 	python-virtualenv python2-virtualenv python-pylint \
@@ -118,3 +121,5 @@ echo "Clipboard Indicator"
 echo ""
 echo "Apply extensions setting in dconf dir"
 echo ""
+echo "> /etc/fstab for data hard disk (prevent update failures for linux steam)"
+echo "UUID=2C7D50BE09066582 /run/media/william/data ntfs-3g  defaults,locale=en_US.utf8,uid=1000,gid=1000  0 0"
