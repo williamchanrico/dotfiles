@@ -16,7 +16,7 @@ yay -S --noconfirm \
 	nvm spotify-stable betterlockscreen-git global
 
 # Setup docker
-pacman -S --noconfirm docker
+pacman -S --noconfirm docker docker-compose
 yay -S --noconfirm hadolint
 usermod -aG docker william
 
