@@ -18,6 +18,7 @@ yay -S --noconfirm \
 # Setup docker
 pacman -S --noconfirm docker
 yay -S --noconfirm hadolint
+usermod -aG docker william
 
 # Setup ansible
 pacman -S --noconfirm ansible ansible-lint
@@ -123,3 +124,6 @@ echo "Apply extensions setting in dconf dir"
 echo ""
 echo "> /etc/fstab for data hard disk (prevent update failures for linux steam)"
 echo "UUID=2C7D50BE09066582 /run/media/william/data ntfs-3g  defaults,locale=en_US.utf8,uid=1000,gid=1000  0 0"
+echo ""
+echo "Docker will need vsyscall=emulate kernel parameter"
+echo "https://wiki.archlinux.org/index.php/docker#Installation"
