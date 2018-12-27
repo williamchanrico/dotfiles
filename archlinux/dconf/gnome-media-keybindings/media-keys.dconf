@@ -2,6 +2,7 @@
 screenshot-clip=''
 area-screenshot-clip=''
 screenshot='<Primary>Print'
+logout=''
 window-screenshot-clip=''
 screencast='<Primary><Shift>Print'
 window-screenshot=''
@@ -25,6 +26,6 @@ command='deepin-screenshot'
 name='Deepin-screenshot Area'
 
 [custom-keybindings/custom3]
-binding='<Super>l'
+binding='<Primary><Alt>l'
 command='betterlockscreen -l'
 name='Betterlockscreen'

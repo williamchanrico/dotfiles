@@ -4,10 +4,10 @@
 # Author: William Chanrico
 # Date: 2-Sept-2018
 
-ARRAY=( "dconf/gnome-extentions:/org/gnome/shell/extensions"
-        "dconf/gnome-desktop-keybindings:/org/gnome/desktop/wm"
-        "dconf/gnome-media-keybindings:/org/gnome/settings-daemon/plugins"
-        "dconf/gnome-desktop:/org/gnome/desktop" )
+ARRAY=("dconf/gnome-extentions:/org/gnome/shell/extensions"
+	"dconf/gnome-desktop-keybindings:/org/gnome/desktop/wm"
+	"dconf/gnome-media-keybindings:/org/gnome/settings-daemon/plugins"
+	"dconf/gnome-desktop:/org/gnome/desktop")
 
 for data in "${ARRAY[@]}"; do
 	dir="${data%%:*}"
@@ -16,7 +16,7 @@ for data in "${ARRAY[@]}"; do
 	for filename_full in $dir/*.dconf; do
 		filepath=${filename_full%%.dconf}
 		filename=${filepath##*/}
-		echo "dconf load $dconf_key/$filename/ < $filename_full"
-		dconf load $dconf_key/$filename/ < $filename_full
+		echo "dconf load $dconf_key/$filename/ <$filename_full"
+		dconf load $dconf_key/$filename/ <$filename_full
 	done
 done
