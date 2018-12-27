@@ -39,7 +39,7 @@ go get -u -v github.com/mrtazz/checkmake
 go get -u -v github.com/jackc/sqlfmt/...
 
 # Setup kubectl
-yay -S --noconfirm google-cloud-sdk kubectl
+yay -S --noconfirm google-cloud-sdk kubectl-bin
 git clone https://github.com/williamchanrico/kube-ps1 ~/.oh-my-zsh/custom/plugins/kube-ps1
 
 # Setup neovim
