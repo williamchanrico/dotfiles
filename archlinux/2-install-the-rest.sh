@@ -9,7 +9,7 @@ sudo pacman -S --noconfirm \
 	ttf-hanazono terminator zenity p7zip unrar rsync a52dec \
 	libmad x264 gst-libav gst-plugins-ugly totem dconf-editor ntfs-3g \
 	jq tcpdump asciinema dnscrypt-proxy unbound expat restic figlet \
-	cowsay fzf xcb-util-xrm tldr the_silver_searcher xsel clang
+	cowsay fzf xcb-util-xrm tldr the_silver_searcher xsel clang prettier
 
 yay -S --noconfirm \
 	dropbox nautilus-dropbox transmission-gtk peek vokoscreen \
@@ -39,7 +39,7 @@ go get -u -v github.com/mrtazz/checkmake
 go get -u -v github.com/jackc/sqlfmt/...
 
 # Setup kubectl
-yay -S --noconfirm google-cloud-sdk kubectl
+yay -S --noconfirm google-cloud-sdk kubectl-bin
 git clone https://github.com/williamchanrico/kube-ps1 ~/.oh-my-zsh/custom/plugins/kube-ps1
 
 # Setup neovim
