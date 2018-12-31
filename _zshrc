@@ -1,0 +1,168 @@
+###################
+# Auto-completion #
+###################
+
+# Hashicorp Vault
+if [ -x "$(command -v vault)" ]; then
+	complete -o nospace -C '/usr/bin/vault' vault
+fi
+
+# Aliyun https://github.com/aliyun/aliyun-cli
+if [ -x "$(command -v aliyun)" ]; then
+	complete -o nospace -F '/home/william/bin/aliyun' aliyun
+fi
+
+# Function path
+fpath=(
+	"$HOME/.zsh_completion/gcloud-zsh-completion/src"
+	$fpath
+)
+
+# PATH environment variables
+export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$PATH
+
+# Path to oh-my-zsh installation.
+export ZSH=/home/william/.oh-my-zsh
+
+# Enable virtualenv prompt
+export VIRTUAL_ENV_DISABLE_PROMPT=0
+
+# Different options for virtual consoles
+if [ "$TERM" = "linux" ]; then
+	ZSH_THEME="refined"
+else
+	ZSH_THEME="mytheme"
+fi
+
+export EDITOR=vim
+export VISUAL=vim
+
+# Display red dots whilst waiting for completion.
+COMPLETION_WAITING_DOTS="true"
+
+# Load oh-my-zsh plugins
+plugins=(git k kubectl helm aws tmux fzf)
+
+source $ZSH/oh-my-zsh.sh
+
+# History
+export HISTSIZE=10000000
+export SAVEHIST=$HISTSIZE
+
+#############
+# Functions #
+#############
+
+# Query IP information
+ipinfo() {
+	curl ipinfo.io/$1
+}
+
+# Kubectl get NodePort address
+kubenp() {
+	# $1 namespace, $2 svc
+	NODE_PORT=$(kubectl get --namespace "$1" -o jsonpath="{.spec.ports[0].nodePort}" services "$2")
+	NODE_IP=$(kubectl get nodes --namespace "$1" -o jsonpath="{.items[0].status.addresses[0].address}")
+	echo http://$NODE_IP:$NODE_PORT
+}
+
+# Work ssh wrapper
+tkp-ssh() {
+	address="${@: -1}"
+	address="${1//-/.}"
+
+	cmd="ssh"
+	if [ -x "$(command -v sshrc)" ]; then
+		cmd="sshrc"
+	fi
+
+	if [[ $1 == "s" ]]; then
+		echo "Staging root@$address"
+		$cmd -i ~/.ssh/tokopedia-staging.pem root@$address
+	elif [[ $1 == "u" ]]; then
+		echo "Production ubuntu@$address"
+		$cmd -i ~/.ssh/tokopedia-prod.pem ubuntu@$address
+	else
+		echo "Production root@$address"
+		$cmd -i ~/.ssh/tokopedia-prod.pem root@$address
+	fi
+}
+
+########################
+# Other programs setup #
+########################
+
+# Kubectl Prompt
+if [ -f ~/.oh-my-zsh/custom/plugins/kube-ps1/kube-ps1.sh ]; then
+	source ~/.oh-my-zsh/custom/plugins/kube-ps1/kube-ps1.sh
+	KUBE_PS1_PREFIX=$''
+	KUBE_PS1_PREFIX_COLOR=black
+	KUBE_PS1_SUFFIX=$'\0'
+	KUBE_PS1_SUFFIX_COLOR=black
+	KUBE_PS1_CTX_COLOR=red
+	KUBE_PS1_NS_COLOR=black
+	KUBE_PS1_SYMBOL_ENABLE=true
+	KUBE_PS1_SYMBOL_COLOR=black
+	KUBE_PS1_DIVIDER=":"
+	KUBE_PS1_SEPARATOR=""
+	KUBE_PS1_ENABLED=off
+fi
+
+# Go directory env
+export GOPATH=/home/william/src/go
+export GOBIN=/home/william/src/go/bin
+export PATH=$GOBIN:$PATH
+
+# Restic Backup Setup
+export RESTIC_REPOSITORY=/run/media/william/HD-E1/backup/personal
+
+# Ruby Setup. RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+
+# Set up Node Version Manager
+export NVM_DIR="$HOME/.nvm"
+export NVM_SOURCE="/usr/share/nvm"	# The AUR package installs it to here.
+# [ -s "$NVM_SOURCE/nvm.sh" ] && . "$NVM_SOURCE/nvm.sh"	# Load NVM
+
+# Setup NPM user-wide installation
+PATH="$HOME/.node_modules/bin:$PATH"
+export npm_config_prefix=~/.node_modules
+
+# Set up Composer
+export PATH=$HOME/.config/composer/vendor/bin:$PATH
+
+###########
+# Aliases #
+###########
+
+# Ntfy to send push notification, token is stored in ~/.ntfy.yml
+# Mobile pushbullet identifier: ujviRNYx41csjAiVsKnSTs
+alias nf="ntfy"
+alias nfmb="ntfy -o device_iden ujviRNYx41csjAiVsKnSTs -b pushbullet"
+
+# Yeecli to control Yee Lightbulb
+alias yee="yeecli"
+alias yeeb="yeecli brightness"
+alias yeet="yeecli toggle"
+alias yeew="yeecli rgb FFFFFF"
+alias yeeo="yeecli rgb FFFFFF && yeecli temperature 4500"
+alias yeer="yeecli rgb FF6600 && yeeb 50"
+
+# Turn off display
+alias dpoff="xset dpms force off"
+
+# Suspend
+alias spnd="systemctl suspend"
+
+# Change dirs
+alias cdgo="cd $GOPATH/src"
+alias cdgoo="cd $GOPATH/src/github.com/williamchanrico"
+alias cdgot="cd $GOPATH/src/github.com/tokopedia"
+alias cdwork="cd ~/work"
+
+alias ls="ls --color=auto --group-directories-first"
+
+alias o="xdg-open"
+
+alias c="command"

@@ -1,18 +1,18 @@
-# linux-config-files
-Config files for archlinux running gnome on xorg
+# Dotfiles
+Config files running gnome on xorg-server
 
-## Dotfiles setup
+## YADM Setup
 ```
 #!/usr/bin/env bash
 
-# Set up YADM and dotfiles
+# Set up YADM
 yay -S --noconfirm yadm-git
 yadm clone https://bitbucket.org/williamchanrico/dotfiles
 yadm decrypt
 ```
 
 ## Desktop
-![screenshot-desktop](screenshot01.png?raw=true "Screenshot desktop")
+![screenshot-desktop](screenshots/screenshot01.png?raw=true "Screenshot desktop")
 
 ## Terminator
-![screenshot-terminator](screenshot02.png?raw=true "Screenshot terminator")
+![screenshot-terminator](screenshots/screenshot02.png?raw=true "Screenshot terminator")
