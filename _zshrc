@@ -1,17 +1,3 @@
-###################
-# Auto-completion #
-###################
-
-# Hashicorp Vault
-if [ -x "$(command -v vault)" ]; then
-	complete -o nospace -C '/usr/bin/vault' vault
-fi
-
-# Aliyun https://github.com/aliyun/aliyun-cli
-if [ -x "$(command -v aliyun)" ]; then
-	complete -o nospace -F '/home/william/bin/aliyun' aliyun
-fi
-
 # Function path
 fpath=(
 	"$HOME/.zsh_completion/gcloud-zsh-completion/src"
@@ -44,6 +30,20 @@ COMPLETION_WAITING_DOTS="true"
 plugins=(git k kubectl helm aws tmux fzf)
 
 source $ZSH/oh-my-zsh.sh
+
+###################
+# Auto-completion #
+###################
+
+# Hashicorp Vault
+if [ -x "$(command -v vault)" ]; then
+	complete -o nospace -C '/usr/bin/vault' vault
+fi
+
+# Aliyun https://github.com/aliyun/aliyun-cli
+if [ -x "$(command -v aliyun)" ]; then
+	complete -o nospace -F '/home/william/bin/aliyun' aliyun
+fi
 
 # History
 export HISTSIZE=10000000
