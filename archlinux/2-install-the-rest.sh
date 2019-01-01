@@ -1,19 +1,28 @@
 #/usr/bin/env bash
 
 sudo pacman -S --noconfirm \
-	arc-gtk-theme filemanager-actions uget imagemagick lshw \
-	libreoffice-fresh jre10-openjdk jdk10-openjdk openjdk10-doc \
-	deepin-screenshot gcolor2 tmux tcpdump htop iftop gimp mpv \
-	dosfstools tree bind-tools pavucontrol smartmontools traceroute \
-	xdotool ttf-dejavu ttf-liberation adobe-source-han-sans-otc-fonts \
-	ttf-hanazono terminator zenity p7zip unrar rsync a52dec \
-	libmad x264 gst-libav gst-plugins-ugly totem dconf-editor ntfs-3g \
-	jq tcpdump asciinema dnscrypt-proxy unbound expat restic figlet \
-	cowsay fzf xcb-util-xrm tldr the_silver_searcher xsel clang prettier
+	arc-gtk-theme filemanager-actions imagemagick lshw libreoffice-fresh \
+	jre10-openjdk jdk10-openjdk openjdk10-doc deepin-screenshot \
+	gcolor2 tmux gimp mpv xdotool dosfstools tree pavucontrol smartmontools \
+	terminator zenity p7zip unrar rsync a52dec ntfs-3g libmad x264 gst-libav \
+	gst-plugins-ugly totem dconf-editor jq asciinema expat restic figlet xsel \
+	clang cowsay fzf xcb-util-xrm tldr the_silver_searcher prettier
 
 yay -S --noconfirm \
-	dropbox nautilus-dropbox transmission-gtk peek vokoscreen \
-	nvm spotify-stable betterlockscreen-git global
+	dropbox nautilus-dropbox peek vokoscreen nvm spotify-stable \
+	betterlockscreen-git global
+
+# Fonts
+sudo pacman -S --noconfirm \
+	ttf-dejavu ttf-liberation ttf-hanazono adobe-source-han-sans-otc-fonts
+
+# Network related tools
+sudo pacman -S --noconfirm \
+	netcat tcpdump htop iftop bind-tools traceroute tcpdump nmap mtr \
+	dnscrypt-proxy unbound uget
+
+yay -S --noconfirm \
+	youtube-dl transmission-gtk
 
 # Setup docker
 pacman -S --noconfirm docker docker-compose
