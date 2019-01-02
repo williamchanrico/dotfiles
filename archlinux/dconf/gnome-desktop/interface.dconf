@@ -1,11 +1,22 @@
-[/]
-font-name='Liberation Sans 11'
-document-font-name='Liberation Sans 11'
+[interface]
+font-name='Noto Sans 11'
+document-font-name='Noto Sans 11'
 show-battery-percentage=true
 gtk-im-module='gtk-im-context-simple'
 clock-show-seconds=true
 icon-theme='Flat Remix'
-monospace-font-name='Liberation Mono for Powerline 11'
+monospace-font-name='Noto Mono for Powerline 11'
+gtk-theme='Arc'
+clock-show-date=true
+
+[/]
+font-name='Noto Sans Medium 11'
+document-font-name='Noto Sans 11'
+show-battery-percentage=true
+gtk-im-module='gtk-im-context-simple'
+clock-show-seconds=true
+icon-theme='Flat Remix'
+monospace-font-name='Noto Mono for Powerline 11'
 enable-animations=false
 gtk-theme='Arc'
 clock-show-date=true
