@@ -14,7 +14,10 @@ yay -S --noconfirm \
 
 # Fonts
 sudo pacman -S --noconfirm \
-	ttf-dejavu ttf-liberation ttf-hanazono adobe-source-han-sans-otc-fonts
+	noto-fonts noto-fonts-cjk noto-fonts-emoji adobe-source-han-sans-otc-fonts \
+	ttf-hanazono ttf-dejavu
+
+yay -S --noconfirm ttf-emojione
 
 # Network related tools
 sudo pacman -S --noconfirm \
