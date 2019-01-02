@@ -106,6 +106,9 @@ let g:ale_fixers={
 
 let g:ale_c_clangformat_options='-style=webkit'
 
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
+
 " Nerdtree
 map <C-n> :NERDTreeToggle<CR>
 
