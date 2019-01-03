@@ -136,6 +136,12 @@ export PATH=$HOME/.config/composer/vendor/bin:$PATH
 # Aliases #
 ###########
 
+# Use neovim if available
+if [[ -x "$(command -v nvim)" ]]; then
+	alias vim="nvim"
+	alias vi="nvim"
+fi
+
 # Ntfy to send push notification, token is stored in ~/.ntfy.yml
 # Mobile pushbullet identifier: ujviRNYx41csjAiVsKnSTs
 alias nf="ntfy"
