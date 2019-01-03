@@ -10,7 +10,7 @@ sudo pacman -S --noconfirm \
 
 yay -S --noconfirm \
 	dropbox nautilus-dropbox peek vokoscreen nvm spotify-stable \
-	betterlockscreen-git global
+	betterlockscreen-git global ntfy
 
 # Fonts
 sudo pacman -S --noconfirm \
