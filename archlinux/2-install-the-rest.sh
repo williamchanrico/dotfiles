@@ -25,7 +25,7 @@ sudo pacman -S --noconfirm \
 	dnscrypt-proxy unbound uget
 
 yay -S --noconfirm \
-	youtube-dl transmission-gtk
+	youtube-dl transmission-gtk sshrc
 
 # Setup docker
 pacman -S --noconfirm docker docker-compose
