@@ -76,10 +76,10 @@ tkp-ssh() {
 		cmd="sshrc"
 	fi
 
-	if [[ $1 == "s" ]]; then
+	if [[ $2 == "s" ]]; then
 		echo "Staging root@$address"
 		$cmd -i ~/.ssh/tokopedia-staging.pem root@$address
-	elif [[ $1 == "u" ]]; then
+	elif [[ $2 == "u" ]]; then
 		echo "Production ubuntu@$address"
 		$cmd -i ~/.ssh/tokopedia-prod.pem ubuntu@$address
 	else
@@ -136,10 +136,22 @@ export PATH=$HOME/.config/composer/vendor/bin:$PATH
 # Aliases #
 ###########
 
+# Use neovim if available
+if [[ -x "$(command -v nvim)" ]]; then
+	alias vim="nvim"
+	alias vi="nvim"
+fi
+
 # Ntfy to send push notification, token is stored in ~/.ntfy.yml
 # Mobile pushbullet identifier: ujviRNYx41csjAiVsKnSTs
 alias nf="ntfy"
 alias nfmb="ntfy -o device_iden ujviRNYx41csjAiVsKnSTs -b pushbullet"
+
+# SSH
+if [[ -x $(command -v sshrc) ]]; then
+	alias ssh="sshrc"
+	compdef sshrc='ssh'
+fi
 
 # Yeecli to control Yee Lightbulb
 alias yee="yeecli"
