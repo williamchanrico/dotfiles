@@ -6,7 +6,7 @@ sudo pacman -S --needed --noconfirm \
 	gcolor2 tmux gimp mpv xdotool dosfstools tree pavucontrol smartmontools \
 	terminator zenity p7zip unrar rsync a52dec ntfs-3g libmad x264 gst-libav \
 	gst-plugins-ugly totem dconf-editor jq asciinema expat restic figlet xsel \
-	clang cowsay fzf xcb-util-xrm tldr the_silver_searcher prettier
+	clang cowsay fzf xcb-util-xrm tldr the_silver_searcher prettier lsof
 
 yay -S --needed --noconfirm \
 	dropbox nautilus-dropbox peek vokoscreen nvm spotify-stable \
@@ -14,7 +14,7 @@ yay -S --needed --noconfirm \
 
 # Fonts
 sudo pacman -S --needed --noconfirm \
-	noto-fonts noto-fonts-cjk noto-fonts-emoji adobe-source-han-sans-otc-fonts \
+	ttf-roboto ttf-liberation noto-fonts noto-fonts-cjk noto-fonts-emoji adobe-source-han-sans-otc-fonts \
 	ttf-hanazono ttf-dejavu
 
 yay -S --needed --noconfirm ttf-emojione

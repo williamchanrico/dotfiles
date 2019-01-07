@@ -22,7 +22,7 @@ if [ ! -x "$(command -v yay)" ]; then
 
 	# Install yay from git
 	git clone https://aur.archlinux.org/yay.git .
-	makepkg -si
+	makepkg --noconfirm -si
 
 	# Clean up
 	cd ~
