@@ -20,3 +20,5 @@ for data in "${ARRAY[@]}"; do
 		dconf load $dconf_key/$filename/ <$filename_full
 	done
 done
+
+echo "If tap-to-click is not working, run: 'gsettings set org.gnome.desktop.peripherals.touchpad tap-to-click true'"
