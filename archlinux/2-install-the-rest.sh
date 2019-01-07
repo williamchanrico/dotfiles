@@ -1,6 +1,6 @@
 #/usr/bin/env bash
 
-sudo pacman -S --noconfirm \
+sudo pacman -S --needed --noconfirm \
 	arc-gtk-theme filemanager-actions imagemagick lshw libreoffice-fresh \
 	jre10-openjdk jdk10-openjdk openjdk10-doc deepin-screenshot \
 	gcolor2 tmux gimp mpv xdotool dosfstools tree pavucontrol smartmontools \
@@ -8,59 +8,58 @@ sudo pacman -S --noconfirm \
 	gst-plugins-ugly totem dconf-editor jq asciinema expat restic figlet xsel \
 	clang cowsay fzf xcb-util-xrm tldr the_silver_searcher prettier
 
-yay -S --noconfirm \
+yay -S --needed --noconfirm \
 	dropbox nautilus-dropbox peek vokoscreen nvm spotify-stable \
 	betterlockscreen-git global ntfy
 
 # Fonts
-sudo pacman -S --noconfirm \
+sudo pacman -S --needed --noconfirm \
 	noto-fonts noto-fonts-cjk noto-fonts-emoji adobe-source-han-sans-otc-fonts \
 	ttf-hanazono ttf-dejavu
 
-yay -S --noconfirm ttf-emojione
+yay -S --needed --noconfirm ttf-emojione
 
 # Network related tools
-sudo pacman -S --noconfirm \
+sudo pacman -S --needed --noconfirm \
 	netcat tcpdump htop iftop bind-tools traceroute tcpdump nmap mtr \
 	dnscrypt-proxy unbound uget
 
-yay -S --noconfirm \
+yay -S --needed --noconfirm \
 	youtube-dl transmission-gtk sshrc
 
 # Setup docker
-pacman -S --noconfirm docker docker-compose
-yay -S --noconfirm hadolint
-usermod -aG docker william
+sudo pacman -S --needed --noconfirm docker docker-compose
+yay -S --needed --noconfirm hadolint
+sudo usermod -aG docker william
 
 # Setup ansible
-pacman -S --noconfirm ansible ansible-lint
+sudo pacman -S --needed --noconfirm ansible ansible-lint
 
 # Setup python
-sudo pacman -S --noconfirm python python2 python-pip python2-pip \
+sudo pacman -S --needed --noconfirm python python2 python-pip python2-pip \
 	python-virtualenv python2-virtualenv python-pylint \
 	python2-pylint yapf flake8 python-neovim python2-neovim
 
 # Setup golang
-sudo pacman -S --noconfirm go go-tools
+sudo pacman -S --needed --noconfirm go go-tools
 mkdir -p ~/src/go/{src,bin}
 
 # Setup go packages
+export GOPATH=~/src/go/src
 go get -u -v mvdan.cc/sh/cmd/shfmt
 go get -u -v github.com/golang/dep/cmd/dep
 go get -u -v github.com/mrtazz/checkmake
 go get -u -v github.com/jackc/sqlfmt/...
 
 # Setup kubectl
-yay -S --noconfirm google-cloud-sdk kubectl-bin kubectx
+yay -S --needed --noconfirm google-cloud-sdk kubectl-bin kubectx
 git clone https://github.com/williamchanrico/kube-ps1 ~/.oh-my-zsh/custom/plugins/kube-ps1
 git clone https://github.com/williamchanrico/gcloud-zsh-completion ~/.zsh_completion/gcloud-zsh-completion
 
 # Setup neovim
-sudo pacman -S --noconfirm gvim neovim
-cp /usr/bin/vim /usr/bin/vim8
+sudo pacman -S --needed --noconfirm gvim neovim
 mkdir -p ~/.config/nvim
 ln -fs ~/.vimrc ~/.config/nvim/init.vim
-ln -fs /usr/bin/nvim /usr/bin/vim
 
 # Install vundle, Vim plugin manager
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
@@ -77,13 +76,13 @@ betterlockscreen -u ~/Pictures/Wallpapers/wallpaper-arch-1920x1280.png
 
 # DNS request -> unbound :53 -> dnscrypt-proxy :53000 -> enabled dnscrypt resolver
 # Change DNSCrypt-proxy port to 53000
-sed -i -E -e "/^listen_addresses/s/:53'/:53000'/g" /etc/dnscrypt-proxy/dnscrypt-proxy.toml
+sudo sed -i -E -e "/^listen_addresses/s/:53'/:53000'/g" /etc/dnscrypt-proxy/dnscrypt-proxy.toml
 
 # Get root servers list for unbound
-curl -o /etc/unbound/root.hints https://www.internic.net/domain/named.cache
+sudo curl -o /etc/unbound/root.hints https://www.internic.net/domain/named.cache
 
 # Unbound configuration
-cat <<-EOF >/etc/unbound/unbound.conf
+cat <<-EOF | sudo tee /etc/unbound/unbound.conf
 	server:
 	  use-syslog: yes
 	  do-daemonize: no
@@ -114,7 +113,7 @@ EOF
 
 # DNSSEC test
 echo "DNSSEC Test, you should see the ip address with '(secure)' next to"
-unbound-host -C /etc/unbound/unbound.conf -v sigok.verteiltesysteme.net
+#unbound-host -C /etc/unbound/unbound.conf -v sigok.verteiltesysteme.net
 
 # Remove gnome-terminal version of 'Open in Terminal' in nautilus
 #sudo mv -vi /usr/lib/nautilus/extensions-3.0/libterminal-nautilus.so{,.bak}
