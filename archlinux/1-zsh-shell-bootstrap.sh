@@ -4,8 +4,8 @@
 sudo pacman -Sy --noconfirm
 
 # Install zsh
-sudo pacman -S --noconfirm zsh wget curl git
-chsh -s /usr/bin/zsh william
+sudo pacman -S --needed --noconfirm zsh wget curl git
+sudo chsh -s /usr/bin/zsh william
 
 # Install oh-my-zsh
 su william -
@@ -30,12 +30,12 @@ if [ ! -x "$(command -v yay)" ]; then
 fi
 
 # Install google-chrome and gnome-shell-integration
-yay -S --noconfirm google-chrome chrome-gnome-shell
+yay -S --needed --noconfirm google-chrome chrome-gnome-shell
 
 # Set up YADM and dotfiles
-yay -S --noconfirm yadm-git
+yay -S --needed --noconfirm yadm-git
 yadm clone https://bitbucket.org/williamchanrico/dotfiles
 #yadm decrypt
 
 # Install powerline fonts
-yay -S --noconfirm nerd-fonts-dejavu-complete powerline-fonts-git
+yay -S --needed --noconfirm nerd-fonts-dejavu-complete powerline-fonts-git
