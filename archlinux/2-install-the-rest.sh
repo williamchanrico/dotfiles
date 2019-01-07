@@ -45,6 +45,7 @@ sudo pacman -S --noconfirm go go-tools
 mkdir -p ~/src/go/{src,bin}
 
 # Setup go packages
+export GOPATH=~/src/go/src
 go get -u -v mvdan.cc/sh/cmd/shfmt
 go get -u -v github.com/golang/dep/cmd/dep
 go get -u -v github.com/mrtazz/checkmake
@@ -57,10 +58,8 @@ git clone https://github.com/williamchanrico/gcloud-zsh-completion ~/.zsh_comple
 
 # Setup neovim
 sudo pacman -S --noconfirm gvim neovim
-cp /usr/bin/vim /usr/bin/vim8
 mkdir -p ~/.config/nvim
 ln -fs ~/.vimrc ~/.config/nvim/init.vim
-ln -fs /usr/bin/nvim /usr/bin/vim
 
 # Install vundle, Vim plugin manager
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
