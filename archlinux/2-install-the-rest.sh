@@ -6,7 +6,7 @@ sudo pacman -S --needed --noconfirm \
 	gcolor2 tmux gimp mpv xdotool dosfstools tree pavucontrol smartmontools \
 	terminator zenity p7zip unrar rsync a52dec ntfs-3g libmad x264 gst-libav \
 	gst-plugins-ugly totem dconf-editor jq asciinema expat restic figlet xsel \
-	clang cowsay fzf xcb-util-xrm tldr the_silver_searcher prettier lsof
+	clang cowsay fzf xcb-util-xrm tldr the_silver_searcher prettier lsof pngquant
 
 yay -S --needed --noconfirm \
 	dropbox nautilus-dropbox peek vokoscreen nvm spotify-stable \
@@ -22,7 +22,7 @@ yay -S --needed --noconfirm ttf-emojione
 # Network related tools
 sudo pacman -S --needed --noconfirm \
 	netcat tcpdump htop iftop bind-tools traceroute tcpdump nmap mtr \
-	dnscrypt-proxy unbound uget
+	dnscrypt-proxy unbound uget whois
 
 yay -S --needed --noconfirm \
 	youtube-dl transmission-gtk sshrc
