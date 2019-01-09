@@ -9,7 +9,10 @@ sudo chsh -s /usr/bin/zsh william
 
 # Install oh-my-zsh
 su william -
-sh -c "$(wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" || {
+	echo "Could not install Oh My Zsh" >/dev/stderr
+	exit 1
+}
 
 # Install yay
 if [ ! -x "$(command -v yay)" ]; then
