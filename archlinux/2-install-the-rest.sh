@@ -22,7 +22,7 @@ yay -S --needed --noconfirm ttf-emojione
 # Network related tools
 sudo pacman -S --needed --noconfirm \
 	netcat tcpdump htop iftop bind-tools traceroute tcpdump nmap mtr \
-	dnscrypt-proxy unbound uget whois
+	dnscrypt-proxy unbound aria2 whois
 
 yay -S --needed --noconfirm \
 	youtube-dl transmission-gtk sshrc
