@@ -31,8 +31,9 @@ plugins=(git k kubectl helm aws tmux fzf)
 
 source $ZSH/oh-my-zsh.sh
 
-# Run xmodmap
+# Run xmodmap and xcape for capslock binding
 xmodmap ~/.xmodmap
+xcape -e 'Mode_switch=Escape'
 
 if [ -f /usr/bin/aws_zsh_completer.sh ]; then
 	source /usr/bin/aws_zsh_completer.sh
