@@ -31,6 +31,13 @@ plugins=(git k kubectl helm aws tmux fzf)
 
 source $ZSH/oh-my-zsh.sh
 
+# Run xmodmap
+xmodmap ~/.xmodmap
+
+if [ -f /usr/bin/aws_zsh_completer.sh ]; then
+	source /usr/bin/aws_zsh_completer.sh
+fi
+
 ###################
 # Auto-completion #
 ###################
@@ -78,13 +85,13 @@ tkp-ssh() {
 
 	if [[ $2 == "s" ]]; then
 		echo "Staging root@$address"
-		$cmd -i ~/.ssh/tokopedia-staging.pem root@$address
+		$cmd -oStrictHostKeyChecking=no -i ~/.ssh/tokopedia-staging.pem root@$address
 	elif [[ $2 == "u" ]]; then
 		echo "Production ubuntu@$address"
-		$cmd -i ~/.ssh/tokopedia-prod.pem ubuntu@$address
+		$cmd -oStrictHostKeyChecking=no -i ~/.ssh/tokopedia-prod.pem ubuntu@$address
 	else
 		echo "Production root@$address"
-		$cmd -i ~/.ssh/tokopedia-prod.pem root@$address
+		$cmd -oStrictHostKeyChecking=no -i ~/.ssh/tokopedia-prod.pem root@$address
 	fi
 }
 
@@ -148,10 +155,10 @@ alias nf="ntfy"
 alias nfmb="ntfy -o device_iden ujviRNYx41csjAiVsKnSTs -b pushbullet"
 
 # SSH
-if [[ -x $(command -v sshrc) ]]; then
-	alias ssh="sshrc"
-	compdef sshrc='ssh'
-fi
+# if [[ -x $(command -v sshrc) ]]; then
+#     alias ssh="sshrc"
+#     compdef sshrc='ssh'
+# fi
 
 # Yeecli to control Yee Lightbulb
 alias yee="yeecli"
@@ -178,3 +185,5 @@ alias ls="ls --color=auto --group-directories-first"
 alias o="xdg-open"
 
 alias c="command"
+
+alias tsh-tkp="tsh --proxy=ports2.tokopedia.net:3080 --user=william.chanrico"
