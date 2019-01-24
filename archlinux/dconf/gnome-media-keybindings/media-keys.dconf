@@ -8,7 +8,7 @@ screencast='<Primary><Shift>Print'
 window-screenshot=''
 screensaver=''
 area-screenshot=''
-custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/']
+custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/']
 
 [custom-keybindings/custom2]
 binding='<Primary><Alt>r'
@@ -19,6 +19,11 @@ name='Vokoscreen stop screencast'
 binding='<Primary><Shift>r'
 command='vokoscreen --setAreaReset --startrecord'
 name='Vokoscreen screencast an area'
+
+[custom-keybindings/custom4]
+binding='<Primary>semicolon'
+command='dmenu_run -l 8'
+name='Dmenu'
 
 [custom-keybindings/custom0]
 binding='Print'
