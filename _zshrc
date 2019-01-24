@@ -31,6 +31,9 @@ plugins=(git k kubectl helm aws tmux fzf)
 
 source $ZSH/oh-my-zsh.sh
 
+# Run xmodmap
+xmodmap ~/.xmodmap
+
 if [ -f /usr/bin/aws_zsh_completer.sh ]; then
 	source /usr/bin/aws_zsh_completer.sh
 fi
