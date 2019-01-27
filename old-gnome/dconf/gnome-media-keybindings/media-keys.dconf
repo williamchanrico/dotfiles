@@ -1,0 +1,36 @@
+[/]
+screenshot-clip=''
+area-screenshot-clip=''
+screenshot='<Primary>Print'
+logout=''
+window-screenshot-clip=''
+screencast='<Primary><Shift>Print'
+window-screenshot=''
+screensaver=''
+area-screenshot=''
+custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/']
+
+[custom-keybindings/custom2]
+binding='<Primary><Alt>r'
+command='vokoscreen --stoprecord'
+name='Vokoscreen stop screencast'
+
+[custom-keybindings/custom1]
+binding='<Primary><Shift>r'
+command='vokoscreen --setAreaReset --startrecord'
+name='Vokoscreen screencast an area'
+
+[custom-keybindings/custom4]
+binding='<Primary>semicolon'
+command='dmenu_run -l 8'
+name='Dmenu'
+
+[custom-keybindings/custom0]
+binding='Print'
+command='deepin-screenshot'
+name='Deepin-screenshot Area'
+
+[custom-keybindings/custom3]
+binding='<Primary><Alt>l'
+command='betterlockscreen -l'
+name='Betterlockscreen'

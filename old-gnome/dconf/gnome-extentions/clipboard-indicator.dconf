@@ -1,0 +1,9 @@
+[/]
+next-entry=['<Primary><Shift>j']
+cache-size=10000
+toggle-menu=['<Primary><Shift>p']
+history-size=50
+prev-entry=['<Primary><Shift>k']
+topbar-preview-size=10
+notify-on-copy=false
+display-mode=2

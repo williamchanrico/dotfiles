@@ -1,0 +1,11 @@
+[/]
+running-indicator-dominant-color=false
+multi-monitor=true
+custom-background-color=false
+custom-theme-customize-running-dots=true
+scroll-action='switch-workspace'
+apply-custom-theme=false
+dock-position='BOTTOM'
+custom-theme-shrink=true
+preferred-monitor=0
+running-indicator-style='DOTS'
