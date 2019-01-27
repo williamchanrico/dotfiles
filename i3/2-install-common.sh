@@ -17,7 +17,7 @@ yay -S --needed --noconfirm \
 # Fonts
 sudo pacman -S --needed --noconfirm \
 	ttf-liberation noto-fonts noto-fonts-cjk noto-fonts-emoji adobe-source-han-sans-otc-fonts \
-	ttf-hanazono ttf-dejavu ttf-roboto
+	ttf-hanazono ttf-dejavu ttf-roboto ttf-font-awesome
 yay -S --needed --noconfirm ttf-emojione ttf-awesome-fonts nerd-fonts-dejavu-complete \
 	ttf-nerd-fonts-symbols ttf-font-icons
 
