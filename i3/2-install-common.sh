@@ -3,7 +3,7 @@
 # Install common packages
 sudo pacman -S --needed --noconfirm \
 	arc-gtk-theme filemanager-actions imagemagick lshw libreoffice-fresh \
-	jre10-openjdk jdk10-openjdk openjdk10-doc deepin-screenshot \
+	jre10-openjdk jdk10-openjdk openjdk10-doc flameshot \
 	gcolor2 tmux gimp mpv xdotool dosfstools tree pavucontrol smartmontools \
 	terminator zenity p7zip unrar rsync a52dec ntfs-3g libmad x264 gst-libav \
 	gst-plugins-ugly totem dconf-editor jq asciinema expat restic figlet xsel \
