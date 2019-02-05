@@ -1,0 +1,269 @@
+# Use Super as mod
+set $mod Mod4
+
+font pango:DejaVu Sans Mono for Powerline 8
+
+# Set the border width for all windows
+set $borderwidth 1
+for_window [class="^.*"] border pixel $borderwidth
+hide_edge_borders none
+new_float normal
+new_window pixel 1
+smart_gaps on
+smart_borders on
+
+gaps inner 10
+gaps outer -4
+
+client.focused             $color-dark-gray    #ff0074             $color-white         $color-medium-gray
+client.focused_inactive    $color-black        $color-black        $color-medium-gray   $color-black
+client.unfocused           $color-black        $color-black        $color-dark-gray     $color-black
+client.urgent              $color-alert        $color-alert        $color-black         $color-black
+client.placeholder         $color-black        $color-black        $color-white         $color-black
+client.background          $color-black
+
+# Resize gaps
+bindsym $mod+s gaps inner current plus 5
+bindsym $mod+Shift+s gaps inner current minus 5
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# Disable mouse warp
+mouse_warping none
+
+# Disable focus wrap
+focus_wrapping no
+
+# Delay urgency hint on workspace change
+force_display_urgency_hint 500 ms
+
+# Smart popup during fullscreen
+popup_during_fullscreen smart
+
+# Do not follow the mouse
+focus_follows_mouse no
+
+# Start a terminal
+bindsym $mod+t exec i3-sensible-terminal
+
+# Kill focused window
+bindsym $mod+d kill
+
+# Start rofi
+# -theme Pop-Dark -location 6 -lines 10 -yoffset -50
+bindsym $mod+semicolon exec rofi -show run
+bindsym $mod+p exec rofi -show window
+bindsym $mod+n exec networkmanager_dmenu
+
+# Use hjkl
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# Move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# Move the currently focused window to the scratchpad
+bindsym $mod+Shift+minus move scratchpad
+
+# Show the next scratchpad window or hide the focused scratchpad window.
+# If there are multiple scratchpad windows, this command cycles through them.
+bindsym $mod+minus scratchpad show
+
+# Alternatively, use the cursor keys:
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# Alternatively, use the cursor keys:
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# Resize window
+bindsym $mod+Ctrl+h resize shrink width 1 px or 1 ppt
+bindsym $mod+Ctrl+k resize grow height 1 px or 1 ppt
+bindsym $mod+Ctrl+j resize shrink height 1 px or 1 ppt
+bindsym $mod+Ctrl+l resize grow width 1 px or 1 ppt
+
+# Split
+bindsym $mod+o split vertical
+bindsym $mod+e split horizontal
+
+# Enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# Toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# Change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# Focus the parent container
+bindsym $mod+a focus parent
+
+# Shortcut to clipmenu selection widget (primary)
+bindsym Control+Mod4+n exec CM_HISTLENGTH=10 CM_LAUNCHER=rofi clipmenu -show run -p clipboard
+
+# Define names for default workspaces for which we configure key bindings later on.
+# We use variables to avoid repeating the names in multiple places.
+set $ws1 1:personal
+set $ws2 2:www
+set $ws3 3:work
+set $ws4 4:social
+set $ws5 5:spotify
+set $ws6 6
+set $ws7 7
+set $ws8 8
+set $ws9 9
+set $ws10 10
+
+# Setup workspace applications
+exec --no-startup-id i3-msg 'workspace $ws2; exec google-chrome-stable'
+exec --no-startup-id i3-msg 'workspace $ws3; exec terminator'
+
+# Assignments
+assign [class="Slack"] $ws4
+assign [class="Rambox"] $ws4
+for_window [class="Spotify"] move to workspace $ws5
+
+# Switch to workspace
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+
+# Move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10
+
+# Correct handling of floating windows
+for_window [class="system-monitor"] floating enable
+for_window [class="(?i)calendar"] floating enable
+for_window [class="(?i)nm-connection-editor"] floating enable
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="bubble"] floating enable
+for_window [window_role="task_dialog"] floating enable
+for_window [window_role="dialog"] floating enable
+for_window [window_role="menu"] floating enable
+for_window [window_role="Preferences"] floating enable
+for_window [title="alsamixer"] floating enable border pixel 1
+for_window [class="Clipgrab"] floating enable
+for_window [title="File Transfer*"] floating enable
+for_window [class="Galculator"] floating enable border pixel 1
+for_window [class="GParted"] floating enable border normal
+for_window [title="i3_help"] floating enable sticky enable border normal
+for_window [class="Lxappearance"] floating enable sticky enable border normal
+for_window [class="Nitrogen"] floating enable sticky enable border normal
+for_window [class="Pavucontrol"] floating enable
+for_window [class="Skype"] floating enable border normal
+for_window [class="(?i)virtualbox"] floating enable border normal
+for_window [class="Nautilus"] floating enable border none
+for_window [class="Gpicview"] floating enable border none
+
+# Set up screen lock keybinding
+bindsym Ctrl+Mod1+l exec betterlockscreen -l
+
+# Printscreen using flameshot
+bindsym Print exec flameshot gui
+
+# Jump to urgent window
+bindsym $mod+u [urgent=latest] focus
+
+# Move workspace between monitors
+bindsym $mod+comma move workspace to output left
+bindsym $mod+period move workspace to output right
+
+# Media player controls
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5%
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioPause exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
+# Sreen brightness controls
+bindsym XF86MonBrightnessUp exec xbacklight -inc 20
+bindsym XF86MonBrightnessDown exec xbacklight -dec 20
+
+# Touchpad controls
+bindsym XF86TouchpadToggle exec /some/path/toggletouchpad.sh
+
+# Reload the configuration file
+bindsym $mod+Shift+c reload
+#
+# Restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+#
+# Exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+# Start bumblebee-status
+bar {
+	output primary
+	status_command    ~/.config/i3/bumblebee-status/bumblebee-status -m spotify cpu memory nic traffic pasink pasource battery  -p interval=1 nic.left-click="nm-connection-editor" nic.exclude="lo,virbr,docker,vboxnet,veth,br" datetime.left-click="gsimplecal" engine.workspacewrap=false battery.device="BAT0" memory.format="{percent:05.02f}%" traffic.states="^down" traffic.exclude="tun0,tun1,tun2,lo,vpn0,vpn1,vpn2,br,docker" datetime.format="%H:%M:%S - %A, %d-%m-%Y" -t mytheme
+	font pango:DejaVu Sans Mono for Powerline 8
+	tray_output none
+	tray_padding 0
+	workspace_buttons no
+	colors {
+		background #272827
+	}
+}
+
+# Set shut down, restart and locking features
+bindsym $mod+Delete mode "$mode_system"
+set $mode_system (l)ock, (e)xit, switch_(u)ser, (s)uspend, (h)ibernate, (r)eboot, (Shift+s)hutdown
+mode "$mode_system" {
+    bindsym l exec --no-startup-id i3exit lock, mode "default"
+    bindsym s exec --no-startup-id i3exit suspend, mode "default"
+    bindsym u exec --no-startup-id i3exit switch_user, mode "default"
+    bindsym e exec --no-startup-id i3exit logout, mode "default"
+    bindsym h exec --no-startup-id i3exit hibernate, mode "default"
+    bindsym r exec --no-startup-id i3exit reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id i3exit shutdown, mode "default"
+
+    # exit system mode: "Enter" or "Escape"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+# Autostart applications
+exec --no-startup-id nm-applet
+exec --no-startup-id xrdb ~/.Xresources
+exec --no-startup-id xmodmap ~/.Xmodmap
+exec xautolock -time 15 -locker "betterlockscreen -l"
+exec --no-startup-id compton --config ~/.config/compton.conf -b
+exec --no-startup-id /usr/bin/dropbox start -i
+exec --no-startup-id clipmenud
+
+# Home PC
+# exec xrandr --output HDMI-0 --primary
+#
+# Work Laptop
+# exec xrandr --output HDMI1 --primary --auto --output DP1 --right-of HDMI1 --auto --output eDP1 --left-of HDMI1
+
+exec_always --no-startup-id feh --bg-fill ~/Pictures/Wallpapers/wallpaper-1920x1280.jpg
+exec_always --no-startup-id ~/.config/polybar/launch.sh

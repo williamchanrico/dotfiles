@@ -36,6 +36,10 @@ Plugin 'w0rp/ale'
 
 call vundle#end()
 
+" Vimwiki
+let g:vimwiki_list = [{'path': '~/vimwiki/',
+                       \ 'syntax': 'markdown', 'ext': '.md'}]
+
 " FZF
 " Customize fzf colors to match your color scheme
 let g:fzf_colors =
@@ -121,12 +125,33 @@ let g:strip_whitespace_on_save=1
 let g:show_spaces_that_precede_tabs=1
 
 " Vim-airline
-let g:airline_theme='powerlineish'
+let g:airline_theme='minimalist'
 let g:airline#extensions#tabline#enabled=1
+let g:airline_powerline_fonts = 1
 
-" vim-sublime-monokai theme
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+let g:airline_left_sep = ''
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_sep = ''
+let g:airline_symbols.linenr = '␊'
+let g:airline_symbols.linenr = '␤'
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.branch = '⎇'
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.paste = 'Þ'
+let g:airline_symbols.paste = '∥'
+let g:airline_symbols.whitespace = 'Ξ'
+
+set t_Co=256
 colorscheme molokai
-set termguicolors
+set cursorline
+hi clear CursorLine
+hi CursorLine gui=underline cterm=underline
+highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE
+			\ gui=NONE guifg=DarkGrey guibg=NONE
 
 " Vim-go
 let g:go_highlight_format_strings=1
@@ -162,6 +187,7 @@ set incsearch
 set smartindent
 set history=1000
 set undolevels=1000
+set undofile
 set title
 set visualbell
 set noerrorbells
