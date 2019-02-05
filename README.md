@@ -1,7 +1,10 @@
 # Dotfiles
-Config files running gnome on xorg-server
 
-## YADM Setup
+Config files for archlinux running i3 window manager
+and compton compositor, integrated into GNOME environment.
+
+## YADM Setup (dotfiles manager)
+
 ```
 #!/usr/bin/env bash
 
@@ -11,8 +14,18 @@ yadm clone https://bitbucket.org/williamchanrico/dotfiles
 yadm decrypt
 ```
 
-## Desktop
+## Screenshot(s)
+
+### Desktop
+
 ![screenshot-desktop](screenshots/screenshot01.png?raw=true "Screenshot desktop")
 
-## Terminator
-![screenshot-terminator](screenshots/screenshot02.png?raw=true "Screenshot terminator")
+### Ranger (files viewer with preview)
+
+Ranger preview support includes code with highlights, images, file meta-data, etc.
+
+![screenshot-ranger](screenshots/screenshot02.png?raw=true "Screenshot ranger")
+
+### Tiling Preview (ranger, vim, tpal, & screenfetch)
+
+![screenshot-tiles](screenshots/screenshot03.png?raw=true "Screenshot tiles")
