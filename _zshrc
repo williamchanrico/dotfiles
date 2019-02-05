@@ -27,28 +27,40 @@ export VISUAL=vim
 COMPLETION_WAITING_DOTS="true"
 
 # Load oh-my-zsh plugins
-plugins=(git k kubectl helm aws tmux fzf)
+plugins=(git k kubectl helm aws tmux fzf dirhistory last-working-dir redis-cli z)
 
 source $ZSH/oh-my-zsh.sh
 
-# Run xmodmap and xcape for capslock binding
-xmodmap ~/.xmodmap
-xcape -e 'Mode_switch=Escape'
+###################
+#   Keybindings   #
+###################
 
-if [ -f /usr/bin/aws_zsh_completer.sh ]; then
-	source /usr/bin/aws_zsh_completer.sh
-fi
+# Use vi navigation keys in menu completion
+zstyle ':completion:*' menu select
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
+bindkey -M menuselect 'j' vi-down-line-or-history
+
+# Use CTRL+p and CTRL+n instead of arrow keys
+bindkey "^p" up-line-or-search
+bindkey "^n" up-line-or-search
 
 ###################
 # Auto-completion #
 ###################
+
+# AWS
+if [ -f /usr/bin/aws_zsh_completer.sh ]; then
+	source /usr/bin/aws_zsh_completer.sh
+fi
 
 # Hashicorp Vault
 if [ -x "$(command -v vault)" ]; then
 	complete -o nospace -C '/usr/bin/vault' vault
 fi
 
-# Aliyun https://github.com/aliyun/aliyun-cli
+# Alibaba Cloud https://github.com/aliyun/aliyun-cli
 if [ -x "$(command -v aliyun)" ]; then
 	complete -o nospace -F '/home/william/bin/aliyun' aliyun
 fi
