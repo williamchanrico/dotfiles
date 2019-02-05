@@ -26,6 +26,6 @@ Ranger preview support includes code with highlights, images, file meta-data, et
 
 ![screenshot-ranger](screenshots/screenshot02.png?raw=true "Screenshot ranger")
 
-### Tiling Preview (ranger, vim, tpal, & screenfetch)
+### Tiling Preview (urxvt, ranger, vim, tpal, & screenfetch)
 
 ![screenshot-tiles](screenshots/screenshot03.png?raw=true "Screenshot tiles")
