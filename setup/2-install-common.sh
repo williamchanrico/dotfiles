@@ -2,16 +2,16 @@
 
 # Install common packages
 sudo pacman -S --needed --noconfirm \
-	arc-gtk-theme filemanager-actions imagemagick lshw libreoffice-fresh \
+	filemanager-actions imagemagick lshw libreoffice-fresh \
 	jre10-openjdk jdk10-openjdk openjdk10-doc flameshot \
 	gcolor2 tmux gimp mpv xdotool dosfstools tree pavucontrol smartmontools \
 	zenity p7zip unrar rsync a52dec ntfs-3g libmad x264 gst-libav \
 	gst-plugins-ugly totem dconf-editor jq asciinema expat restic figlet xsel \
 	clang cowsay fzf xcb-util-xrm tldr the_silver_searcher prettier lsof pngquant \
 	dmenu xcape xautolock gsimplecal lxappearance compton rofi zathura zathura-pdf-mupdf \
-	feh gpicview ranger mediainfo w3m highlight clipmenu clipnotify rxvt-unicode z
+	feh ranger mediainfo w3m highlight clipmenu clipnotify rxvt-unicode z dunst
 yay -S --needed --noconfirm \
-	peek vokoscreen nvm spotify-stable \
+	peek vokoscreen nvm spotify-stable gtk-theme-shades-of-gray newaita-icons-git \
 	global ntfy networkmanager-dmenu-git polybar urxvt-perls-git
 
 # Fonts
