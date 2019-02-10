@@ -23,6 +23,7 @@ mkdir -p ~/src/go/{src,bin}
 
 export GOPATH=~/src/go/src
 go get -u -v mvdan.cc/sh/cmd/shfmt
+go get -u -v github.com/fatih/hclfmt
 go get -u -v github.com/golang/dep/cmd/dep
 go get -u -v github.com/mrtazz/checkmake
 go get -u -v github.com/jackc/sqlfmt/...
