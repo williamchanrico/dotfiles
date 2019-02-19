@@ -20,12 +20,12 @@ yadm decrypt
 
 ![screenshot-desktop](screenshots/screenshot01.png?raw=true "Screenshot desktop")
 
+### Tiling Preview (urxvt, ranger, vim, tpal, screenfetch, mpv)
+
+![screenshot-tiling](screenshots/screenshot02.png?raw=true "Screenshot tiles")
+
 ### Ranger (files viewer with preview)
 
 Ranger preview support includes code with highlights, images, file meta-data, etc.
 
-![screenshot-ranger](screenshots/screenshot02.png?raw=true "Screenshot ranger")
-
-### Tiling Preview (urxvt, ranger, vim, tpal, & screenfetch)
-
-![screenshot-tiles](screenshots/screenshot03.png?raw=true "Screenshot tiles")
+![screenshot-ranger](screenshots/screenshot03.png?raw=true "Screenshot ranger")
