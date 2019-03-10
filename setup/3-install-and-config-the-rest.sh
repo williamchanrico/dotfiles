@@ -27,6 +27,10 @@ go get -u -v github.com/fatih/hclfmt
 go get -u -v github.com/golang/dep/cmd/dep
 go get -u -v github.com/mrtazz/checkmake
 go get -u -v github.com/jackc/sqlfmt/...
+go get -u -v github.com/yudppp/json2struct/cmd/json2struct
+
+# Setup zsh-completions from https://github.com/zchee/zsh-completions
+git clone https://github.com/zchee/zsh-completions ~/.zsh_completion/zchee_zsh-completions/
 
 # Setup kubectl
 yay -S --needed --noconfirm google-cloud-sdk kubectl-bin kubectx
