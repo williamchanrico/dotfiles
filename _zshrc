@@ -1,6 +1,8 @@
 # Function path
 fpath=(
 	"$HOME/.zsh_completion/gcloud-zsh-completion/src"
+	"$HOME/.zsh_completion/zchee_zsh-completions/src/go"
+	"$HOME/.zsh_completion/zchee_zsh-completions/src/zsh"
 	$fpath
 )
 
@@ -27,7 +29,7 @@ export VISUAL=vim
 COMPLETION_WAITING_DOTS="true"
 
 # Load oh-my-zsh plugins
-plugins=(git k kubectl helm aws tmux fzf dirhistory last-working-dir redis-cli z)
+plugins=(git k zsh-completions kubectl helm aws tmux fzf dirhistory last-working-dir redis-cli z)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -43,8 +45,8 @@ bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 
 # Use CTRL+p and CTRL+n instead of arrow keys
-bindkey "^p" up-line-or-search
-bindkey "^n" up-line-or-search
+bindkey "^p" up-line-or-beginning-search
+bindkey "^n" down-line-or-beginning-search
 
 ###################
 # Auto-completion #
