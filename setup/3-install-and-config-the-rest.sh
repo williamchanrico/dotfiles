@@ -47,6 +47,7 @@ yay -S --needed --noconfirm betterlockscreen-git
 mkdir -p ~/Pictures/Wallpapers
 cp ./wallpapers/* ~/Pictures/Wallpapers/
 betterlockscreen -u ~/Pictures/Wallpapers/wallpaper-1920x1280.jpg
+sudo systemctl enable betterlockscreen@william
 
 # Setup DNSCrypt and Unbound
 sudo pacman -S --needed --noconfirm dnscrypt-proxy unbound
