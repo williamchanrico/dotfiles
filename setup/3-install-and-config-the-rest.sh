@@ -32,6 +32,9 @@ go get -u -v github.com/yudppp/json2struct/cmd/json2struct
 # Setup zsh-completions from https://github.com/zchee/zsh-completions
 git clone https://github.com/zchee/zsh-completions ~/.zsh_completion/zchee_zsh-completions/
 
+# Setup zsh-autosuggestions from https://github.com/zsh-users/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+
 # Setup kubectl
 yay -S --needed --noconfirm google-cloud-sdk kubectl-bin kubectx
 git clone https://github.com/williamchanrico/kube-ps1 ~/.oh-my-zsh/custom/plugins/kube-ps1
