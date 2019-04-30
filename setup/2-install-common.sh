@@ -9,10 +9,11 @@ sudo pacman -S --needed --noconfirm \
 	gst-plugins-ugly totem dconf-editor jq asciinema expat restic figlet xsel \
 	clang cowsay fzf xcb-util-xrm tldr the_silver_searcher prettier lsof pngquant \
 	dmenu xcape xautolock gsimplecal lxappearance compton rofi zathura zathura-pdf-mupdf \
-	feh ranger mediainfo w3m highlight clipmenu clipnotify rxvt-unicode z dunst zsh-completions
+	feh ranger mediainfo w3m highlight clipmenu clipnotify rxvt-unicode z dunst zsh-completions \
+	gettext
 yay -S --needed --noconfirm \
 	peek vokoscreen nvm spotify-stable gtk-theme-shades-of-gray newaita-icons-git \
-	global ntfy networkmanager-dmenu-git polybar urxvt-perls-git
+	global ntfy networkmanager-dmenu-git polybar urxvt-perls-git yq
 
 # Fonts
 sudo pacman -S --needed --noconfirm \
