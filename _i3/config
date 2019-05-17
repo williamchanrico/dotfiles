@@ -163,6 +163,7 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 
 # Correct handling of floating windows
 
+for_window [class="Eog"]                        floating      enable
 for_window [class="MultiMC5"]                   floating      enable
 for_window [class="Minecraft*"]                 floating      enable
 for_window [class="Gnome-calculator"]           floating      enable
@@ -236,7 +237,7 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 # Start bumblebee-status
 bar {
 	output            primary
-	status_command    ~/.config/i3/bumblebee-status/bumblebee-status -m spotify cpu memory nic traffic pasink pasource battery  -p interval=1 nic.left-click="nm-connection-editor" nic.exclude="lo,virbr,docker,vboxnet,veth,br" datetime.left-click="gsimplecal" engine.workspacewrap=false battery.device="BAT0" memory.format="{percent:05.02f}%" traffic.states="^down" traffic.exclude="tun0,tun1,tun2,lo,vpn0,vpn1,vpn2,br,docker" datetime.format="%H:%M:%S - %A, %d-%m-%Y" -t mytheme
+	status_command    ~/.config/i3/bumblebee-status/bumblebee-status -m spotify cpu memory nic traffic pasink pasource battery  -p engine.workspacewheel=false interval=1 nic.left-click="nm-connection-editor" nic.exclude="lo,virbr,docker,vboxnet,veth,br" datetime.left-click="gsimplecal" engine.workspacewrap=false battery.device="BAT0" memory.format="{percent:05.02f}%" traffic.states="^down" traffic.exclude="tun0,tun1,tun2,lo,vpn0,vpn1,vpn2,br,docker" datetime.format="%H:%M:%S - %A, %d-%m-%Y" -t mytheme
 	font              $primary_font
 	tray_output       none
 	tray_padding      0

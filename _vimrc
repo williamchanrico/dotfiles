@@ -5,6 +5,9 @@ syntax on
 filetype off
 filetype plugin indent on
 
+" Remap leader key
+let mapleader=","
+
 " Enable completion where available.
 " This setting must be set before ALE is loaded.
 let g:ale_completion_enabled=1
@@ -29,16 +32,59 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'ervandew/supertab'
 Plugin 'AutoComplPop'
-Plugin 'Rainbow-Parenthesis'
 Plugin 'junegunn/fzf.vim'
 Plugin 'davidhalter/jedi-vim'
 Plugin 'w0rp/ale'
+Plugin 'inside/vim-search-pulse'
+Plugin 'godlygeek/tabular'
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'fatih/vim-hclfmt'
+Plugin 'b4b4r07/vim-hcl'
+Plugin 'avakhov/vim-yaml'
+" Plugin 'vim-scripts/nginx.vim'
+Plugin 'chr4/nginx.vim'
+Plugin 'lepture/vim-jinja'
 
 call vundle#end()
+
+" Vim gitgutter
+nmap <Leader>ga <Plug>GitGutterStageHunk
+nmap <Leader>gu <Plug>GitGutterUndoHunk
+nmap <Leader>gv <Plug>GitGutterPreviewHunk
+nmap <Leader>gh :GitGutterLineHighlightsToggle<CR>
+
+" Vim multiple cursors
+let g:multi_cursor_use_default_mapping=0
+
+" Default mapping
+let g:multi_cursor_start_word_key      = '<C-c>'
+let g:multi_cursor_select_all_word_key = '<A-c>'
+let g:multi_cursor_start_key           = 'g<C-c>'
+let g:multi_cursor_select_all_key      = 'g<A-c>'
+let g:multi_cursor_next_key            = '<C-c>'
+let g:multi_cursor_prev_key            = '<C-p>'
+let g:multi_cursor_skip_key            = '<C-x>'
+let g:multi_cursor_quit_key            = '<Esc>'
 
 " Vimwiki
 let g:vimwiki_list = [{'path': '~/vimwiki/',
                        \ 'syntax': 'markdown', 'ext': '.md'}]
+
+" Vim search pulse
+let g:vim_search_pulse_mode = 'pattern'
+
+augroup Pulse
+	autocmd! User PrePulse
+	autocmd! User PostPulse
+	autocmd  User PrePulse  set cursorcolumn
+	autocmd  User PostPulse set nocursorcolumn
+augroup END
+
+autocmd FileType hcl setlocal shiftwidth=2 tabstop=2 expandtab
+autocmd FileType yaml setlocal shiftwidth=2 tabstop=2 expandtab
+autocmd BufRead,BufNewFile *.tf* set shiftwidth=2 tabstop=2 expandtab
+autocmd BufRead,BufNewFile *.j2* set ft=jinja
+autocmd BufRead,BufNewFile *nginx.conf* set ft=nginx
 
 " FZF
 " Customize fzf colors to match your color scheme
@@ -113,6 +159,14 @@ let g:ale_c_clangformat_options='-style=webkit'
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
+" Tabular
+nmap <Leader>a= :Tabularize /=<CR>
+vmap <Leader>a= :Tabularize /=<CR>
+nmap <Leader>a: :Tabularize /:<CR>
+vmap <Leader>a: :Tabularize /:<CR>
+nmap <Leader>a\| :Tabularize /\|<CR>
+vmap <Leader>a\| :Tabularize /\|<CR>
+
 " Nerdtree
 map <C-n> :NERDTreeToggle<CR>
 
@@ -148,14 +202,12 @@ let g:airline_symbols.whitespace = 'Ξ'
 set t_Co=256
 colorscheme molokai
 set cursorline
-hi clear CursorLine
-hi CursorLine gui=underline cterm=underline
-highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE
+hi LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE
 			\ gui=NONE guifg=DarkGrey guibg=NONE
 
 " Vim-go
 let g:go_highlight_format_strings=1
-let g:go_highlight_function_arguments=1
+let g:go_highlight_function_parameters=1
 let g:go_highlight_function_calls=1
 let g:go_highlight_functions=1
 let g:go_highlight_operators=1
@@ -166,10 +218,12 @@ let g:go_highlight_generate_tags=1
 let g:go_highlight_variable_assignments=1
 let g:go_highlight_variable_declarations=1
 let g:go_fmt_command="goimports"
-let g:go_auto_type_info=1
-let g:go_auto_sameids=1
+let g:go_template_autocreate=0
 
-au Filetype go nnoremap <leader>r :GoRun %<CR>
+au Filetype go nnoremap <Leader>s :GoReferrers<CR>
+au Filetype go nnoremap <Leader>d :GoDescribe<CR>
+au Filetype go nnoremap <Leader>r :GoRename<Space>
+au Filetype go nnoremap <Leader>f :GoDecls<CR>
 au FileType go nmap <Leader>i <Plug>(go-info)
 
 set updatetime=100
@@ -180,6 +234,9 @@ set tabstop=4
 set shiftwidth=0
 set number
 set showmatch
+set matchpairs+=<:>
+hi clear MatchParen
+hi MatchParen gui=underline cterm=underline
 set ignorecase
 set smartcase
 set hlsearch
@@ -215,11 +272,28 @@ inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
 " Sudo writes
 cmap w!! w !sudo tee % >/dev/null
 
-" Remap leader key
-let mapleader=","
-
 " Remove search highlights
-nnoremap <leader>l :nohlsearch<cr>:diffupdate<cr>:syntax sync fromstart<cr><c-l>
+nnoremap <Leader>l :nohlsearch<CR>:diffupdate<CR>:syntax sync fromstart<CR><c-l>
+
+" Toggle showing list chars
+set listchars=tab:\>-,trail:.,extends:#,nbsp:.
+nnoremap <Leader><tab> :set list!<CR>
+
+" For toggling underline on cursorline and set cursorcolumn
+let s:cursorCoordinateState=1
+function! ToggleCursorCoordinate()
+	if s:cursorCoordinateState
+		hi CursorLine gui=underline cterm=underline
+		set cursorcolumn
+	else
+		hi CursorLine gui=none cterm=none
+		set nocursorcolumn
+	endif
+	let s:cursorCoordinateState =  !s:cursorCoordinateState
+endfunction
+
+" Bind toggle key underlining cursorline and set cursorcolumn
+nnoremap <Leader>v :call ToggleCursorCoordinate()<CR>
 
 " Tab
 nnoremap <C-Left> :tabprevious<CR>
