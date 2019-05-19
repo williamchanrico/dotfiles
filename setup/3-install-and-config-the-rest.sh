@@ -28,6 +28,7 @@ go get -u -v github.com/golang/dep/cmd/dep
 go get -u -v github.com/mrtazz/checkmake
 go get -u -v github.com/jackc/sqlfmt/...
 go get -u -v github.com/yudppp/json2struct/cmd/json2struct
+go get -u -v github.com/mdp/qrterminal/cmd/qr
 
 # Setup zsh-completions from https://github.com/zchee/zsh-completions
 git clone https://github.com/zchee/zsh-completions ~/.zsh_completion/zchee_zsh-completions/
