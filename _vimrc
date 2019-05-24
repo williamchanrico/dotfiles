@@ -44,6 +44,7 @@ Plugin 'avakhov/vim-yaml'
 " Plugin 'vim-scripts/nginx.vim'
 Plugin 'chr4/nginx.vim'
 Plugin 'lepture/vim-jinja'
+Plugin 'ryanoasis/vim-devicons'
 
 call vundle#end()
 
