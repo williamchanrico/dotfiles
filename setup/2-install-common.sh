@@ -25,7 +25,7 @@ yay -S --needed --noconfirm ttf-emojione ttf-awesome-fonts nerd-fonts-dejavu-com
 # Network related tools
 sudo pacman -S --needed --noconfirm \
 	netcat tcpdump htop iftop bind-tools traceroute tcpdump nmap mtr \
-	aria2 whois
+	aria2 whois vpnc
 yay -S --needed --noconfirm \
 	youtube-dl transmission-gtk sshrc
 
