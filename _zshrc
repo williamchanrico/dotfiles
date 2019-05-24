@@ -117,6 +117,17 @@ tkp-ssh() {
 	fi
 }
 
+socks() {
+	if [[ -x "$(command -v tmux)" ]]; then
+		echo "Tmux is not installed"
+		exit 1
+	fi
+
+	tmux new-session -d 'ssh -D 8080 william@arzhon-vps.arzhon.id'
+	tmux split-window -v 'sudo iftop -c ~/.iftoprc'
+	tmux -2 attach-session -d
+}
+
 ########################
 # Other programs setup #
 ########################
