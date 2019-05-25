@@ -1,4 +1,4 @@
-#/usr/bin/env bash
+#!/usr/bin/env bash
 
 # Include multilib repository
 sudo sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf

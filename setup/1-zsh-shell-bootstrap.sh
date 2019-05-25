@@ -1,4 +1,4 @@
-#/usr/bin/env bash
+#!/usr/bin/env bash
 
 # Synchronize package databases
 sudo pacman -Sy --noconfirm
@@ -21,14 +21,14 @@ if [ ! -x "$(command -v yay)" ]; then
 
 	# Create a temp working dir and navigate into it
 	mkdir -p /tmp/yay_install
-	cd /tmp/yay_install
+	cd /tmp/yay_install || exit 1
 
 	# Install yay from git
 	git clone https://aur.archlinux.org/yay.git .
 	makepkg --noconfirm -si
 
 	# Clean up
-	cd ~
+	cd ~ || exit 1
 	rm -rf /tmp/yay_install
 fi
 

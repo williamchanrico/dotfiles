@@ -14,11 +14,11 @@ for data in "${ARRAY[@]}"; do
 	dir="${data%%:*}"
 	dconf_key="${data##*:}"
 
-	for filename_full in $dir/*.dconf; do
+	for filename_full in "$dir"/*.dconf; do
 		filepath=${filename_full%%.dconf}
 		filename=${filepath##*/}
 		echo "dconf load $dconf_key/$filename/ <$filename_full"
-		dconf load $dconf_key/$filename/ <$filename_full
+		dconf load "$dconf_key"/"$filename"/ <"$filename_full"
 	done
 done
 
