@@ -29,6 +29,8 @@ sudo pacman -S --needed --noconfirm \
 yay -S --needed --noconfirm \
 	youtube-dl transmission-gtk sshrc
 
+sudo setcap cap_net_raw=eip $(which iftop)
+
 # Setup python
 sudo pacman -S --needed --noconfirm python python2 python-pip python2-pip \
 	python-virtualenv python2-virtualenv python-pylint \
