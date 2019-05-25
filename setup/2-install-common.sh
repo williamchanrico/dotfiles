@@ -1,4 +1,4 @@
-#/usr/bin/env bash
+#!/usr/bin/env bash
 
 # Install common packages
 sudo pacman -S --needed --noconfirm \
@@ -10,7 +10,7 @@ sudo pacman -S --needed --noconfirm \
 	clang cowsay fzf xcb-util-xrm tldr the_silver_searcher prettier lsof pngquant \
 	dmenu xcape xautolock gsimplecal lxappearance compton rofi zathura zathura-pdf-mupdf \
 	feh ranger mediainfo w3m highlight clipmenu clipnotify rxvt-unicode z dunst zsh-completions \
-	gettext
+	gettext shellcheck
 yay -S --needed --noconfirm \
 	peek vokoscreen nvm spotify-stable gtk-theme-shades-of-gray newaita-icons-git \
 	global ntfy networkmanager-dmenu-git polybar urxvt-perls-git yq-bin
@@ -29,7 +29,7 @@ sudo pacman -S --needed --noconfirm \
 yay -S --needed --noconfirm \
 	youtube-dl transmission-gtk sshrc
 
-sudo setcap cap_net_raw=eip $(which iftop)
+sudo setcap cap_net_raw=eip "$(command -v iftop)"
 
 # Setup python
 sudo pacman -S --needed --noconfirm python python2 python-pip python2-pip \

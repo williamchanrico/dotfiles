@@ -1,4 +1,4 @@
-#/usr/bin/env bash
+#!/usr/bin/env bash
 
 sudo pacman -S --needed --noconfirm \
 	arc-gtk-theme filemanager-actions imagemagick lshw libreoffice-fresh \

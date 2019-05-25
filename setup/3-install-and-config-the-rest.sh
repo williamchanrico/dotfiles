@@ -34,7 +34,7 @@ go get -u -v github.com/mdp/qrterminal/cmd/qr
 git clone https://github.com/zchee/zsh-completions ~/.zsh_completion/zchee_zsh-completions/
 
 # Setup zsh-autosuggestions from https://github.com/zsh-users/zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}"/plugins/zsh-autosuggestions
 
 # Setup kubectl
 yay -S --needed --noconfirm google-cloud-sdk kubectl-bin kubectx
