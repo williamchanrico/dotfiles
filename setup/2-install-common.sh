@@ -13,7 +13,7 @@ sudo pacman -S --needed --noconfirm \
 	gettext shellcheck
 yay -S --needed --noconfirm \
 	peek vokoscreen nvm spotify-stable gtk-theme-shades-of-gray newaita-icons-git \
-	global ntfy networkmanager-dmenu-git polybar urxvt-perls-git yq-bin
+	global ntfy networkmanager-dmenu-git polybar urxvt-perls-git yq-bin i3-volume
 
 # Fonts
 sudo pacman -S --needed --noconfirm \
