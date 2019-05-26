@@ -209,14 +209,35 @@ bindsym   $mod+comma    move   workspace   to   output   left
 bindsym   $mod+period   move   workspace   to   output   right
 
 # Media player controls
-bindsym   XF86AudioRaiseVolume   exec   --no-startup-id    pactl        set-sink-volume   0   +5%
-bindsym   XF86AudioLowerVolume   exec   --no-startup-id    pactl        set-sink-volume   0   -5%
-bindsym   XF86AudioMute          exec   --no-startup-id    pactl        set-sink-mute     0   toggle
-bindsym   XF86AudioPlay          exec   playerctl          play-pause
-bindsym   XF86AudioPause         exec   playerctl          play-pause
-bindsym   XF86AudioNext          exec   playerctl          next
-bindsym   XF86AudioPrev          exec   playerctl          previous
-bindsym   XF86Calculator         exec   gnome-calculator
+
+# Volume control
+# Path to volume control, without trailing slash https://github.com/hastinbe/i3-volume
+set $volumepath /usr/bin/i3-volume
+
+# Amount to increase/decrease volume as a percentage (used with -i, -d)
+set $volumestep 5
+
+# pulseaudio-utils settings
+#
+# Symbolic name for sink (numeric index not supported) (used with -s $sinkname)
+#   Recommended: comment out this setting and omit the -s option to use default sink
+#   List sink names: pacmd list-sinks | awk -F "[<>]" '/^\s+name: <.*>/{print $2}'
+#set $sinkname alsa_output.pci-0000_00_1b.0.analog-stereo
+
+# Using pulseaudio-utils (append "-s $sinkname" without quotes to override default sink)
+bindsym XF86AudioRaiseVolume exec $volumepath -np -i $volumestep
+bindsym XF86AudioLowerVolume exec $volumepath -np -d $volumestep
+bindsym XF86AudioMute        exec $volumepath -mn
+
+bindsym $mod+bracketright    exec $volumepath -np -i $volumestep
+bindsym $mod+bracketleft     exec $volumepath -np -d $volumestep
+bindsym $mod+backslash       exec $volumepath -mn
+
+bindsym   XF86AudioPlay      exec playerctl          play-pause
+bindsym   XF86AudioPause     exec playerctl          play-pause
+bindsym   XF86AudioNext      exec playerctl          next
+bindsym   XF86AudioPrev      exec playerctl          previous
+bindsym   XF86Calculator     exec gnome-calculator
 
 # Sreen brightness controls
 bindsym   XF86MonBrightnessUp     exec   xbacklight   -inc   20
