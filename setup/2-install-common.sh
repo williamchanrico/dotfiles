@@ -27,7 +27,7 @@ sudo pacman -S --needed --noconfirm \
 	netcat tcpdump htop iftop bind-tools traceroute tcpdump nmap mtr \
 	aria2 whois vpnc
 yay -S --needed --noconfirm \
-	youtube-dl transmission-gtk sshrc
+	youtube-dl transmission-cli transmission-remote-gtk transmission-gtk sshrc
 
 sudo setcap cap_net_raw=eip "$(command -v iftop)"
 
