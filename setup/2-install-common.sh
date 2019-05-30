@@ -12,7 +12,7 @@ sudo pacman -S --needed --noconfirm \
 	feh ranger mediainfo w3m highlight clipmenu clipnotify rxvt-unicode z dunst zsh-completions \
 	gettext shellcheck
 yay -S --needed --noconfirm \
-	peek vokoscreen nvm spotify-stable gtk-theme-shades-of-gray newaita-icons-git \
+	peek vokoscreen nvm spotify gtk-theme-shades-of-gray newaita-icons-git \
 	global ntfy networkmanager-dmenu-git polybar urxvt-perls-git yq-bin i3-volume \
 	sublime-text-dev
 
@@ -30,6 +30,7 @@ sudo pacman -S --needed --noconfirm \
 yay -S --needed --noconfirm \
 	youtube-dl transmission-cli transmission-remote-gtk transmission-gtk sshrc
 
+# Too lazy to type sudo & password
 sudo setcap cap_net_raw=eip "$(command -v iftop)"
 
 # Setup python
