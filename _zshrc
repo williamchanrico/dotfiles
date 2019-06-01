@@ -124,7 +124,7 @@ socks() {
 	fi
 
 	tmux new-session -d 'ssh -D 8080 william@arzhon-vps.arzhon.id'
-	tmux split-window -v 'sudo iftop -c ~/.iftoprc'
+	tmux split-window -v 'iftop -c ~/.iftoprc -f "port ssh"' # Need cap_net_raw=eip cap
 	tmux -2 attach-session -d
 }
 
@@ -221,6 +221,7 @@ alias cdwork="cd ~/work"
 # Xrandr most used options
 alias xrandr-home="xrandr --output HDMI-0 --primary --auto"
 alias xrandr-work="xrandr --output DP1 -s 2560x1440 --primary --auto --output eDP1 --right-of DP1"
+alias xrandr-lt="xrandr --output eDP1 --auto"
 # alias xrandr-work="xrandr --output eDP1 --right-of HDMI1 --output DP1 --left-of HDMI1 --output HDMI1 --primary --auto "
 
 # Better ls
