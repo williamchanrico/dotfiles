@@ -4,10 +4,6 @@ set $mod Mod4
 set $primary_font pango:DejaVu Sans Mono for Powerline 8
 font $primary_font
 
-# Set the border width for all windows
-set $borderwidth 1
-for_window [class="^.*"] border pixel $borderwidth
-
 hide_edge_borders   none
 new_float           normal
 new_window          pixel    1
@@ -131,12 +127,6 @@ set $ws10 10
 exec --no-startup-id i3-msg 'workspace $ws2; exec google-chrome-stable'
 exec --no-startup-id i3-msg 'workspace $ws3; exec i3-sensible-terminal'
 
-# Assignments
-
-assign [class="Slack"] $ws4
-assign [class="Rambox"] $ws4
-for_window [class="Spotify"] move to workspace $ws5
-
 # Switch to workspace
 bindsym $mod+1 workspace $ws1
 bindsym $mod+2 workspace $ws2
@@ -161,8 +151,19 @@ bindsym $mod+Shift+8 move container to workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
 
-# Correct handling of floating windows
+# Assignments
+assign [class="Rambox"] $ws4
+for_window [class="Spotify"] move to workspace $ws5
 
+# Set the border width for all windows
+set $borderwidth 1
+for_window [class="^.*"] border pixel $borderwidth
+
+# Correct handling of floating windows
+for_window [class="Steam" title="Steam Login"]  floating      enable
+for_window [class="Steam" title="Friends List"] floating      enable
+for_window [class="Steam" title="Steam Guard*"] floating      enable
+for_window [class="Org.gnome.gedit"]            floating      enable
 for_window [class="Eog"]                        floating      enable
 for_window [class="MultiMC5"]                   floating      enable
 for_window [class="Minecraft*"]                 floating      enable
@@ -180,10 +181,9 @@ for_window [window_role="task_dialog"]          floating      enable
 for_window [window_role="dialog"]               floating      enable
 for_window [window_role="menu"]                 floating      enable
 for_window [window_role="Preferences"]          floating      enable
-for_window [title="alsamixer"]                  floating      enable     border   pixel    1
+for_window [title="alsamixer"]                  floating      enable     border   pixel    $borderwidth
 for_window [class="Clipgrab"]                   floating      enable
 for_window [title="File Transfer*"]             floating      enable
-for_window [class="Galculator"]                 floating      enable     border   pixel    1
 for_window [class="GParted"]                    floating      enable     border   normal
 for_window [title="i3_help"]                    floating      enable     sticky   enable   border   normal
 for_window [class="Lxappearance"]               floating      enable     sticky   enable   border   normal
@@ -195,7 +195,7 @@ for_window [class="Nautilus"]                   floating      enable     border 
 for_window [class="Gpicview"]                   floating      enable     border   none
 
 # Set up screen lock keybinding
-set $lock killall dunst; betterlockscreen -l && dunst -config ~/.config/dunst/dunstrc
+set $lock killall -SIGUSR1 dunst; betterlockscreen -l && killall -SIGUSR2 dunst
 bindsym Ctrl+Mod1+l exec "$lock"
 
 # Printscreen using flameshot
