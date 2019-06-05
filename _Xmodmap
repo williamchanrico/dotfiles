@@ -9,4 +9,5 @@
 ! keysym p = p P Next
 clear Lock
 keycode 66 = Hyper_L
-add mod4 = Hyper_L
+add mod4   = Hyper_L
+keycode 9  = Escape asciitilde
