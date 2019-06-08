@@ -108,7 +108,7 @@ bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent
 
 # Shortcut to clipmenu selection widget (primary)
-bindsym Control+Mod4+n exec CM_HISTLENGTH=10 CM_LAUNCHER=rofi clipmenu -show run -p clipboard
+bindsym Control+$mod+n exec CM_HISTLENGTH=10 CM_LAUNCHER=rofi clipmenu -show run -p clipboard
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
@@ -302,3 +302,4 @@ exec_always --no-startup-id xmodmap ~/.Xmodmap
 exec_always --no-startup-id xrdb ~/.Xresources
 exec_always --no-startup-id feh --bg-fill ~/Pictures/Wallpapers/wallpaper-1920x1280.jpg
 exec_always --no-startup-id ~/.config/polybar/launch.sh
+exec_always --no-startup-id xcape -e "Hyper_L=Escape"

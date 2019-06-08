@@ -1,13 +1,11 @@
-! keycode 66 = Mode_switch
-! keysym h = h H Left
-! keysym l = l L Right
-! keysym k = k K Up
-! keysym j = j J Down
-! keysym u = u U Prior
-! keysym i = i I Home
-! keysym o = o O End
-! keysym p = p P Next
+! Clear Caps_Lock
 clear Lock
+! Add Caps_Lock for Shift+Shift_R
+keycode 62 = Shift_R Caps_Lock
+! Replace CapsLock with mod4
 keycode 66 = Hyper_L
 add mod4   = Hyper_L
+keycode 135 = Multi_key
+
+! Replace Shift+Ecs with tilde
 keycode 9  = Escape asciitilde
