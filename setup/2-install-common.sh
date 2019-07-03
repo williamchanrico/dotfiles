@@ -10,11 +10,11 @@ sudo pacman -S --needed --noconfirm \
 	clang cowsay fzf xcb-util-xrm tldr the_silver_searcher prettier lsof pngquant \
 	dmenu xcape xautolock gsimplecal lxappearance compton rofi zathura zathura-pdf-mupdf \
 	feh ranger mediainfo w3m highlight clipmenu clipnotify rxvt-unicode z dunst zsh-completions \
-	gettext shellcheck
+	gettext shellcheck blueman pulseaudio-alsa pulseaudio-bluetooth bluez-utils
 yay -S --needed --noconfirm \
 	peek vokoscreen nvm spotify gtk-theme-shades-of-gray newaita-icons-git \
 	global ntfy networkmanager-dmenu-git polybar urxvt-perls-git yq-bin i3-volume \
-	sublime-text-dev
+	sublime-text-dev pulseaudio-bluetooth-a2dp-gdm-fix
 
 # Fonts
 sudo pacman -S --needed --noconfirm \
