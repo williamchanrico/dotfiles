@@ -12,7 +12,7 @@ sudo pacman -S --needed --noconfirm \
 	feh ranger mediainfo w3m highlight clipmenu clipnotify rxvt-unicode z dunst zsh-completions \
 	gettext shellcheck blueman pulseaudio-alsa pulseaudio-bluetooth bluez-utils redshift
 yay -S --needed --noconfirm \
-	peek vokoscreen nvm spotify gtk-theme-shades-of-gray suru-icon-theme-git \
+	peek vokoscreen nvm spotify gtk-theme-shades-of-gray newaita-icons-git \
 	global ntfy networkmanager-dmenu-git polybar urxvt-perls-git yq-bin i3-volume \
 	sublime-text-dev pulseaudio-bluetooth-a2dp-gdm-fix
 
