@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block, everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # Function path
 fpath=(
 	"$HOME/.zsh_completion/gcloud-zsh-completion/src"
@@ -19,18 +26,20 @@ export VIRTUAL_ENV_DISABLE_PROMPT=0
 if [ "$TERM" = "linux" ]; then
 	ZSH_THEME="refined"
 else
-	ZSH_THEME="mytheme"
+	# ZSH_THEME="mytheme"
+	ZSH_THEME=powerlevel10k/powerlevel10k
 fi
 
 export EDITOR=vim
 export VISUAL=vim
+export BROWSER=google-chrome-stable
 
 # Display red dots whilst waiting for completion.
 COMPLETION_WAITING_DOTS="true"
 
 # Load oh-my-zsh plugins
 plugins=(
-	git k zsh-completions kubectl helm aws tmux fzf
+	git kubectl helm aws tmux fzf gitignore
 	dirhistory last-working-dir redis-cli z zsh-autosuggestions
 )
 
@@ -101,13 +110,16 @@ tkp-ssh() {
 	address="${1//-/.}"
 
 	cmd="ssh"
-	if [ -x "$(command -v sshrc)" ]; then
-		cmd="sshrc"
-	fi
+	# if [ -x "$(command -v sshrc)" ]; then
+	#     cmd="sshrc"
+	# fi
 
 	if [[ $2 == "s" ]]; then
 		echo "Staging root@$address"
 		$cmd -oStrictHostKeyChecking=no -i ~/.ssh/tokopedia-staging.pem root@$address
+	elif [[ $2 == "ss" ]]; then
+		echo "New Staging root@$address"
+		$cmd -oStrictHostKeyChecking=no -i ~/.ssh/tkpd-ali-main-sg-stag-root.pem root@$address
 	elif [[ $2 == "u" ]]; then
 		echo "Production ubuntu@$address"
 		$cmd -oStrictHostKeyChecking=no -i ~/.ssh/tokopedia-prod.pem ubuntu@$address
@@ -118,56 +130,107 @@ tkp-ssh() {
 }
 
 socks() {
-	if [[ -x "$(command -v tmux)" ]]; then
+	if [[ -z "$(command -v tmux)" ]]; then
 		echo "Tmux is not installed"
-		exit 1
+		return 1
 	fi
 
-	tmux new-session -d 'ssh -D 8080 william@arzhon-vps.arzhon.id'
-	tmux split-window -v 'iftop -c ~/.iftoprc -f "port ssh"' # Need cap_net_raw=eip cap
-	tmux -2 attach-session -d
+	SOCKS_TMUX_SESSION_NAME=socks
+	tmux kill-session -t "$SOCKS_TMUX_SESSION_NAME" >/dev/null 2>&1
+	tmux new-session -s "$SOCKS_TMUX_SESSION_NAME" -d 'ssh -D 8080 william@arzhon-vps.arzhon.id'
+	tmux split-window -t "$SOCKS_TMUX_SESSION_NAME" -v 'iftop -c ~/.iftoprc -f "port ssh"' # Need cap_net_raw=eip cap
+	tmux select-pane -t "$SOCKS_TMUX_SESSION_NAME:1.1"
+	tmux -2 attach-session -t "$SOCKS_TMUX_SESSION_NAME" -d
+}
+
+myxrandr() {
+	if [[ -z "$(command -v xrandr)" ]]; then
+		echo "Xrandr is not installed"
+		return 1
+	fi
+
+	if [ $# -ne 1 ]; then
+		echo "usage: $0 PRESET"
+		return 1
+	fi
+
+	MYXRANDR_PRESET="${1:-reset}"
+
+	case "$MYXRANDR_PRESET" in
+		reset)
+			xrandr -s 0
+			xrandr --auto
+			return 0
+			;;
+
+		home)
+			myxrandr reset
+			xrandr --output HDMI-0 --primary --auto
+			;;
+
+		work)
+			myxrandr reset
+			xrandr --output DP1 -s 2560x1440 --primary --auto --output eDP1 --left-of DP1
+			;;
+
+		lt)
+			myxrandr reset
+			xrandr --output eDP1 --auto
+			;;
+	esac
+
+	echo "Using preset: $MYXRANDR_PRESET"
 }
 
 ########################
 # Other programs setup #
 ########################
 
-# Kubectl Prompt
-if [ -f ~/.oh-my-zsh/custom/plugins/kube-ps1/kube-ps1.sh ]; then
-	source ~/.oh-my-zsh/custom/plugins/kube-ps1/kube-ps1.sh
-	KUBE_PS1_PREFIX=$''
-	KUBE_PS1_PREFIX_COLOR=black
-	KUBE_PS1_SUFFIX=$'\0'
-	KUBE_PS1_SUFFIX_COLOR=black
-	KUBE_PS1_CTX_COLOR=red
-	KUBE_PS1_NS_COLOR=black
-	KUBE_PS1_SYMBOL_ENABLE=true
-	KUBE_PS1_SYMBOL_COLOR=black
-	KUBE_PS1_DIVIDER=":"
-	KUBE_PS1_SEPARATOR=""
-	KUBE_PS1_ENABLED=off
-fi
+# Kubectl Prompt (REPLACED BY POWERLEVEL10K)
+export KUBE_PS1_ENABLED=off
+kubeon() {
+  KUBE_PS1_ENABLED=on
+}
+
+kubeoff() {
+  KUBE_PS1_ENABLED=off
+}
+
+# if [ -f ~/.oh-my-zsh/custom/plugins/kube-ps1/kube-ps1.sh ]; then
+#     source ~/.oh-my-zsh/custom/plugins/kube-ps1/kube-ps1.sh
+#     KUBE_PS1_PREFIX=$''
+#     KUBE_PS1_PREFIX_COLOR=black
+#     KUBE_PS1_SUFFIX=$'\0'
+#     KUBE_PS1_SUFFIX_COLOR=black
+#     KUBE_PS1_CTX_COLOR=red
+#     KUBE_PS1_NS_COLOR=black
+#     KUBE_PS1_SYMBOL_ENABLE=true
+#     KUBE_PS1_SYMBOL_COLOR=black
+#     KUBE_PS1_DIVIDER=":"
+#     KUBE_PS1_SEPARATOR=""
+#     KUBE_PS1_ENABLED=off
+# fi
 
 # Go directory env
-export GOPATH=/home/william/src/go
-export GOBIN=/home/william/src/go/bin
+export GOPATH=/home/william/go
+export GOBIN=/home/william/go/bin
 export PATH=$GOBIN:$PATH
 
 # Restic Backup Setup
 export RESTIC_REPOSITORY=/run/media/william/HD-E1/backup/personal
 
 # Ruby Setup. RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+# export PATH="$PATH:$HOME/.rvm/bin"
+# [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
 # Set up Node Version Manager
-export NVM_DIR="$HOME/.nvm"
-export NVM_SOURCE="/usr/share/nvm"	# The AUR package installs it to here.
+# export NVM_DIR="$HOME/.nvm"
+# export NVM_SOURCE="/usr/share/nvm"	# The AUR package installs it to here.
 # [ -s "$NVM_SOURCE/nvm.sh" ] && . "$NVM_SOURCE/nvm.sh"	# Load NVM
 
-# Setup NPM user-wide installation
-PATH="$HOME/.node_modules/bin:$PATH"
-export npm_config_prefix=~/.node_modules
+# Setup NPM user-wide installation, but are replaced by nvm specific
+# PATH="$HOME/.node_modules/bin:$PATH"
+# export npm_config_prefix=~/.node_modules
 
 # Set up Composer
 export PATH=$HOME/.config/composer/vendor/bin:$PATH
@@ -176,6 +239,9 @@ export PATH=$HOME/.config/composer/vendor/bin:$PATH
 if [[ -x "$(command -v kubectl-krew)" ]]; then
 	export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 fi
+
+# Setup Terragrunt Cache Download Directory
+export TERRAGRUNT_DOWNLOAD="$HOME/.terragrunt-cache"
 
 ###########
 # Aliases #
@@ -218,12 +284,6 @@ alias cdgoo="cd $GOPATH/src/github.com/williamchanrico"
 alias cdgot="cd $GOPATH/src/github.com/tokopedia"
 alias cdwork="cd ~/work"
 
-# Xrandr most used options
-alias xrandr-home="xrandr --output HDMI-0 --primary --auto"
-alias xrandr-work="xrandr --output DP1 -s 2560x1440 --primary --auto --output eDP1 --right-of DP1"
-alias xrandr-lt="xrandr --output eDP1 --auto"
-# alias xrandr-work="xrandr --output eDP1 --right-of HDMI1 --output DP1 --left-of HDMI1 --output HDMI1 --primary --auto "
-
 # Better ls
 alias ls="ls --color=auto --group-directories-first"
 
@@ -233,4 +293,12 @@ alias o="xdg-open"
 # Sometimes used to bypass aliases
 alias c="command"
 
-alias tsh-tkp="tsh --proxy=ports2.tokopedia.net:3080 --user=william.chanrico"
+# Terraform and Terragrunt
+alias tf="terraform"
+alias tg="terragrunt"
+
+# Webcam Access
+alias wcam="mpv --demuxer-lavf-format video4linux2 --demuxer-lavf-o-set input_format=mjpeg av://v4l2:/dev/video0"
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

@@ -41,12 +41,14 @@ Plugin 'terryma/vim-multiple-cursors'
 Plugin 'fatih/vim-hclfmt'
 Plugin 'b4b4r07/vim-hcl'
 Plugin 'avakhov/vim-yaml'
-" Plugin 'vim-scripts/nginx.vim'
 Plugin 'chr4/nginx.vim'
 Plugin 'lepture/vim-jinja'
 Plugin 'ryanoasis/vim-devicons'
+" Plugin 'hashivim/vim-terraform'
 
 call vundle#end()
+
+let g:terraform_fmt_on_save=1
 
 " Vim gitgutter
 nmap <Leader>ga <Plug>GitGutterStageHunk
@@ -83,7 +85,8 @@ augroup END
 
 autocmd FileType hcl setlocal shiftwidth=2 tabstop=2 expandtab
 autocmd FileType yaml setlocal shiftwidth=2 tabstop=2 expandtab
-autocmd BufRead,BufNewFile *.tf* set shiftwidth=2 tabstop=2 expandtab
+autocmd BufRead,BufNewFile *.tf* set shiftwidth=2 tabstop=2 expandtab ft=tf
+autocmd BufRead,BufNewFile *.hcl* set shiftwidth=2 tabstop=2 expandtab ft=tf
 autocmd BufRead,BufNewFile *.j2* set ft=jinja
 autocmd BufRead,BufNewFile *nginx.conf* set ft=nginx
 
@@ -140,6 +143,10 @@ let g:SuperTabDefaultCompletionType="<c-n>"
 
 " ALE
 let g:airline#extensions#ale#enabled=1
+let g:ale_lint_on_save=1
+let g:ale_linters={
+\	'sh': ['shellcheck'],
+\}
 let g:ale_lint_on_text_changed='never'
 " Set this variable to 1 to fix files when you save them.
 let g:ale_fix_on_save=1

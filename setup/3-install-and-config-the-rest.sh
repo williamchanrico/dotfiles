@@ -36,6 +36,9 @@ git clone https://github.com/zchee/zsh-completions ~/.zsh_completion/zchee_zsh-c
 # Setup zsh-autosuggestions from https://github.com/zsh-users/zsh-autosuggestions
 git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}"/plugins/zsh-autosuggestions
 
+# Setup powerlevel10k
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
+
 # Setup kubectl
 yay -S --needed --noconfirm google-cloud-sdk kubectl-bin kubectx
 git clone https://github.com/williamchanrico/kube-ps1 ~/.oh-my-zsh/custom/plugins/kube-ps1
