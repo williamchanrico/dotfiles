@@ -21,7 +21,7 @@ sudo pacman -S --needed --noconfirm ansible ansible-lint
 sudo pacman -S --needed --noconfirm go go-tools
 mkdir -p ~/src/go/{src,bin}
 
-export GOPATH=~/src/go/src
+export GOPATH=~/go
 go get -u -v mvdan.cc/sh/cmd/shfmt
 go get -u -v github.com/fatih/hclfmt
 go get -u -v github.com/golang/dep/cmd/dep
