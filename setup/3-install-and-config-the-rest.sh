@@ -100,6 +100,28 @@ EOF
 echo "DNSSEC Test, you should see the ip address with '(secure)' next to"
 #unbound-host -C /etc/unbound/unbound.conf -v sigok.verteiltesysteme.net
 
+# https://wiki.archlinux.org/index.php/Wine
+# LINE on Wine
+# sudo pacman -S wine wine-gecko wine-mono winetricks dex lib32-libpulse
+# env $WINE_LINE winetricks allfonts # will also cache the fonts for future new prefixes
+# env $WINE_LINE wine LineInst.exe
+
+# Fix fonts smoothing
+# cat <<EOF >/tmp/fontsmoothing
+# REGEDIT4
+
+# [HKEY_CURRENT_USER\Control Panel\Desktop]
+# "FontSmoothing"="2"
+# "FontSmoothingOrientation"=dword:00000001
+# "FontSmoothingType"=dword:00000002
+# "FontSmoothingGamma"=dword:00000578
+
+# [HKEY_CURRENT_USER\Software\Wine\X11 Driver]
+# "ClientSideWithRender"="N"
+# EOF
+
+# env $WINE_LINE wine regedit /tmp/fontsmoothing 2> /dev/null
+
 # Post-install messages
 echo "Notes:"
 echo ""
