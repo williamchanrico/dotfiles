@@ -26,10 +26,10 @@ yay -S --needed --noconfirm ttf-emojione ttf-awesome-fonts nerd-fonts-dejavu-com
 
 # Network related tools
 sudo pacman -S --needed --noconfirm \
-	netcat tcpdump htop iftop bind-tools traceroute tcpdump nmap mtr \
+	netcat tcpdump htop iftop bind-tools traceroute tcpdump nmap nikto mtr \
 	aria2 whois vpnc
 yay -S --needed --noconfirm \
-	youtube-dl transmission-cli transmission-remote-gtk transmission-gtk sshrc
+	youtube-dl transmission-cli transmission-remote-gtk transmission-gtk sshrc gobuster-git
 
 # Too lazy to type sudo & password
 sudo setcap cap_net_raw=eip "$(command -v iftop)"

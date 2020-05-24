@@ -57,6 +57,9 @@ cp ./wallpapers/* ~/Pictures/Wallpapers/
 betterlockscreen -u ~/Pictures/Wallpapers/wallpaper-1920x1280.jpg
 sudo systemctl enable betterlockscreen@william
 
+# Setup worldlist
+git clone git@github.com:williamchanrico/wordlist.git ~/wordlist
+
 # Setup DNSCrypt and Unbound
 sudo pacman -S --needed --noconfirm dnscrypt-proxy unbound
 
