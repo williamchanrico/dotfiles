@@ -30,6 +30,11 @@ go get -u -v github.com/jackc/sqlfmt/...
 go get -u -v github.com/yudppp/json2struct/cmd/json2struct
 go get -u -v github.com/mdp/qrterminal/cmd/qr
 
+# Setup exploits
+yay -S --noconfirm exploit-db-git nikto gobuster-git burpsuite
+
+git clone git@github.com:williamchanrico/wordlist.git ~/wordlist
+
 # Setup zsh-completions from https://github.com/zchee/zsh-completions
 git clone https://github.com/zchee/zsh-completions ~/.zsh_completion/zchee_zsh-completions/
 
@@ -56,9 +61,6 @@ mkdir -p ~/Pictures/Wallpapers
 cp ./wallpapers/* ~/Pictures/Wallpapers/
 betterlockscreen -u ~/Pictures/Wallpapers/wallpaper-1920x1280.jpg
 sudo systemctl enable betterlockscreen@william
-
-# Setup worldlist
-git clone git@github.com:williamchanrico/wordlist.git ~/wordlist
 
 # Setup DNSCrypt and Unbound
 sudo pacman -S --needed --noconfirm dnscrypt-proxy unbound
