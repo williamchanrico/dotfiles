@@ -37,5 +37,5 @@ sudo setcap cap_net_raw=eip "$(command -v iftop)"
 # Setup python
 sudo pacman -S --needed --noconfirm python python2 python-pip python2-pip \
 	python-virtualenv python2-virtualenv python-pylint \
-	python2-pylint yapf flake8 python-neovim python2-neovim \
+	python2-pylint python-black flake8 python-neovim python2-neovim \
 	python-psutil python-netifaces
