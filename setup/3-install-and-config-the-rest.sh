@@ -14,8 +14,11 @@ sudo pacman -S --needed --noconfirm docker docker-compose
 yay -S --needed --noconfirm hadolint
 sudo usermod -aG docker william
 
-# Setup ansible
-sudo pacman -S --needed --noconfirm ansible ansible-lint
+# Setup ansible (use virtualenv)
+# sudo pacman -S --needed --noconfirm ansible ansible-lint
+
+# Setup ...
+sudo pacman -S --needed --noconfirm binwalk
 
 # Setup golang
 sudo pacman -S --needed --noconfirm go go-tools
