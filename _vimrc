@@ -31,10 +31,9 @@ Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'ervandew/supertab'
-Plugin 'AutoComplPop'
 Plugin 'junegunn/fzf.vim'
 Plugin 'davidhalter/jedi-vim'
-Plugin 'w0rp/ale'
+Plugin 'dense-analysis/ale'
 Plugin 'inside/vim-search-pulse'
 Plugin 'godlygeek/tabular'
 Plugin 'terryma/vim-multiple-cursors'
@@ -44,11 +43,18 @@ Plugin 'avakhov/vim-yaml'
 Plugin 'chr4/nginx.vim'
 Plugin 'lepture/vim-jinja'
 Plugin 'ryanoasis/vim-devicons'
-" Plugin 'hashivim/vim-terraform'
+Plugin 'nvim-plugins/nvim-syntax-go'
+Plugin 'hashivim/vim-terraform'
+Plugin 'buoto/gotests-vim'
 
 call vundle#end()
 
+let g:terraform_align=1
 let g:terraform_fmt_on_save=1
+
+" Gotests-vim
+" let g:gotests_template_dir = '/home/user/templates/'
+" let g:gotests_bin = '/home/user/go/bin/gotests'
 
 " Vim gitgutter
 nmap <Leader>ga <Plug>GitGutterStageHunk
@@ -146,12 +152,14 @@ let g:airline#extensions#ale#enabled=1
 let g:ale_lint_on_save=1
 let g:ale_linters={
 \	'sh': ['shellcheck'],
+\   'go': ['gopls'],
+\   'python': ['pylint'],
 \}
 let g:ale_lint_on_text_changed='never'
 " Set this variable to 1 to fix files when you save them.
 let g:ale_fix_on_save=1
 let g:ale_fixers={
-\	'python': ['yapf'],
+\	'python': ['black'],
 \	'javascript': ['prettier'],
 \	'cpp': ['clang-format'],
 \	'sh': ['shfmt'],
@@ -163,6 +171,7 @@ let g:ale_fixers={
 \}
 
 let g:ale_c_clangformat_options='-style=webkit'
+let g:ale_python_black_options='--fast --line-length 120'
 
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
@@ -227,13 +236,17 @@ let g:go_highlight_variable_assignments=1
 let g:go_highlight_variable_declarations=1
 let g:go_fmt_command="goimports"
 let g:go_template_autocreate=0
+let g:go_rename_command="gopls"
 
+au Filetype go nnoremap <Leader>e :GoIfErr<CR>
 au Filetype go nnoremap <Leader>s :GoReferrers<CR>
 au Filetype go nnoremap <Leader>d :GoDescribe<CR>
 au Filetype go nnoremap <Leader>r :GoRename<Space>
 au Filetype go nnoremap <Leader>f :GoDecls<CR>
+au Filetype go nnoremap <Leader>c :GoCallees<CR>
 au FileType go nmap <Leader>i <Plug>(go-info)
 
+set modeline
 set updatetime=100
 set hidden
 set backspace=indent,eol,start
@@ -270,7 +283,7 @@ endif
 
 " Auto completion
 set omnifunc=syntaxcomplete#Complete
-set completeopt=menuone,longest,preview
+set completeopt=menu,menuone,preview,noselect,noinsert
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
   \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
@@ -286,6 +299,9 @@ nnoremap <Leader>l :nohlsearch<CR>:diffupdate<CR>:syntax sync fromstart<CR><c-l>
 " Toggle showing list chars
 set listchars=tab:\>-,trail:.,extends:#,nbsp:.
 nnoremap <Leader><tab> :set list!<CR>
+
+" Remove all trailing whitespace by pressing F5
+nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 
 " For toggling underline on cursorline and set cursorcolumn
 let s:cursorCoordinateState=1
@@ -308,3 +324,7 @@ nnoremap <C-Left> :tabprevious<CR>
 nnoremap <C-Right> :tabnext<CR>
 nnoremap <silent> <A-Left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
 nnoremap <silent> <A-Right> :execute 'silent! tabmove ' . (tabpagenr()+1)<CR>
+
+" URL encode/decode selection
+vnoremap <leader>en :!python2 -c 'import sys,urllib;print urllib.quote(sys.stdin.read().strip())'<cr>
+vnoremap <leader>de :!python2 -c 'import sys,urllib;print urllib.unquote(sys.stdin.read().strip())'<cr>
