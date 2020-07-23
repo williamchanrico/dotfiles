@@ -37,24 +37,30 @@ Plugin 'dense-analysis/ale'
 Plugin 'inside/vim-search-pulse'
 Plugin 'godlygeek/tabular'
 Plugin 'terryma/vim-multiple-cursors'
-Plugin 'fatih/vim-hclfmt'
 Plugin 'b4b4r07/vim-hcl'
 Plugin 'avakhov/vim-yaml'
 Plugin 'chr4/nginx.vim'
 Plugin 'lepture/vim-jinja'
 Plugin 'ryanoasis/vim-devicons'
 Plugin 'nvim-plugins/nvim-syntax-go'
-Plugin 'hashivim/vim-terraform'
 Plugin 'buoto/gotests-vim'
 
 call vundle#end()
 
-let g:terraform_align=1
-let g:terraform_fmt_on_save=1
-
-" Gotests-vim
+" buoto/Gotests-vim
 " let g:gotests_template_dir = '/home/user/templates/'
 " let g:gotests_bin = '/home/user/go/bin/gotests'
+
+" davidhalter/jedi-vim
+let g:jedi#goto_definitions_command = "<leader>d"
+let g:jedi#documentation_command = "gi"
+let g:jedi#goto_command = "gd"
+let g:jedi#usages_command = "<leader>s"
+let g:jedi#rename_command = "<leader>r"
+
+let g:jedi#goto_assignments_command = "<leader>g"
+let g:jedi#goto_stubs_command = "<leader>s"
+let g:jedi#completions_command = "<C-Space>"
 
 " Vim gitgutter
 nmap <Leader>ga <Plug>GitGutterStageHunk
@@ -168,6 +174,7 @@ let g:ale_fixers={
 \	'html': ['prettier'],
 \	'markdown': ['prettier'],
 \	'sql': ['sqlfmt'],
+\	'tf': ['terraform'],
 \}
 
 let g:ale_c_clangformat_options='-style=webkit'
