@@ -7,7 +7,6 @@ fi
 
 # Function path
 fpath=(
-	"$HOME/.zsh_completion/gcloud-zsh-completion/src"
 	"$HOME/.zsh_completion/zchee_zsh-completions/src/go"
 	"$HOME/.zsh_completion/zchee_zsh-completions/src/zsh"
 	$fpath
@@ -39,15 +38,23 @@ COMPLETION_WAITING_DOTS="true"
 
 # Load oh-my-zsh plugins
 plugins=(
-	git kubectl helm aws tmux fzf gitignore
+	git kubectl helm aws tmux fzf fzf-tab gitignore gcloud
 	dirhistory last-working-dir redis-cli z zsh-autosuggestions
+	# zsh-completions
 )
+autoload -U compinit && compinit
 
 # zsh-autosuggestions
 export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 export ZSH_AUTOSUGGEST_USE_ASYNC=true
 
+export DISABLE_UPDATE_PROMPT=true
+
 source $ZSH/oh-my-zsh.sh
+
+# From zsh-syntax-highlighting package
+# sudo pacman -S zsh-syntax-highlighting
+# source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 ###################
 #   Keybindings   #
@@ -125,7 +132,8 @@ tkp-ssh() {
 		$cmd -oStrictHostKeyChecking=no -i ~/.ssh/tokopedia-prod.pem ubuntu@$address
 	else
 		echo "Production root@$address"
-		$cmd -oStrictHostKeyChecking=no -i ~/.ssh/tokopedia-prod.pem root@$address
+		shift
+		$cmd -oStrictHostKeyChecking=no -i ~/.ssh/tokopedia-prod.pem root@$address $@
 	fi
 }
 
@@ -170,7 +178,9 @@ myxrandr() {
 
 		work)
 			myxrandr reset
-			xrandr --output DP1 -s 2560x1440 --primary --auto --output eDP1 --left-of DP1
+			# xrandr --output DP1 -s 2560x1440 --primary --auto --output eDP1 --left-of DP1
+			# xrandr --output eDP1 --mode 1920x1080 --pos 0x0 --rotate normal --output DP1 --primary --mode 1920x1080 --pos 3840x0 --rotate normal --output HDMI1 --mode 1920x1080 --pos 1920x0 --rotate normal --output HDMI2 --off --output VIRTUAL1 --off
+			xrandr --output eDP1 --primary --mode 1920x1080 --pos 0x0 --rotate normal --output DP1 --off --output HDMI1 --mode 1920x1080 --pos 1920x0 --rotate normal --output HDMI2 --off --output VIRTUAL1 --off
 			;;
 
 		lt)
@@ -182,20 +192,37 @@ myxrandr() {
 	echo "Using preset: $MYXRANDR_PRESET"
 }
 
+################
+# Prompt setup #
+################
+
+export KUBE_PS1_ENABLED=off
+kubeon() {
+	KUBE_PS1_ENABLED=on
+	p10k_reload
+}
+
+kubeoff() {
+	KUBE_PS1_ENABLED=off
+	p10k_reload
+}
+
+venvon() {
+	source ${1:-venv/bin/activate}
+	p10k_reload
+}
+
+venvoff() {
+	deactivate
+	p10k_reload
+}
+
+
 ########################
 # Other programs setup #
 ########################
 
 # Kubectl Prompt (REPLACED BY POWERLEVEL10K)
-export KUBE_PS1_ENABLED=off
-kubeon() {
-  KUBE_PS1_ENABLED=on
-}
-
-kubeoff() {
-  KUBE_PS1_ENABLED=off
-}
-
 # if [ -f ~/.oh-my-zsh/custom/plugins/kube-ps1/kube-ps1.sh ]; then
 #     source ~/.oh-my-zsh/custom/plugins/kube-ps1/kube-ps1.sh
 #     KUBE_PS1_PREFIX=$''
@@ -210,6 +237,9 @@ kubeoff() {
 #     KUBE_PS1_SEPARATOR=""
 #     KUBE_PS1_ENABLED=off
 # fi
+
+# Alicloud
+source ~/.aliyun/.rc
 
 # Go directory env
 export GOPATH=/home/william/go
@@ -242,6 +272,19 @@ fi
 
 # Setup Terragrunt Cache Download Directory
 export TERRAGRUNT_DOWNLOAD="$HOME/.terragrunt-cache"
+
+# Wine
+export BASE_WINEPREFIX64="$HOME/.wine-prefixes/64bit"
+export BASE_WINEPREFIX32="$HOME/.wine-prefixes/32bit"
+# Defaults
+export WINEARCH="win64"
+export WINEPREFIX="${BASE_WINEPREFIX64}/default"
+
+# Naver Line
+export WINE_LINE="WINEPREFIX=${BASE_WINEPREFIX64}/naver-line WINEARCH=win64"
+alias winecfg-line="env $WINE_LINE winecfg"
+alias winetricks-line="env $WINE_LINE winetricks line"
+alias wine-line="dex ~/LINE.desktop"
 
 ###########
 # Aliases #
@@ -300,5 +343,13 @@ alias tg="terragrunt"
 # Webcam Access
 alias wcam="mpv --demuxer-lavf-format video4linux2 --demuxer-lavf-o-set input_format=mjpeg av://v4l2:/dev/video0"
 
+# SQLFormat
+alias sqlformat="sqlformat --reindent --keywords upper --identifiers lower"
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+p10k_reload(){
+	[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+}
+p10k_reload
+
+if [ -f "/opt/google-cloud-sdk/completion.zsh.inc" ]; then source "/opt/google-cloud-sdk/completion.zsh.inc"; fi

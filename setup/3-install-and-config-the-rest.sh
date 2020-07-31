@@ -39,6 +39,9 @@ yay -S --noconfirm exploit-db-git nikto gobuster-git burpsuite
 
 git clone git@github.com:williamchanrico/wordlist.git ~/wordlist
 
+# Setup fzf-tab
+git clone https://github.com/Aloxaf/fzf-tab"$ZSH_CUSTOM/plugins/fzf-tab"
+
 # Setup zsh-completions from https://github.com/zchee/zsh-completions
 git clone https://github.com/zchee/zsh-completions ~/.zsh_completion/zchee_zsh-completions/
 
