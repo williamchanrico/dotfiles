@@ -11,7 +11,7 @@ sudo pacman -S --needed --noconfirm \
 	dmenu xcape xautolock gsimplecal lxappearance compton rofi zathura zathura-pdf-mupdf \
 	feh ranger mediainfo w3m highlight clipmenu clipnotify rxvt-unicode z dunst zsh-completions \
 	gettext shellcheck blueman pulseaudio-alsa pulseaudio-bluetooth bluez-utils redshift \
-	arch-audit
+	arch-audit xxd hexyl
 yay -S --needed --noconfirm \
 	peek vokoscreen nvm spotify gtk-theme-shades-of-gray newaita-icons-git \
 	global ntfy networkmanager-dmenu-git polybar urxvt-perls-git yq-bin i3-volume \
