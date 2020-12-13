@@ -33,6 +33,7 @@ go get -u -v github.com/jackc/sqlfmt/...
 go get -u -v github.com/yudppp/json2struct/cmd/json2struct
 go get -u -v github.com/mdp/qrterminal/cmd/qr
 go get -u -v github.com/cweill/gotests/...
+GO111MODULE=on go get mvdan.cc/gofumpt/gofumports
 
 # Setup exploits
 yay -S --noconfirm exploit-db-git nikto gobuster-git burpsuite
