@@ -42,4 +42,4 @@ yadm clone https://bitbucket.org/williamchanrico/dotfiles
 
 # Install powerline fonts
 sudo pacman -S --needed --noconfirm awesome-terminal-fonts
-yay -S --needed --noconfirm powerline-fonts-git
+yay -S --needed --noconfirm powerline-fonts-git nerd-fonts-dejavu-complete

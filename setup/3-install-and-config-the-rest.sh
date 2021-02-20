@@ -18,13 +18,14 @@ sudo usermod -aG docker william
 # sudo pacman -S --needed --noconfirm ansible ansible-lint
 
 # Setup ...
-sudo pacman -S --needed --noconfirm binwalk
+sudo pacman -S --needed --noconfirm binwalk tmux fzf clipmenu
 
 # Setup golang
 sudo pacman -S --needed --noconfirm go go-tools
 mkdir -p ~/src/go/{src,bin}
 
 export GOPATH=~/go
+go get -u -v rsc.io/2fa
 go get -u -v mvdan.cc/sh/cmd/shfmt
 go get -u -v github.com/fatih/hclfmt
 go get -u -v github.com/golang/dep/cmd/dep
@@ -52,6 +53,9 @@ git clone https://github.com/zsh-users/zsh-completions "${ZSH_CUSTOM:=~/.oh-my-z
 
 # Setup powerlevel10k
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}"/themes/powerlevel10k
+
+# Setup AWS
+yay -S --needed --noconfirm python-aws-mfa aws-cli
 
 # Setup kubectl
 yay -S --needed --noconfirm google-cloud-sdk kubectl-bin kubectx
@@ -138,6 +142,8 @@ echo "DNSSEC Test, you should see the ip address with '(secure)' next to"
 
 # Post-install messages
 echo "Notes:"
+echo ""
+echo "> https://github.com/fphoenix88888/ttf-mswin10-arch for MS fonts"
 echo ""
 echo "> /etc/fstab for data hard disk (prevent update failures for linux steam)"
 echo "UUID=2C7D50BE09066582 /run/media/william/data ntfs-3g  defaults,locale=en_US.utf8,uid=1000,gid=1000  0 0"
