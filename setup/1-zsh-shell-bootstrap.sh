@@ -4,7 +4,7 @@
 sudo pacman -Sy --noconfirm
 
 # Install zsh
-sudo pacman -S --needed --noconfirm zsh wget curl git
+sudo pacman -S --needed --noconfirm zsh wget curl git man-db man-pages
 sudo chsh -s /usr/bin/zsh william
 
 # Install oh-my-zsh
