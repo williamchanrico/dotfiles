@@ -18,7 +18,7 @@ sudo usermod -aG docker william
 # sudo pacman -S --needed --noconfirm ansible ansible-lint
 
 # Setup ...
-sudo pacman -S --needed --noconfirm binwalk tmux fzf clipmenu
+sudo pacman -S --needed --noconfirm binwalk tmux fzf clipmenu s-tui
 
 # Setup golang
 sudo pacman -S --needed --noconfirm go go-tools
