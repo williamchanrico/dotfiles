@@ -30,11 +30,14 @@ go get -u -v mvdan.cc/sh/cmd/shfmt
 go get -u -v github.com/fatih/hclfmt
 go get -u -v github.com/golang/dep/cmd/dep
 go get -u -v github.com/mrtazz/checkmake
-go get -u -v github.com/jackc/sqlfmt/...
 go get -u -v github.com/yudppp/json2struct/cmd/json2struct
 go get -u github.com/skip2/go-qrcode/...
 go get -u -v github.com/cweill/gotests/...
 GO111MODULE=on go get mvdan.cc/gofumpt/gofumports
+
+# Setup SQL Formatter
+curl -o ~/bin/sqlfmt -L https://github.com/lopezator/sqlfmt/releases/download/v1.2.0/sqlfmt-v1.2.0-linux-amd64
+chmod +x ~/bin/sqlfmt
 
 # Setup exploits
 yay -S --noconfirm exploit-db-git nikto gobuster-git burpsuite
