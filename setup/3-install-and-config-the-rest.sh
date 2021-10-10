@@ -18,7 +18,7 @@ sudo usermod -aG docker william
 # sudo pacman -S --needed --noconfirm ansible ansible-lint
 
 # Setup ...
-sudo pacman -S --needed --noconfirm binwalk tmux fzf clipmenu s-tui
+sudo pacman -S --needed --noconfirm binwalk tmux fzf clipmenu s-tui rofi
 
 # Setup golang
 sudo pacman -S --needed --noconfirm go go-tools
@@ -40,12 +40,12 @@ curl -o ~/bin/sqlfmt -L https://github.com/lopezator/sqlfmt/releases/download/v1
 chmod +x ~/bin/sqlfmt
 
 # Setup exploits
-yay -S --noconfirm exploit-db-git nikto gobuster-git burpsuite
+# yay -S --noconfirm exploit-db-git nikto gobuster-git burpsuite
 
-git clone git@github.com:williamchanrico/wordlist.git ~/wordlist
+# git clone git@github.com:williamchanrico/wordlist.git ~/wordlist
 
 # Setup fzf-tab
-git clone https://github.com/Aloxaf/fzf-tab"$ZSH_CUSTOM/plugins/fzf-tab"
+git clone https://github.com/Aloxaf/fzf-tab "$ZSH_CUSTOM/plugins/fzf-tab"
 
 # Setup zsh-completions from https://github.com/zchee/zsh-completions
 git clone https://github.com/zchee/zsh-completions ~/.zsh_completion/zchee_zsh-completions/
@@ -74,51 +74,51 @@ install -dm0 ~/.dropbox-dist
 yay -S --needed --noconfirm betterlockscreen-git
 mkdir -p ~/Pictures/Wallpapers
 cp ./wallpapers/* ~/Pictures/Wallpapers/
-betterlockscreen -u ~/Pictures/Wallpapers/wallpaper-1920x1280.jpg
+betterlockscreen -u vim ~/Pictures/Wallpapers/wallpaper-2-2560x1440.png
 sudo systemctl enable betterlockscreen@william
 
 # Setup DNSCrypt and Unbound
-sudo pacman -S --needed --noconfirm dnscrypt-proxy unbound
+# sudo pacman -S --needed --noconfirm dnscrypt-proxy unbound
 
 # DNS request -> unbound :53 -> dnscrypt-proxy :53000 -> enabled dnscrypt resolver
 # Change DNSCrypt-proxy port to 53000
-sudo sed -i -E -e "/^listen_addresses/s/:53'/:53000'/g" /etc/dnscrypt-proxy/dnscrypt-proxy.toml
+# sudo sed -i -E -e "/^listen_addresses/s/:53'/:53000'/g" /etc/dnscrypt-proxy/dnscrypt-proxy.toml
 
 # Get root servers list for unbound
-sudo curl -o /etc/unbound/root.hints https://www.internic.net/domain/named.cache
+# sudo curl -o /etc/unbound/root.hints https://www.internic.net/domain/named.cache
 
 # Unbound configuration
-cat <<-EOF | sudo tee /etc/unbound/unbound.conf
-	server:
-	  use-syslog: yes
-	  do-daemonize: no
-	  username: "unbound"
-	  directory: "/etc/unbound"
-	  trust-anchor-file: trusted-key.key
-	  private-domain: "intranet"
-	  private-domain: "internal"
-	  private-domain: "private"
-	  private-domain: "corp"
-	  private-domain: "home"
-	  private-domain: "lan"
-	  unblock-lan-zones: yes
-	  insecure-lan-zones: yes
-	  domain-insecure: "intranet"
-	  domain-insecure: "internal"
-	  domain-insecure: "private"
-	  domain-insecure: "corp"
-	  domain-insecure: "home"
-	  domain-insecure: "lan"
-	  root-hints: root.hints
-	  do-not-query-localhost: no
-	forward-zone:
-	  name: "."
-	  forward-addr: ::1@53000
-	  forward-addr: 127.0.0.1@53000
-EOF
+# cat <<-EOF | sudo tee /etc/unbound/unbound.conf
+#     server:
+#       use-syslog: yes
+#       do-daemonize: no
+#       username: "unbound"
+#       directory: "/etc/unbound"
+#       trust-anchor-file: trusted-key.key
+#       private-domain: "intranet"
+#       private-domain: "internal"
+#       private-domain: "private"
+#       private-domain: "corp"
+#       private-domain: "home"
+#       private-domain: "lan"
+#       unblock-lan-zones: yes
+#       insecure-lan-zones: yes
+#       domain-insecure: "intranet"
+#       domain-insecure: "internal"
+#       domain-insecure: "private"
+#       domain-insecure: "corp"
+#       domain-insecure: "home"
+#       domain-insecure: "lan"
+#       root-hints: root.hints
+#       do-not-query-localhost: no
+#     forward-zone:
+#       name: "."
+#       forward-addr: ::1@53000
+#       forward-addr: 127.0.0.1@53000
+# EOF
 
 # DNSSEC test
-echo "DNSSEC Test, you should see the ip address with '(secure)' next to"
+# echo "DNSSEC Test, you should see the ip address with '(secure)' next to"
 #unbound-host -C /etc/unbound/unbound.conf -v sigok.verteiltesysteme.net
 
 # https://wiki.archlinux.org/index.php/Wine
