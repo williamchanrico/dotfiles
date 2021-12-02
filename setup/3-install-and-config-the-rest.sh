@@ -45,17 +45,17 @@ chmod +x ~/bin/sqlfmt
 # git clone git@github.com:williamchanrico/wordlist.git ~/wordlist
 
 # Setup fzf-tab
-git clone https://github.com/Aloxaf/fzf-tab "$ZSH_CUSTOM/plugins/fzf-tab"
+git clone https://github.com/Aloxaf/fzf-tab "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fzf-tab"
 
 # Setup zsh-completions from https://github.com/zchee/zsh-completions
 git clone https://github.com/zchee/zsh-completions ~/.zsh_completion/zchee_zsh-completions/
 
 # Setup zsh-autosuggestions and completions from https://github.com/zsh-users
-git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}"/plugins/zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-completions "${ZSH_CUSTOM:=~/.oh-my-zsh/custom}"/plugins/zsh-completions
+git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-completions "${ZSH_CUSTOM:=$HOME/.oh-my-zsh/custom}"/plugins/zsh-completions
 
 # Setup powerlevel10k
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}"/themes/powerlevel10k
+git clone --depth=1 https://github.com/romkatv/powerlevel10k "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/themes/powerlevel10k
 
 # Setup AWS
 yay -S --needed --noconfirm python-aws-mfa aws-cli
