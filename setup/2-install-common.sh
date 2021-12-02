@@ -14,7 +14,7 @@ sudo pacman -S --needed --noconfirm \
 yay -S --needed --noconfirm \
 	nvm spotify gtk-theme-shades-of-gray newaita-icons-git \
 	global ntfy networkmanager-dmenu-git urxvt-perls-git yq i3-volume \
-	sublime-text-dev pulseaudio-bluetooth-a2dp-gdm-fix
+	sublime-text-dev
 
 # Fonts
 sudo pacman -S --needed --noconfirm \
