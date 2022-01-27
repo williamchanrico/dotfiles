@@ -37,8 +37,6 @@ Plugin 'dense-analysis/ale'
 Plugin 'inside/vim-search-pulse'
 Plugin 'godlygeek/tabular'
 Plugin 'terryma/vim-multiple-cursors'
-Plugin 'b4b4r07/vim-hcl'
-Plugin 'avakhov/vim-yaml'
 Plugin 'chr4/nginx.vim'
 Plugin 'lepture/vim-jinja'
 Plugin 'ryanoasis/vim-devicons'
@@ -155,11 +153,14 @@ let g:SuperTabDefaultCompletionType="<c-n>"
 
 " ALE
 let g:airline#extensions#ale#enabled=1
+let g:ale_linters_explicit=1
 let g:ale_lint_on_save=1
 let g:ale_linters={
 \	'sh': ['shellcheck'],
-\   'go': ['gopls'],
+\   'go': ['gopls', 'golint'],
 \   'python': ['pylint'],
+\   'html': ['prettier'],
+\   'yaml': ['prettier'],
 \}
 let g:ale_lint_on_text_changed='never'
 " Set this variable to 1 to fix files when you save them.
@@ -179,6 +180,8 @@ let g:ale_fixers={
 
 let g:ale_c_clangformat_options='-style=webkit'
 let g:ale_python_black_options='--fast --line-length 120'
+let g:ale_python_black_executable = 'python3'
+let g:ale_prettier_use_local_config = 1
 
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
@@ -242,6 +245,9 @@ let g:go_highlight_generate_tags=1
 let g:go_highlight_variable_assignments=1
 let g:go_highlight_variable_declarations=1
 let g:go_fmt_command="goimports"
+let g:go_gopls_gofumpt=0
+let g:go_def_mode="gopls"
+let g:go_info_mode="gopls"
 let g:go_template_autocreate=0
 let g:go_rename_command="gopls"
 

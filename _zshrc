@@ -6,11 +6,12 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # Function path
-fpath=(
-	"$HOME/.zsh_completion/zchee_zsh-completions/src/go"
-	"$HOME/.zsh_completion/zchee_zsh-completions/src/zsh"
-	$fpath
-)
+# Prefer plugins instead of manual fpath settings
+# fpath=(
+#     "$HOME/.zsh_completion/zchee_zsh-completions/src/go"
+#     "$HOME/.zsh_completion/zchee_zsh-completions/src/zsh"
+#     $fpath
+# )
 
 # PATH environment variables
 export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$PATH
@@ -38,11 +39,9 @@ COMPLETION_WAITING_DOTS="true"
 
 # Load oh-my-zsh plugins
 plugins=(
-	git kubectl helm aws tmux fzf fzf-tab gitignore gcloud
-	dirhistory last-working-dir redis-cli z zsh-autosuggestions
-	# zsh-completions
+	git helm aws tmux fzf fzf-tab gitignore gcloud
+	dirhistory last-working-dir redis-cli z zsh-autosuggestions zsh-completions
 )
-autoload -U compinit && compinit
 
 # zsh-autosuggestions
 export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
@@ -50,7 +49,12 @@ export ZSH_AUTOSUGGEST_USE_ASYNC=true
 
 export DISABLE_UPDATE_PROMPT=true
 
+export DISABLE_MAGIC_FUNCTIONS=true
+
 source $ZSH/oh-my-zsh.sh
+
+autoload -U compinit && compinit
+autoload -U select-word-style && select-word-style bash
 
 # From zsh-syntax-highlighting package
 # sudo pacman -S zsh-syntax-highlighting
@@ -111,32 +115,6 @@ kubenp() {
 	echo http://$NODE_IP:$NODE_PORT
 }
 
-# Work ssh wrapper
-tkp-ssh() {
-	address="${@: -1}"
-	address="${1//-/.}"
-
-	cmd="ssh"
-	# if [ -x "$(command -v sshrc)" ]; then
-	#     cmd="sshrc"
-	# fi
-
-	if [[ $2 == "s" ]]; then
-		echo "Staging root@$address"
-		$cmd -oStrictHostKeyChecking=no -i ~/.ssh/tokopedia-staging.pem root@$address
-	elif [[ $2 == "ss" ]]; then
-		echo "New Staging root@$address"
-		$cmd -oStrictHostKeyChecking=no -i ~/.ssh/tkpd-ali-main-sg-stag-root.pem root@$address
-	elif [[ $2 == "u" ]]; then
-		echo "Production ubuntu@$address"
-		$cmd -oStrictHostKeyChecking=no -i ~/.ssh/tokopedia-prod.pem ubuntu@$address
-	else
-		echo "Production root@$address"
-		shift
-		$cmd -oStrictHostKeyChecking=no -i ~/.ssh/tokopedia-prod.pem root@$address $@
-	fi
-}
-
 socks() {
 	if [[ -z "$(command -v tmux)" ]]; then
 		echo "Tmux is not installed"
@@ -146,7 +124,7 @@ socks() {
 	SOCKS_TMUX_SESSION_NAME=socks
 	tmux kill-session -t "$SOCKS_TMUX_SESSION_NAME" >/dev/null 2>&1
 	tmux new-session -s "$SOCKS_TMUX_SESSION_NAME" -d 'ssh -D 8080 william@arzhon-vps.arzhon.id'
-	tmux split-window -t "$SOCKS_TMUX_SESSION_NAME" -v 'iftop -c ~/.iftoprc -f "port ssh"' # Need cap_net_raw=eip cap
+	tmux split-window -t "$SOCKS_TMUX_SESSION_NAME" -v 'iftop -c ~/.iftoprc -f "port ssh or port 2222"' # Need cap_net_raw=eip cap
 	tmux select-pane -t "$SOCKS_TMUX_SESSION_NAME:1.1"
 	tmux -2 attach-session -t "$SOCKS_TMUX_SESSION_NAME" -d
 }
@@ -196,6 +174,19 @@ myxrandr() {
 # Prompt setup #
 ################
 
+kube() {
+  if (( ${+POWERLEVEL9K_KUBECONTEXT_SHOW_ON_COMMAND} )); then
+    unset POWERLEVEL9K_KUBECONTEXT_SHOW_ON_COMMAND
+  else
+    POWERLEVEL9K_KUBECONTEXT_SHOW_ON_COMMAND='kubectl|helm|kubens|kubectx|oc|istioctl|kogito|k9s|helmfile'
+  fi
+  p10k reload
+  if zle; then
+    zle push-input
+    zle accept-line
+  fi
+}
+
 export KUBE_PS1_ENABLED=off
 kubeon() {
 	KUBE_PS1_ENABLED=on
@@ -222,28 +213,13 @@ venvoff() {
 # Other programs setup #
 ########################
 
-# Kubectl Prompt (REPLACED BY POWERLEVEL10K)
-# if [ -f ~/.oh-my-zsh/custom/plugins/kube-ps1/kube-ps1.sh ]; then
-#     source ~/.oh-my-zsh/custom/plugins/kube-ps1/kube-ps1.sh
-#     KUBE_PS1_PREFIX=$''
-#     KUBE_PS1_PREFIX_COLOR=black
-#     KUBE_PS1_SUFFIX=$'\0'
-#     KUBE_PS1_SUFFIX_COLOR=black
-#     KUBE_PS1_CTX_COLOR=red
-#     KUBE_PS1_NS_COLOR=black
-#     KUBE_PS1_SYMBOL_ENABLE=true
-#     KUBE_PS1_SYMBOL_COLOR=black
-#     KUBE_PS1_DIVIDER=":"
-#     KUBE_PS1_SEPARATOR=""
-#     KUBE_PS1_ENABLED=off
-# fi
-
 # Alicloud
-source ~/.aliyun/.rc
+# source ~/.aliyun/.rc
 
 # Go directory env
 export GOPATH=/home/william/go
 export GOBIN=/home/william/go/bin
+export GOPRIVATE=github.com/tokopedia
 export PATH=$GOBIN:$PATH
 
 # Restic Backup Setup
@@ -301,12 +277,6 @@ fi
 alias nf="ntfy"
 alias nfmb="ntfy -o device_iden ujviRNYx41csjAiVsKnSTs -b pushbullet"
 
-# SSH
-# if [[ -x $(command -v sshrc) ]]; then
-#     alias ssh="sshrc"
-#     compdef sshrc='ssh'
-# fi
-
 # Yeecli to control Yee Lightbulb
 alias yee="yeecli"
 alias yeeb="yeecli brightness"
@@ -337,8 +307,13 @@ alias o="xdg-open"
 alias c="command"
 
 # Terraform and Terragrunt
+alias tf-auth="export GOOGLE_OAUTH_ACCESS_TOKEN=\$(gcloud auth print-access-token)"
 alias tf="terraform"
-alias tg="terragrunt"
+alias tg-gcp="TERRAGRUNT_TFPATH=/usr/local/bin/terraform-0-12-13 terragrunt"
+alias tg="TERRAGRUNT_TFPATH=terraform-v1.0.7 terragrunt-v0.32.4"
+alias tg-tf-v1.0.6="TERRAGRUNT_TFPATH=terraform-v1.0.6 terragrunt-v0.32.4"
+alias tg-tf-v1.0.7="TERRAGRUNT_TFPATH=terraform-v1.0.7 terragrunt-v0.32.4"
+alias tg-tf-v1.1.3="TERRAGRUNT_TFPATH=terraform-v1.1.3 terragrunt-v0.32.4"
 
 # Webcam Access
 alias wcam="mpv --demuxer-lavf-format video4linux2 --demuxer-lavf-o-set input_format=mjpeg av://v4l2:/dev/video0"
