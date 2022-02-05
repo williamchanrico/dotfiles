@@ -12,7 +12,7 @@ sudo pacman -S --needed --noconfirm \
 	gettext shellcheck blueman pulseaudio-alsa pulseaudio-bluetooth bluez-utils redshift \
 	arch-audit xxd hexyl rsync
 yay -S --needed --noconfirm \
-	nvm spotify gtk-theme-shades-of-gray newaita-icons-git \
+	nvm spotify nordic-theme-git papirus-folders-nordic \
 	global ntfy networkmanager-dmenu-git urxvt-perls-git yq i3-volume \
 	sublime-text-dev
 
