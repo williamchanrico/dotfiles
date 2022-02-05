@@ -13,6 +13,7 @@ sudo pacman -S --needed --noconfirm \
 	arch-audit xxd hexyl rsync
 yay -S --needed --noconfirm \
 	nvm spotify nordic-theme-git papirus-folders-nordic \
+	python-pulsectl python-rofi \
 	global ntfy networkmanager-dmenu-git urxvt-perls-git yq i3-volume \
 	sublime-text-dev
 
