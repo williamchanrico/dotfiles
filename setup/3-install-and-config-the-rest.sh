@@ -153,3 +153,6 @@ echo "UUID=2C7D50BE09066582 /run/media/william/data ntfs-3g  defaults,locale=en_
 echo ""
 echo "Docker will need vsyscall=emulate kernel parameter"
 echo "https://wiki.archlinux.org/index.php/docker#Installation"
+echo ""
+echo "To use both rear speaker and front headphone pluggin in:"
+echo "alsamixer > F6 (Select card) > Auto-Mute Disabled"
