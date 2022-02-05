@@ -9,6 +9,9 @@
 Use Rofi to set PulseAudio sink port to use (e.g. Line Out vs Headphone)
 """
 
+# https://github.com/mk-fg/python-pulse-control
+# https://freedesktop.org/software/pulseaudio/doxygen/introspect_8h.html#aad19624a291149b3c33f2246957610b2
+
 from rofi import Rofi
 import pulsectl
 
