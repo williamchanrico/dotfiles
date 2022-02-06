@@ -50,6 +50,9 @@ def main():
             return
         target_sink = sinks[selection_sinks_input_index]
 
+    # Use the card before proceeding (e.g. choose external (Fiio) or on-board)
+    pulse.default_set(target_sink)
+
     # Get the card info to find the available input/output ports
     target_card = pulse.card_list()[target_sink.card]
 
