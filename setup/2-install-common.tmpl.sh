@@ -30,6 +30,7 @@ sudo pacman -S --needed --noconfirm \
 	dmenu \
 	# Dmenu alternative
 	rofi \
+	rofi-calc \
 	# Terminal
 	rxvt-unicode \
 	# Directory jumper
@@ -115,8 +116,8 @@ sudo pacman -S --needed --noconfirm \
 	gst-libav \
 	gstreamer-vaapi \
 	gst-plugins-ugly \
-	# Only need the totem-video-thumbnailer
-	totem \
+	# Thumbnails for video
+	ffmpegthumbnailer \
 
 	#
 	# Parser
