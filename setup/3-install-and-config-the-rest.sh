@@ -11,8 +11,8 @@ vim +PluginInstall +qall
 
 # Setup docker
 sudo pacman -S --needed --noconfirm docker docker-compose
-yay -S --needed --noconfirm hadolint
 sudo usermod -aG docker william
+sudo pacman -S --needed --noconfirm podman fuse-overlayfs slirp4netns
 
 # Setup ansible (use virtualenv)
 # sudo pacman -S --needed --noconfirm ansible ansible-lint

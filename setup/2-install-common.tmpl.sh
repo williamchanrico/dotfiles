@@ -90,7 +90,7 @@ sudo pacman -S --needed --noconfirm \
 	# Screenshot
 	flameshot \
 	# Color picker
-	gcolor2 \
+	gcolor3 \
 	# Image Editor
 	gimp \
 	# Recorder for terminal
@@ -99,6 +99,7 @@ sudo pacman -S --needed --noconfirm \
 	pngquant \
 	# Image viewer
 	feh \
+	eog \
 	# Player
 	mpv \
 	# PulseAudio plugin
@@ -118,6 +119,9 @@ sudo pacman -S --needed --noconfirm \
 	gst-plugins-ugly \
 	# Thumbnails for video
 	ffmpegthumbnailer \
+	# Screen recorder
+	peek \
+	vokoscreen \
 
 	#
 	# Parser
@@ -160,6 +164,8 @@ sudo pacman -S --needed --noconfirm \
 	nvme-cli \
 	# Monitoring system
 	htop \
+	# Monitoring sensor
+	psensor \
 
 	#
 	# X Server
@@ -199,6 +205,8 @@ yay -S --needed --noconfirm \
 	i3-volume \
 	# Text editor
 	sublime-text-dev
+	# Messaging
+	ferdium-bin
 
 # Network related tools
 sudo pacman -S --needed --noconfirm \
