@@ -20,12 +20,17 @@ sudo pacman -S --needed --noconfirm podman fuse-overlayfs slirp4netns
 # Setup ...
 sudo pacman -S --needed --noconfirm binwalk tmux fzf clipmenu s-tui rofi
 
+# Setup pass
+sudo pacman -S --needed --noconfirm pass pass-otp
+yay -S --needed --noconfirm rofi-pass
+
 # Setup golang
 sudo pacman -S --needed --noconfirm go go-tools
 mkdir -p ~/src/go/{src,bin}
 
 export GOPATH=~/go
-go get -u -v rsc.io/2fa
+# Replaced by pass
+# go get -u -v rsc.io/2fa
 go get -u -v mvdan.cc/sh/cmd/shfmt
 go get -u -v github.com/fatih/hclfmt
 go get -u -v github.com/golang/dep/cmd/dep
