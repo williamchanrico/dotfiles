@@ -218,10 +218,16 @@ yay -S --needed --noconfirm \
 	# Messaging
 	ferdium-bin
 
-# Network related tools
+# Setup i3 status bar
+yay -S --needed --noconfirm \
+	bumblebee-status
 sudo pacman -S --needed --noconfirm \
 	# For it's iwgetid used by bumblebee-status
-	wireless_tools \
+	wireless_tools
+
+
+# Network related tools
+sudo pacman -S --needed --noconfirm \
 	# Network troubleshooting
 	netcat \
 	tcpdump \
