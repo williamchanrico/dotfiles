@@ -111,6 +111,8 @@ sudo pacman -S --needed --noconfirm \
 	pipewire-pulse \
 	pipewire-alsa \
 	wireplumber \
+	pipewire-v4l2 \
+	lib32-pipewire-v4l2 \
 	# PulseAudio GTK volume control
 	pavucontrol \
 	qpwgraph \
