@@ -103,10 +103,16 @@ sudo pacman -S --needed --noconfirm \
 	# Player
 	mpv \
 	# PulseAudio plugin
-	pulseaudio-alsa \
-	pulseaudio-bluetooth \
+	# pulseaudio-alsa \
+	# pulseaudio-bluetooth \
+	pipewire \
+	pipewire-pulse \
+	pipewire-alsa \
+	wireplumber \
 	# PulseAudio GTK volume control
 	pavucontrol \
+	qpwgraph \
+	helvum \
 	# Decoder for ATSC A/52 streams
 	a52dec \
 	# Decoder for MPEG audio
