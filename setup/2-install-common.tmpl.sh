@@ -220,6 +220,9 @@ yay -S --needed --noconfirm \
 
 # Network related tools
 sudo pacman -S --needed --noconfirm \
+	# For it's iwgetid used by bumblebee-status
+	wireless_tools \
+	# Network troubleshooting
 	netcat \
 	tcpdump \
 	iftop \
