@@ -116,7 +116,9 @@ sudo pacman -S --needed --noconfirm \
 	# PulseAudio GTK volume control
 	pavucontrol \
 	qpwgraph \
-	helvum \
+	# Effect/tuner
+	easyeffects \
+	calf \
 	# Decoder for ATSC A/52 streams
 	a52dec \
 	# Decoder for MPEG audio
