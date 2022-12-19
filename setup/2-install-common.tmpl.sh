@@ -5,6 +5,8 @@
 
 # Install common packages
 sudo pacman -S --needed --noconfirm \
+	# Graph Visualizer
+	graphviz \
 	# List open files
 	lsof \
 	# Similar to pkg-audit based on Arch Security Team data
