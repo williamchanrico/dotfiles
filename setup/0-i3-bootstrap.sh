@@ -6,8 +6,8 @@ sudo sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
 # Synchronize package databases
 sudo pacman -Sy
 
-sudo pacman -S --noconfirm xorg-server xorg-apps xf86-video-intel \
-	mesa gnome i3 networkmanager network-manager-applet nm-connection-editor
+sudo pacman -S --noconfirm xorg-server xorg-apps \
+	gnome i3 networkmanager nm-connection-editor
 
 # Install yay
 if [ ! -x "$(command -v yay)" ]; then
