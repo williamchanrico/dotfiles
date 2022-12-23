@@ -99,6 +99,7 @@ autocmd BufRead,BufNewFile *.tf* set shiftwidth=2 tabstop=2 expandtab ft=tf
 autocmd BufRead,BufNewFile *.hcl* set shiftwidth=2 tabstop=2 expandtab ft=tf
 autocmd BufRead,BufNewFile *.j2* set ft=jinja
 autocmd BufRead,BufNewFile *nginx.conf* set ft=nginx
+autocmd BufRead,BufNewFile /dev/shm/pass\.* set ft=yaml
 
 " FZF
 " Customize fzf colors to match your color scheme
@@ -339,5 +340,7 @@ nnoremap <silent> <A-Left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
 nnoremap <silent> <A-Right> :execute 'silent! tabmove ' . (tabpagenr()+1)<CR>
 
 " URL encode/decode selection
-vnoremap <leader>en :!python2 -c 'import sys,urllib;print urllib.quote(sys.stdin.read().strip())'<cr>
-vnoremap <leader>de :!python2 -c 'import sys,urllib;print urllib.unquote(sys.stdin.read().strip())'<cr>
+" vnoremap <leader>en :!python2 -c 'import sys,urllib;print urllib.quote(sys.stdin.read().strip())'<cr>
+" vnoremap <leader>de :!python2 -c 'import sys,urllib;print urllib.unquote(sys.stdin.read().strip())'<cr>
+vnoremap <Leader>enn :<C-u>silent '<,'>!perl -CIO -MHTML::Entities -pe '$_=encode_entities $_'<CR>
+vnoremap <Leader>dee :<C-u>silent '<,'>!perl -CI  -MHTML::Entities -pe '$_=decode_entities $_'<CR>

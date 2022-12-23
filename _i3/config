@@ -55,6 +55,17 @@ bindsym $mod+d kill
 bindsym   $mod+semicolon   exec   rofi                   -show   run
 bindsym   $mod+p           exec   rofi                   -show   window
 bindsym   $mod+n           exec   networkmanager_dmenu
+bindsym   $mod+m           exec   ~/.config/rofi/rofi-pulse-set-sink-port.py
+
+# Calculator
+# https://github.com/svenstaro/rofi-calc
+set       $calculator      rofi -show calc -modi calc -no-show-match -no-sort -calc-command "echo -n '{result}' | xsel"
+bindsym   $mod+c           exec   $calculator
+
+# Emoji
+# https://github.com/Mange/rofi-emoji
+bindsym   $mod+v           exec rofi -modi emoji -show emoji -emoji-format '{emoji} {name}'
+
 
 # Use hjkl
 bindsym $mod+h focus left
@@ -155,9 +166,11 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 # Assignments
 assign [class="Station"] $ws4
 assign [class="Hamsket"] $ws4
+assign [class="Ferdium"] $ws4
 assign [class="Rambox"]  $ws4
 # assign [class="^Steam$" title="^Steam$"] $ws8
 assign [class="^Steam$"] $ws8
+for_window [class="obsidian"]               move to workspace $ws6
 for_window [class="Spotify"]                move to workspace $ws5
 for_window [title="(?i)Wine System Tray"]   move to workspace $ws7
 
@@ -166,6 +179,16 @@ set $borderwidth 1
 for_window [class="^.*"] border pixel $borderwidth
 
 # Correct handling of floating windows
+for_window [class="easyeffects"]                floating      enable
+for_window [class="explorer.exe"]               floating      enable
+for_window [class="NoiseTorch"]                 floating      enable
+for_window [class="qpwgraph"]                   floating      enable
+for_window [class="Gcolor3"]                    floating      enable
+for_window [class="Psensor"]                    floating      enable
+for_window [class="Nvidia-settings"]            floating      enable
+for_window [class="^.*Ghb.*$"]                  floating      enable
+for_window [class="^.*vokoscreen.*$"]           floating      enable
+for_window [class="^.*DaVinci Resolve.*$"]      floating      enable
 for_window [class="zoom"]                       floating      enable
 for_window [class="arandr"]                     floating      enable
 for_window [class="Gnome-tweaks"]               floating      enable
@@ -178,9 +201,10 @@ for_window [class="Steam"]                      floating      enable
 for_window [class="Steam" title="^Steam$"]      floating      disable
 for_window [class="Org.gnome.gedit"]            floating      enable
 for_window [class="Eog"]                        floating      enable
+for_window [class="PrismLauncher"]              floating      enable
 for_window [class="MultiMC"]                    floating      enable
 for_window [class="Minecraft*"]                 floating      enable
-for_window [class="Gnome-calculator"]           floating      enable
+for_window [class="gnome-calculator"]           floating      enable
 for_window [class="Transmission-gtk"]           floating      enable
 for_window [class="Deadbeef"]                   floating      enable
 for_window [class="File-roller"]                floating      enable
@@ -205,6 +229,7 @@ for_window [class="Pavucontrol"]                floating      enable
 for_window [class="Skype"]                      floating      enable     border   none
 for_window [class="(?i)virtualbox"]             floating      enable     border   none
 for_window [class="Nautilus"]                   floating      enable     border   none
+for_window [class="Nemo"]                       floating      enable     border   none
 for_window [class="Gpicview"]                   floating      enable     border   none
 for_window [class="(?i)Google Keep"]            floating      enable     border   none
 for_window [class="MEGAsync"]                   floating      enable     border   none
@@ -213,6 +238,12 @@ for_window [class="(?i)wine"]                   floating      enable     border 
 for_window [class="(?i)line"]                   floating      enable     border   none
 for_window [class="anbox"]                      floating      enable     border   none
 for_window [class="Gnome-control-center"]       floating      enable     border   none
+for_window [class="Lutris"]                     floating      enable     border   none
+# Zoom
+for_window [class="^.*join\?action.*$"]         floating      enable
+
+# Set up password manager
+bindsym $mod+shift+a exec "rofi-pass"
 
 # Set up screen lock keybinding
 set $lock killall -SIGUSR1 dunst; betterlockscreen -l && killall -SIGUSR2 dunst
@@ -270,7 +301,7 @@ bindsym   XF86AudioPlay      exec playerctl          play-pause
 bindsym   XF86AudioPause     exec playerctl          play-pause
 bindsym   XF86AudioNext      exec playerctl          next
 bindsym   XF86AudioPrev      exec playerctl          previous
-bindsym   XF86Calculator     exec gnome-calculator
+bindsym   XF86Calculator     exec $calculator
 
 # Sreen brightness controls
 bindsym   XF86MonBrightnessUp     exec   xbacklight   -inc   20
@@ -294,7 +325,7 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 bar {
 	position                bottom
 	# output                  primary
-	status_command          ~/.config/i3/bumblebee-status/bumblebee-status -m spotify cpu memory network_traffic vpn pasink pasource battery datetime -p engine.workspacewheel=false datetime.left-click="gsimplecal" battery.device="BAT0" memory.format="{percent:05.02f}%" datetime.format="%A, %d-%m-%Y | %H:%M:%S " -t mytheme
+	status_command          bumblebee-status -m spotify cpu memory traffic pulseout pulsein datetime dunst -t mytheme
 	font                    $primary_font
 	tray_output             none
 	tray_padding            0
@@ -326,8 +357,9 @@ mode "$mode_system" {
 
 # Autostart applications
 exec --no-startup-id xautolock -time 20 -locker "$lock"
-exec --no-startup-id /usr/bin/nm-applet
-exec --no-startup-id /usr/bin/compton --config ~/.config/compton.conf -b
+# exec --no-startup-id /usr/bin/nm-applet
+# exec --no-startup-id /usr/bin/picom --config ~/.config/picom.conf -b
+# exec --no-startup-id /usr/bin/compton --config ~/.config/compton.conf -b
 exec --no-startup-id /usr/bin/dropbox start -i
 exec --no-startup-id clipmenud
 
@@ -335,6 +367,6 @@ exec_always --no-startup-id ~/.screenlayout/sandang.sh # xrandr
 exec_always --no-startup-id dunst -config ~/.config/dunst/dunstrc
 exec_always --no-startup-id xmodmap ~/.Xmodmap
 exec_always --no-startup-id xrdb ~/.Xresources
-exec_always --no-startup-id feh --bg-fill ~/Pictures/Wallpapers/wallpaper-2-2560x1440.png
+exec_always --no-startup-id feh --bg-fill ~/Pictures/Wallpapers/wallpaper-0-2560x1440.png
 # exec_always --no-startup-id ~/.config/polybar/launch.sh
 # exec_always --no-startup-id xcape -e "Hyper_L=Escape"

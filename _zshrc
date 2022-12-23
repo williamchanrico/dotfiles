@@ -75,6 +75,9 @@ bindkey -M menuselect 'j' vi-down-line-or-history
 bindkey "^p" up-line-or-beginning-search
 bindkey "^n" down-line-or-beginning-search
 
+# Adjust file listing colors for other-writables
+export LS_COLORS="$LS_COLORS:ow=1;34;107:tw=1;34:"
+
 ###################
 # Auto-completion #
 ###################
@@ -235,8 +238,8 @@ export RESTIC_REPOSITORY=/run/media/william/HD-E1/backup/personal
 # [ -s "$NVM_SOURCE/nvm.sh" ] && . "$NVM_SOURCE/nvm.sh"	# Load NVM
 
 # Setup NPM user-wide installation, but are replaced by nvm specific
-# PATH="$HOME/.node_modules/bin:$PATH"
-# export npm_config_prefix=~/.node_modules
+PATH="$HOME/.node_modules/bin:$PATH"
+export npm_config_prefix=~/.node_modules
 
 # Set up Composer
 export PATH=$HOME/.config/composer/vendor/bin:$PATH
@@ -260,7 +263,11 @@ export WINEPREFIX="${BASE_WINEPREFIX64}/default"
 export WINE_LINE="WINEPREFIX=${BASE_WINEPREFIX64}/naver-line WINEARCH=win64"
 alias winecfg-line="env $WINE_LINE winecfg"
 alias winetricks-line="env $WINE_LINE winetricks line"
-alias wine-line="dex ~/LINE.desktop"
+# Replace with ~/bin/wine-line script
+# alias wine-line="dex ~/LINE.desktop"
+
+# Gcloud (https://cloud.google.com/sdk/crypto#cloudsdk_python_sitepackages=1)
+export CLOUDSDK_PYTHON_SITEPACKAGES=1
 
 ###########
 # Aliases #
@@ -314,6 +321,7 @@ alias tg="TERRAGRUNT_TFPATH=terraform-v1.0.7 terragrunt-v0.32.4"
 alias tg-tf-v1.0.6="TERRAGRUNT_TFPATH=terraform-v1.0.6 terragrunt-v0.32.4"
 alias tg-tf-v1.0.7="TERRAGRUNT_TFPATH=terraform-v1.0.7 terragrunt-v0.32.4"
 alias tg-tf-v1.1.3="TERRAGRUNT_TFPATH=terraform-v1.1.3 terragrunt-v0.32.4"
+alias tg-tf-v1.2.1="TERRAGRUNT_TFPATH=terraform-v1.2.1 terragrunt-v0.32.4"
 
 # Webcam Access
 alias wcam="mpv --demuxer-lavf-format video4linux2 --demuxer-lavf-o-set input_format=mjpeg av://v4l2:/dev/video0"
