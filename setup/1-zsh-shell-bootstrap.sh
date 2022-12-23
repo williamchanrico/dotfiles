@@ -26,3 +26,22 @@ yadm clone https://bitbucket.org/williamchanrico/dotfiles
 # Install powerline fonts
 sudo pacman -S --needed --noconfirm awesome-terminal-fonts
 yay -S --needed --noconfirm powerline-fonts-git nerd-fonts-dejavu-complete
+
+# Setup DNS-over-TLS with CoreDNS
+yay -S --needed --noconfirm coredns-git
+cat <<EOF | sudo tee -a /etc/coredns/corefile
+. {
+    forward . tls://1.1.1.1 tls://1.0.0.1 {
+       tls_servername cloudflare-dns.com
+       health_check 5s
+    }
+    cache 30
+}
+EOF
+sudo systemctl stop systemd-resolved
+sudo systemctl disable systemd-resolved
+sudo systemctl enable coredns
+sudo systemctl start coredns
+sleep 1
+dig @127.0.0.1 arzhon.id
+echo "Visit https://1.1.1.1/help to verify\!"
