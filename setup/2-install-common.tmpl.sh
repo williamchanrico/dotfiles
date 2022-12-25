@@ -152,8 +152,8 @@ sudo pacman -S --needed --noconfirm \
 	expat \
 	# Prettifier
 	prettier \
-	# Linter for shell scripts
-	shellcheck \
+	# Linter for shell scripts (replaced shellcheck with shellcheck-bin from AUR to avoid haskell runtime dep)
+	# shellcheck \
 	shfmt \
 	# Show audio/video files
 	mediainfo \
@@ -197,6 +197,8 @@ sudo pacman -S --needed --noconfirm \
 	# Monitor X activity and can trigger a lock program
 	xautolock
 yay -S --needed --noconfirm \
+	# Linter for shell scripts (replaced shellcheck with shellcheck-bin from AUR to avoid haskell runtime dep)
+	shellcheck-bin \
 	# NodeJS manager
 	nvm \
 	# Audio streaming
