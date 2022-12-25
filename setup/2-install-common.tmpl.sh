@@ -154,6 +154,7 @@ sudo pacman -S --needed --noconfirm \
 	prettier \
 	# Linter for shell scripts
 	shellcheck \
+	shfmt \
 	# Show audio/video files
 	mediainfo \
 
