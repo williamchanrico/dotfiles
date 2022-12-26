@@ -14,8 +14,9 @@ sudo pacman -S --needed --noconfirm docker docker-compose
 sudo usermod -aG docker william
 sudo pacman -S --needed --noconfirm podman fuse-overlayfs slirp4netns
 
-# Setup ansible (use virtualenv)
-# sudo pacman -S --needed --noconfirm ansible ansible-lint
+# Setup Ansible LSP (though will be using virtualenv for the Ansible itself)
+sudo pacman -S --needed --noconfirm ansible ansible-lint
+yay -S --needed --noconfirm ansible-language-server
 
 # Setup ...
 sudo pacman -S --needed --noconfirm binwalk tmux fzf clipmenu s-tui rofi

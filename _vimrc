@@ -42,6 +42,7 @@ Plugin 'lepture/vim-jinja'
 Plugin 'ryanoasis/vim-devicons'
 Plugin 'nvim-plugins/nvim-syntax-go'
 Plugin 'buoto/gotests-vim'
+Plugin 'pearofducks/ansible-vim'
 
 call vundle#end()
 
@@ -157,6 +158,7 @@ let g:airline#extensions#ale#enabled=1
 let g:ale_linters_explicit=1
 let g:ale_lint_on_save=1
 let g:ale_linters={
+\   'ansible': ['ansible-language-server'],
 \   'sh': ['language_server'],
 \   'go': ['gopls', 'golint'],
 \   'python': ['pylint'],
@@ -344,3 +346,10 @@ nnoremap <silent> <A-Right> :execute 'silent! tabmove ' . (tabpagenr()+1)<CR>
 " vnoremap <leader>de :!python2 -c 'import sys,urllib;print urllib.unquote(sys.stdin.read().strip())'<cr>
 vnoremap <Leader>enn :<C-u>silent '<,'>!perl -CIO -MHTML::Entities -pe '$_=encode_entities $_'<CR>
 vnoremap <Leader>dee :<C-u>silent '<,'>!perl -CI  -MHTML::Entities -pe '$_=decode_entities $_'<CR>
+
+" Ansible
+au BufRead,BufNewFile */playbooks/*.yml set filetype=yaml.ansible
+au BufRead,BufNewFile */playbooks/*.yaml set filetype=yaml.ansible
+au BufRead,BufNewFile */group_vars/* set filetype=yaml.ansible
+au BufRead,BufNewFile */roles/*.yml set filetype=yaml.ansible
+au BufRead,BufNewFile */roles/*.yaml set filetype=yaml.ansible
