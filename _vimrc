@@ -164,6 +164,7 @@ let g:ale_linters={
 \   'python': ['pylint'],
 \   'html': ['prettier'],
 \   'yaml': ['yaml-language-server'],
+\   'sql': ['sqlfluff'],
 \}
 let g:ale_lint_on_text_changed='never'
 " Set this variable to 1 to fix files when you save them.
@@ -178,7 +179,7 @@ let g:ale_fixers={
 \  'css': ['prettier'],
 \  'html': ['prettier'],
 \  'markdown': ['prettier'],
-\  'sql': ['sqlfmt'],
+\  'sql': ['sqlfluff'],
 \  'tf': ['terraform'],
 \}
 
@@ -354,3 +355,6 @@ au BufRead,BufNewFile */playbooks/*.yaml set filetype=yaml.ansible
 au BufRead,BufNewFile */group_vars/* set filetype=yaml.ansible
 au BufRead,BufNewFile */roles/*.yml set filetype=yaml.ansible
 au BufRead,BufNewFile */roles/*.yaml set filetype=yaml.ansible
+
+" Sqlfluff
+let g:ale_sql_sqlfluff_options='--dialect bigquery'

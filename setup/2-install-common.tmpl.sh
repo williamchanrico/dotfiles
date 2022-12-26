@@ -139,6 +139,8 @@ sudo pacman -S --needed --noconfirm \
 	# Parser
 	#
 
+	# SQL Parser
+	sqlfluff \
 	# Hex dump/viewer
 	xxd \
 	hexyl \
