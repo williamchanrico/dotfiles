@@ -25,7 +25,6 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'fatih/vim-go'
-Plugin 'elzr/vim-json'
 Plugin 'scrooloose/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'airblade/vim-gitgutter'
@@ -175,6 +174,7 @@ let g:ale_fixers={
 \  'cpp': ['clang-format'],
 \  'sh': ['shfmt'],
 \  'yaml': ['prettier'],
+\  'json': ['prettier'],
 \  'css': ['prettier'],
 \  'html': ['prettier'],
 \  'markdown': ['prettier'],
