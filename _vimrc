@@ -87,10 +87,10 @@ let g:vimwiki_list = [{'path': '~/vimwiki/',
 let g:vim_search_pulse_mode = 'pattern'
 
 augroup Pulse
-	autocmd! User PrePulse
-	autocmd! User PostPulse
-	autocmd  User PrePulse  set cursorcolumn
-	autocmd  User PostPulse set nocursorcolumn
+  autocmd! User PrePulse
+  autocmd! User PostPulse
+  autocmd  User PrePulse  set cursorcolumn
+  autocmd  User PostPulse set nocursorcolumn
 augroup END
 
 autocmd FileType hcl setlocal shiftwidth=2 tabstop=2 expandtab
@@ -157,7 +157,7 @@ let g:airline#extensions#ale#enabled=1
 let g:ale_linters_explicit=1
 let g:ale_lint_on_save=1
 let g:ale_linters={
-\	'sh': ['language_server'],
+\   'sh': ['language_server'],
 \   'go': ['gopls', 'golint'],
 \   'python': ['pylint'],
 \   'html': ['prettier'],
@@ -167,16 +167,16 @@ let g:ale_lint_on_text_changed='never'
 " Set this variable to 1 to fix files when you save them.
 let g:ale_fix_on_save=1
 let g:ale_fixers={
-\	'python': ['black'],
-\	'javascript': ['prettier'],
-\	'cpp': ['clang-format'],
-\	'sh': ['shfmt'],
-\	'yaml': ['prettier'],
-\	'css': ['prettier'],
-\	'html': ['prettier'],
-\	'markdown': ['prettier'],
-\	'sql': ['sqlfmt'],
-\	'tf': ['terraform'],
+\  'python': ['black'],
+\  'javascript': ['prettier'],
+\  'cpp': ['clang-format'],
+\  'sh': ['shfmt'],
+\  'yaml': ['prettier'],
+\  'css': ['prettier'],
+\  'html': ['prettier'],
+\  'markdown': ['prettier'],
+\  'sql': ['sqlfmt'],
+\  'tf': ['terraform'],
 \}
 
 let g:ale_c_clangformat_options='-style=webkit'
@@ -231,7 +231,7 @@ set t_Co=256
 colorscheme molokai
 set cursorline
 hi LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE
-			\ gui=NONE guifg=DarkGrey guibg=NONE
+  \ gui=NONE guifg=DarkGrey guibg=NONE
 
 " Vim-go
 let g:go_highlight_format_strings=1
@@ -292,7 +292,7 @@ set splitbelow
 set splitright
 
 if !has('nvim')
-	set ttymouse=xterm2
+  set ttymouse=xterm2
 endif
 
 " Auto completion
@@ -320,14 +320,14 @@ nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 " For toggling underline on cursorline and set cursorcolumn
 let s:cursorCoordinateState=1
 function! ToggleCursorCoordinate()
-	if s:cursorCoordinateState
-		hi CursorLine gui=underline cterm=underline
-		set cursorcolumn
-	else
-		hi CursorLine gui=none cterm=none
-		set nocursorcolumn
-	endif
-	let s:cursorCoordinateState =  !s:cursorCoordinateState
+  if s:cursorCoordinateState
+    hi CursorLine gui=underline cterm=underline
+    set cursorcolumn
+  else
+    hi CursorLine gui=none cterm=none
+    set nocursorcolumn
+  endif
+  let s:cursorCoordinateState =  !s:cursorCoordinateState
 endfunction
 
 " Bind toggle key underlining cursorline and set cursorcolumn
