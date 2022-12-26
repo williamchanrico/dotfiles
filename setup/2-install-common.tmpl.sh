@@ -148,6 +148,7 @@ sudo pacman -S --needed --noconfirm \
 	jq \
 	# Parser for YAML
 	yq \
+	yaml-language-server \
 	# Parser for XML
 	expat \
 	# Prettifier

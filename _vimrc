@@ -164,7 +164,7 @@ let g:ale_linters={
 \   'go': ['gopls', 'golint'],
 \   'python': ['pylint'],
 \   'html': ['prettier'],
-\   'yaml': ['prettier'],
+\   'yaml': ['yaml-language-server'],
 \}
 let g:ale_lint_on_text_changed='never'
 " Set this variable to 1 to fix files when you save them.
