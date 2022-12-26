@@ -197,6 +197,8 @@ sudo pacman -S --needed --noconfirm \
 	# Monitor X activity and can trigger a lock program
 	xautolock
 yay -S --needed --noconfirm \
+	# Linter for Docker
+	hadolint-bin \
 	# Linter for shell scripts (replaced shellcheck with shellcheck-bin from AUR to avoid haskell runtime dep)
 	shellcheck-bin \
 	# NodeJS manager
