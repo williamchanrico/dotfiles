@@ -231,7 +231,9 @@ yay -S --needed --noconfirm \
 	bumblebee-status
 sudo pacman -S --needed --noconfirm \
 	# For it's iwgetid used by bumblebee-status
-	wireless_tools
+	wireless_tools \
+	# For spotify plugin
+	python-dbus
 
 
 # Network related tools
