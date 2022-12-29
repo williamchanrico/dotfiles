@@ -67,8 +67,6 @@ sudo pacman -S --needed --noconfirm \
 	unrar \
 	# Backup tool
 	restic \
-	# Backblaze cloud storage CLI
-	backblaze-b2 \
 
 	#
 	# Docs
@@ -187,8 +185,6 @@ sudo pacman -S --needed --noconfirm \
 	# X Server
 	#
 
-	# Compositor for X
-	compton \
 	# X automation
 	xdotool \
 	# Clipboard selection and manipulation
@@ -200,6 +196,8 @@ sudo pacman -S --needed --noconfirm \
 	# Monitor X activity and can trigger a lock program
 	xautolock
 yay -S --needed --noconfirm \
+	# Backblaze cloud storage CLI
+	backblaze-b2 \
 	# Linter for Docker
 	hadolint-bin \
 	# Linter for shell scripts (replaced shellcheck with shellcheck-bin from AUR to avoid haskell runtime dep)
@@ -280,5 +278,5 @@ sudo pacman -S --needed --noconfirm \
 	noto-fonts-emoji \
 	ttf-hanazono \
 	adobe-source-han-sans-otc-fonts
-yay -S --needed --noconfirm ttf-awesome-fonts nerd-fonts-dejavu-complete \
-	ttf-nerd-fonts-symbols ttf-font-icons ttf-ms-fonts
+yay -S --needed --noconfirm nerd-fonts-dejavu-complete \
+	ttf-nerd-fonts-symbols-common ttf-font-icons ttf-ms-fonts
