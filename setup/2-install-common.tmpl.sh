@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Remove comments before exec
-# sed '/^.*#/d;/^$/d' ./setup/2-install-common.tmpl.sh >./setup/2-install-common.sh
+# sed '/^.*#/d;/^$/d' ./setup/2-install-common.tmpl.sh >./setup/2-install-common.sh && chmod +x ./setup/2-install-common.sh
 
 # Install common packages
 sudo pacman -S --needed --noconfirm \
