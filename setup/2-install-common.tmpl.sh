@@ -224,7 +224,7 @@ yay -S --needed --noconfirm \
 	# Volume control for i3
 	i3-volume \
 	# Text editor
-	sublime-text-dev
+	sublime-text-dev \
 	# Messaging
 	ferdium-bin
 
