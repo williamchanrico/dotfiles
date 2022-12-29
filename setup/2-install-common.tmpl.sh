@@ -5,6 +5,8 @@
 
 # Install common packages
 sudo pacman -S --needed --noconfirm \
+	# Subtitle Editor
+	gaupol \
 	# Graph Visualizer
 	graphviz \
 	# List open files
