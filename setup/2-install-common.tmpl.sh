@@ -39,6 +39,7 @@ sudo pacman -S --needed --noconfirm \
 	z \
 	# File manager
 	ranger \
+	nemo \
 	# Terminal multiplexer
 	tmux \
 	# Tree view of directory
