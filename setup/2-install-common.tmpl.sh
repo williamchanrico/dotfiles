@@ -181,8 +181,8 @@ sudo pacman -S --needed --noconfirm \
 	nvme-cli \
 	# Monitoring system
 	htop \
-	# Monitoring sensor
-	psensor \
+	# Monitoring sensor (removed due to bloat icons dependency)
+	# psensor \
 
 	#
 	# X Server
