@@ -11,12 +11,21 @@ https://github.com/TheLocehiliosan/yadm
 # Set up YADM :+1:
 yay -S --noconfirm yadm-git
 
-# Clone (skip shell history)
+# Create a temporary Bitbucket app password (read-only on repository)
 # https://support.atlassian.com/bitbucket-cloud/docs/create-an-app-password/
+
+# Clone (skip shell history)
  yadm clone https://williamchanrico@gmail.com:<BITBUCKET_TEMPORARY_APP_PASSWORD>@bitbucket.org/williamchanrico/dotfiles
 
 # Decrypt yadm encrypt archive
 yadm decrypt
+
+# Replace yadm remote origin HTTPS with SSH
+yadm remote origin -v
+yadm remote remove origin
+yadm remote add origin git@bitbucket.org:williamchanrico/dotfiles.git
+
+# Delete the temporary Bitbucket app password
 ```
 
 ## Screenshot(s) Preview
