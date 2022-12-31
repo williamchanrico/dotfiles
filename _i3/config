@@ -4,14 +4,14 @@ set $mod Mod4
 set $primary_font pango:DejaVu Sans Mono for Powerline 10
 font $primary_font
 
-hide_edge_borders            none
-default_floating_border      normal
-default_border               pixel    1
-smart_gaps                   on
-smart_borders                on
+# Set variables for floating
+set $float_options floating enable, border none
 
-gaps inner 16
-gaps outer -4
+hide_edge_borders       none
+default_floating_border normal
+default_border          pixel   1
+smart_gaps              on
+smart_borders           on
 
 # class                 border  bground text    indicator child_border
 client.focused          #4C7899 #ff0074 #FFFFFF #2E9EF4   #D30000
@@ -22,6 +22,9 @@ client.placeholder      #000000 #0C0C0C #FFFFFF #000000   #0C0C0C
 
 client.background       #FFFFFF
 
+# Gaps
+gaps inner 16
+gaps outer -4
 # Resize gaps
 bindsym   $mod+s         gaps   inner   current   plus    4
 bindsym   $mod+Shift+s   gaps   inner   current   minus   4
@@ -39,7 +42,7 @@ focus_wrapping no
 force_display_urgency_hint 500 ms
 
 # Smart popup during fullscreen
-popup_during_fullscreen smart
+popup_during_fullscreen leave_fullscreen
 
 # Do not follow the mouse
 focus_follows_mouse no
@@ -50,8 +53,22 @@ bindsym $mod+t exec i3-sensible-terminal
 # Kill focused window
 bindsym $mod+d kill
 
-# Start rofi
-# -theme Pop-Dark -location 6 -lines 10 -yoffset -50
+# Reload the configuration file
+bindsym $mod+Shift+c reload
+#
+# Restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+#
+# Exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+#  ____        __ _
+# |  _ \ ___  / _(_)
+# | |_) / _ \| |_| |
+# |  _ < (_) |  _| |
+# |_| \_\___/|_| |_|
+#
+# Rofi (~/.config/rofi/config.rasi)
 bindsym   $mod+semicolon   exec   rofi                   -show   run
 bindsym   $mod+p           exec   rofi                   -show   window
 bindsym   $mod+n           exec   networkmanager_dmenu
@@ -66,7 +83,21 @@ bindsym   $mod+c           exec   $calculator
 # https://github.com/Mange/rofi-emoji
 bindsym   $mod+v           exec rofi -modi emoji -show emoji -emoji-format '{emoji} {name}'
 
+# Clipmenu (primary)
+bindsym Control+$mod+n exec CM_HISTLENGTH=10 CM_LAUNCHER=rofi clipmenu -show run -p clipboard
 
+# Password manager
+bindsym $mod+shift+a exec "rofi-pass"
+
+# Headphone profile toggle
+bindsym Ctrl+Mod1+p exec "~/bin/toggle-bthp.sh"
+
+# __        ___           _
+# \ \      / (_)_ __   __| | _____      _____
+#  \ \ /\ / /| | '_ \ / _` |/ _ \ \ /\ / / __|
+#   \ V  V / | | | | | (_| | (_) \ V  V /\__ \
+#    \_/\_/  |_|_| |_|\__,_|\___/ \_/\_/ |___/
+#
 # Use hjkl
 bindsym $mod+h focus left
 bindsym $mod+j focus down
@@ -79,6 +110,9 @@ bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
+# Jump to urgent window
+bindsym $mod+u [urgent=latest] focus
+
 # Move the currently focused window to the scratchpad
 bindsym $mod+Shift+minus move scratchpad
 
@@ -87,24 +121,24 @@ bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
 
 # Alternatively, use the cursor keys:
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
+bindsym $mod+Left   focus left
+bindsym $mod+Down   focus down
+bindsym $mod+Up     focus up
+bindsym $mod+Right  focus right
 
 # Alternatively, use the cursor keys:
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
+bindsym $mod+Shift+Left   move left
+bindsym $mod+Shift+Down   move down
+bindsym $mod+Shift+Up     move up
+bindsym $mod+Shift+Right  move right
 
 # Resize window
-bindsym $mod+Ctrl+h resize shrink width 1 px or 1 ppt
-bindsym $mod+Ctrl+k resize grow height 1 px or 1 ppt
-bindsym $mod+Ctrl+j resize shrink height 1 px or 1 ppt
-bindsym $mod+Ctrl+l resize grow width 1 px or 1 ppt
+bindsym $mod+Ctrl+h resize shrink  width  1 px or 1 ppt
+bindsym $mod+Ctrl+k resize grow    height 1 px or 1 ppt
+bindsym $mod+Ctrl+j resize shrink  height 1 px or 1 ppt
+bindsym $mod+Ctrl+l resize grow    width  1 px or 1 ppt
 
-# Split
+# Split orientation
 bindsym $mod+o split vertical
 bindsym $mod+e split horizontal
 
@@ -120,9 +154,81 @@ bindsym $mod+space focus mode_toggle
 # Focus the parent container
 bindsym $mod+a focus parent
 
-# Shortcut to clipmenu selection widget (primary)
-bindsym Control+$mod+n exec CM_HISTLENGTH=10 CM_LAUNCHER=rofi clipmenu -show run -p clipboard
+# Set the border width for all windows
+set $borderwidth 8
+for_window [class="^.*"] border pixel $borderwidth
 
+# Correct handling of floating windows
+for_window [class="Virt-manager"]               $float_options
+for_window [class="easyeffects"]                $float_options
+for_window [class="explorer.exe"]               $float_options
+for_window [class="NoiseTorch"]                 $float_options
+for_window [class="qpwgraph"]                   $float_options
+for_window [class="Gcolor3"]                    $float_options
+for_window [class="Psensor"]                    $float_options
+for_window [class="Nvidia-settings"]            $float_options
+for_window [class="^.*Ghb.*$"]                  $float_options
+for_window [class="^.*vokoscreen.*$"]           $float_options
+for_window [class="^.*DaVinci Resolve.*$"]      $float_options
+for_window [class="zoom"]                       $float_options
+for_window [class="(?i)arandr"]                 $float_options
+for_window [class="Gnome-tweaks"]               $float_options
+for_window [class="Gnome-disks"]                $float_options
+for_window [class="TeamViewer"]                 $float_options
+for_window [class="Blueman-manager"]            $float_options
+for_window [class="Subl"]                       $float_options
+for_window [class="sublime_text"]               $float_options
+for_window [class="Steam"]                      $float_options
+for_window [class="Steam" title="^Steam$"]      floating disable
+for_window [class="Org.gnome.gedit"]            $float_options
+for_window [class="Eog"]                        $float_options
+for_window [class="PrismLauncher"]              $float_options
+for_window [class="MultiMC"]                    $float_options
+for_window [class="Minecraft*"]                 $float_options
+for_window [class="gnome-calculator"]           $float_options
+for_window [class="Transmission-gtk"]           $float_options
+for_window [class="Deadbeef"]                   $float_options
+for_window [class="File-roller"]                $float_options
+for_window [class="mpv"]                        $float_options
+for_window [class="system-monitor"]             $float_options
+for_window [class="(?i)calendar"]               $float_options
+for_window [class="(?i)nm-connection-editor"]   $float_options
+for_window [window_role="pop-up"]               $float_options
+for_window [window_role="bubble"]               $float_options
+for_window [window_role="task_dialog"]          $float_options
+for_window [window_role="dialog"]               $float_options
+for_window [window_role="menu"]                 $float_options
+for_window [window_role="Preferences"]          $float_options
+for_window [class="Clipgrab"]                   $float_options
+for_window [title="File Transfer*"]             $float_options
+for_window [class="GParted"]                    $float_options
+for_window [title="i3_help"]                    $float_options
+for_window [class="Lxappearance"]               $float_options
+for_window [class="Nitrogen"]                   $float_options
+for_window [class="Pavucontrol"]                $float_options
+for_window [class="Skype"]                      $float_options
+for_window [class="(?i)virtualbox"]             $float_options
+for_window [class="Nautilus"]                   $float_options
+for_window [class="Nemo"]                       $float_options
+for_window [class="Gpicview"]                   $float_options
+for_window [class="(?i)Google Keep"]            $float_options
+for_window [class="MEGAsync"]                   $float_options
+for_window [class="F5 VPN"]                     $float_options
+for_window [class="(?i)wine"]                   $float_options
+for_window [class="(?i)line"]                   $float_options
+for_window [class="anbox"]                      $float_options
+for_window [class="Gnome-control-center"]       $float_options
+for_window [class="Lutris"]                     $float_options
+# Zoom
+for_window [class="^.*join\?action.*$"]         $float_options
+
+# __        __         _
+# \ \      / /__  _ __| | _____ _ __   __ _  ___ ___
+#  \ \ /\ / / _ \| '__| |/ / __| '_ \ / _` |/ __/ _ \
+#   \ V  V / (_) | |  |   <\__ \ |_) | (_| | (_|  __/
+#    \_/\_/ \___/|_|  |_|\_\___/ .__/ \__,_|\___\___|
+#                              |_|
+#
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
 set $ws1 1:
@@ -135,9 +241,6 @@ set $ws7 7:
 set $ws8 8:
 set $ws9 9:
 set $ws10 10:
-
-# Setup workspace applications
-# exec --no-startup-id i3-msg 'workspace $ws2; exec google-chrome-stable'
 
 # Switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -164,114 +267,57 @@ bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
 
 # Assignments
-assign [class="Station"] $ws4
-assign [class="Hamsket"] $ws4
-assign [class="Ferdium"] $ws4
-assign [class="Rambox"]  $ws4
-# assign [class="^Steam$" title="^Steam$"] $ws8
-assign [class="^Steam$"] $ws8
+assign     [class="Station"]                $ws4
+assign     [class="Hamsket"]                $ws4
+assign     [class="Ferdium"]                $ws4
+assign     [class="Rambox"]                 $ws4
+assign     [class="^Steam$"]                $ws8
 for_window [class="obsidian"]               move to workspace $ws6
 for_window [class="Spotify"]                move to workspace $ws5
 for_window [title="(?i)Wine System Tray"]   move to workspace $ws7
-
-# Set the border width for all windows
-set $borderwidth 1
-for_window [class="^.*"] border pixel $borderwidth
-
-# Correct handling of floating windows
-for_window [class="easyeffects"]                floating      enable
-for_window [class="explorer.exe"]               floating      enable
-for_window [class="NoiseTorch"]                 floating      enable
-for_window [class="qpwgraph"]                   floating      enable
-for_window [class="Gcolor3"]                    floating      enable
-for_window [class="Psensor"]                    floating      enable
-for_window [class="Nvidia-settings"]            floating      enable
-for_window [class="^.*Ghb.*$"]                  floating      enable
-for_window [class="^.*vokoscreen.*$"]           floating      enable
-for_window [class="^.*DaVinci Resolve.*$"]      floating      enable
-for_window [class="zoom"]                       floating      enable
-for_window [class="arandr"]                     floating      enable
-for_window [class="Gnome-tweaks"]               floating      enable
-for_window [class="Gnome-disks"]                floating      enable
-for_window [class="TeamViewer"]                 floating      enable
-for_window [class="Blueman-manager"]            floating      enable
-for_window [class="Subl"]                       floating      enable
-for_window [class="sublime_text"]               floating      enable
-for_window [class="Steam"]                      floating      enable
-for_window [class="Steam" title="^Steam$"]      floating      disable
-for_window [class="Org.gnome.gedit"]            floating      enable
-for_window [class="Eog"]                        floating      enable
-for_window [class="PrismLauncher"]              floating      enable
-for_window [class="MultiMC"]                    floating      enable
-for_window [class="Minecraft*"]                 floating      enable
-for_window [class="gnome-calculator"]           floating      enable
-for_window [class="Transmission-gtk"]           floating      enable
-for_window [class="Deadbeef"]                   floating      enable
-for_window [class="File-roller"]                floating      enable
-for_window [class="mpv"]                        floating      enable
-for_window [class="system-monitor"]             floating      enable
-for_window [class="(?i)calendar"]               floating      enable
-for_window [class="(?i)nm-connection-editor"]   floating      enable
-for_window [window_role="pop-up"]               floating      enable
-for_window [window_role="bubble"]               floating      enable
-for_window [window_role="task_dialog"]          floating      enable
-for_window [window_role="dialog"]               floating      enable
-for_window [window_role="menu"]                 floating      enable
-for_window [window_role="Preferences"]          floating      enable
-for_window [title="alsamixer"]                  floating      enable     border   pixel    $borderwidth
-for_window [class="Clipgrab"]                   floating      enable
-for_window [title="File Transfer*"]             floating      enable
-for_window [class="GParted"]                    floating      enable     border   none
-for_window [title="i3_help"]                    floating      enable     sticky   enable   border   none
-for_window [class="Lxappearance"]               floating      enable     sticky   enable   border   none
-for_window [class="Nitrogen"]                   floating      enable     sticky   enable   border   none
-for_window [class="Pavucontrol"]                floating      enable
-for_window [class="Skype"]                      floating      enable     border   none
-for_window [class="(?i)virtualbox"]             floating      enable     border   none
-for_window [class="Nautilus"]                   floating      enable     border   none
-for_window [class="Nemo"]                       floating      enable     border   none
-for_window [class="Gpicview"]                   floating      enable     border   none
-for_window [class="(?i)Google Keep"]            floating      enable     border   none
-for_window [class="MEGAsync"]                   floating      enable     border   none
-for_window [class="F5 VPN"]                     floating      enable     border
-for_window [class="(?i)wine"]                   floating      enable     border   none
-for_window [class="(?i)line"]                   floating      enable     border   none
-for_window [class="anbox"]                      floating      enable     border   none
-for_window [class="Gnome-control-center"]       floating      enable     border   none
-for_window [class="Lutris"]                     floating      enable     border   none
-# Zoom
-for_window [class="^.*join\?action.*$"]         floating      enable
-
-# Set up password manager
-bindsym $mod+shift+a exec "rofi-pass"
-
-# Set up screen lock keybinding
-set $lock killall -SIGUSR1 dunst; betterlockscreen -l && killall -SIGUSR2 dunst
-bindsym Ctrl+Mod1+l exec "$lock"
-
-# Set up dunst notification
-bindsym Ctrl+space exec "dunstctl close"
-bindsym Ctrl+shift+space exec "dunstctl close-all"
-bindsym Ctrl+shift+comma exec "dunstctl history-pop"
-bindsym Ctrl+shift+period exec "dunstctl context"
-
-# Toggle headphone profile
-bindsym Ctrl+Mod1+p exec "~/bin/toggle-bthp.sh"
-
-# Printscreen using flameshot
-bindsym Print exec flameshot gui
-
-# Jump to urgent window
-bindsym $mod+u [urgent=latest] focus
+assign     [class="^Virt-.*"]               $ws7
 
 # Move workspace between monitors
 bindsym   $mod+comma    move   workspace   to   output   left
 bindsym   $mod+period   move   workspace   to   output   right
 
-# Redshift adjust temperature
-bindsym   $mod+Shift+q exec redshift -P -O 4500
-bindsym   $mod+Shift+w exec redshift -P -O 6500
+#  _               _
+# | |    ___   ___| | __
+# | |   / _ \ / __| |/ /
+# | |__| (_) | (__|   <
+# |_____\___/ \___|_|\_\
+#
+# Lock screen keybinding
+set $lock killall -SIGUSR1 dunst; betterlockscreen -l && killall -SIGUSR2 dunst
+bindsym Ctrl+Mod1+l exec "$lock"
 
+#  _   _       _   _  __ _           _   _
+# | \ | | ___ | |_(_)/ _(_) ___ __ _| |_(_) ___  _ __
+# |  \| |/ _ \| __| | |_| |/ __/ _` | __| |/ _ \| '_ \
+# | |\  | (_) | |_| |  _| | (_| (_| | |_| | (_) | | | |
+# |_| \_|\___/ \__|_|_| |_|\___\__,_|\__|_|\___/|_| |_|
+#
+# Dunst notification
+bindsym Ctrl+space exec "dunstctl close"
+bindsym Ctrl+shift+space exec "dunstctl close-all"
+bindsym Ctrl+shift+comma exec "dunstctl history-pop"
+bindsym Ctrl+shift+period exec "dunstctl context"
+
+#  ____       _       _
+# |  _ \ _ __(_)_ __ | |_ ___  ___ _ __ ___  ___ _ __
+# | |_) | '__| | '_ \| __/ __|/ __| '__/ _ \/ _ \ '_ \
+# |  __/| |  | | | | | |_\__ \ (__| | |  __/  __/ | | |
+# |_|   |_|  |_|_| |_|\__|___/\___|_|  \___|\___|_| |_|
+#
+# Flameshot
+bindsym Print exec flameshot gui
+
+#  __  __          _ _
+# |  \/  | ___  __| (_) __ _
+# | |\/| |/ _ \/ _` | |/ _` |
+# | |  | |  __/ (_| | | (_| |
+# |_|  |_|\___|\__,_|_|\__,_|
+#
 # Media player controls
 
 # Volume control
@@ -306,36 +352,36 @@ bindsym   XF86Calculator     exec $calculator
 # Sreen brightness controls
 bindsym   XF86MonBrightnessUp     exec   xbacklight   -inc   20
 bindsym   XF86MonBrightnessDown   exec   xbacklight   -dec   20
+# Redshift adjust temperature
+bindsym   $mod+Shift+q exec redshift -P -O 4500
+bindsym   $mod+Shift+w exec redshift -P -O 6500
 
 bindsym $mod+Control+r exec xrandr -s 0 && xrandr --auto
 
 # Touchpad controls
 bindsym XF86TouchpadToggle exec /some/path/toggletouchpad.sh
 
-# Reload the configuration file
-bindsym $mod+Shift+c reload
+#  ____
+# | __ )  __ _ _ __
+# |  _ \ / _` | '__|
+# | |_) | (_| | |
+# |____/ \__,_|_|
 #
-# Restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
-#
-# Exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
-
 # Start bumblebee-status
 bar {
-	position                bottom
-	# output                  primary
-	status_command          bumblebee-status -m spotify cpu memory traffic pulseout pulsein datetime dunst -t mytheme
-	font                    $primary_font
-	tray_output             none
-	tray_padding            0
-	workspace_buttons       yes
-	# strip_workspace_numbers yes
-	colors {
-		background #272827
-	}
-	bindsym button4 nop
-	bindsym button5 nop
+  position                bottom
+  # output                  primary
+  status_command          bumblebee-status --debug --logfile /var/log/bumblebee-status.log -m spotify cpu memory traffic pulseout pulsein datetime dunst -t mytheme
+  font                    $primary_font
+  tray_output             none
+  tray_padding            0
+  workspace_buttons       yes
+  # strip_workspace_numbers yes
+  colors {
+    background #272827
+  }
+  bindsym button4 nop
+  bindsym button5 nop
 }
 
 # Set shut down, restart and locking features
@@ -355,18 +401,24 @@ mode "$mode_system" {
     bindsym Escape mode "default"
 }
 
+#  _____
+# | ____|_  _____  ___
+# |  _| \ \/ / _ \/ __|
+# | |___ >  <  __/ (__
+# |_____/_/\_\___|\___|
+#
 # Autostart applications
 exec --no-startup-id xautolock -time 20 -locker "$lock"
-# exec --no-startup-id /usr/bin/nm-applet
-# exec --no-startup-id /usr/bin/picom --config ~/.config/picom.conf -b
-# exec --no-startup-id /usr/bin/compton --config ~/.config/compton.conf -b
 exec --no-startup-id /usr/bin/dropbox start -i
 exec --no-startup-id clipmenud
+exec --no-startup-id /usr/bin/picom --config ~/.config/picom/picom.conf -b
+# exec --no-startup-id /usr/bin/compton --config ~/.config/compton.conf -b
+# exec --no-startup-id /usr/bin/nm-applet
 
-exec_always --no-startup-id ~/.screenlayout/sandang.sh # xrandr
-exec_always --no-startup-id dunst -config ~/.config/dunst/dunstrc
 exec_always --no-startup-id xmodmap ~/.Xmodmap
 exec_always --no-startup-id xrdb ~/.Xresources
+exec_always --no-startup-id ~/.screenlayout/sandang.sh # xrandr
 exec_always --no-startup-id feh --bg-fill ~/Pictures/Wallpapers/wallpaper-0-2560x1440.png
+exec_always --no-startup-id dunst -config ~/.config/dunst/dunstrc
 # exec_always --no-startup-id ~/.config/polybar/launch.sh
 # exec_always --no-startup-id xcape -e "Hyper_L=Escape"
