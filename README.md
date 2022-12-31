@@ -1,16 +1,21 @@
 # Dotfiles :shipit:
 
 Config files for archlinux running i3 window manager
-and compton compositor, integrated into ~~GNOME~~ environment.
+and picom (fork of compton) compositor, integrated into ~~GNOME~~ environment.
 
 ## YADM Setup (dotfiles manager)
 
-```
-#!/usr/bin/env bash
+https://github.com/TheLocehiliosan/yadm
 
+```
 # Set up YADM :+1:
 yay -S --noconfirm yadm-git
-yadm clone https://bitbucket.org/williamchanrico/dotfiles
+
+# Clone (skip shell history)
+# https://support.atlassian.com/bitbucket-cloud/docs/create-an-app-password/
+ yadm clone https://williamchanrico@gmail.com:<BITBUCKET_TEMPORARY_APP_PASSWORD>@bitbucket.org/williamchanrico/dotfiles
+
+# Decrypt yadm encrypt archive
 yadm decrypt
 ```
 
@@ -26,7 +31,7 @@ Showing many running programs in tiling mode in one workspace
 
 <details>
   <summary>Click to preview!</summary>
-  
+
 ![screenshot-tiling](screenshots/screenshot02.png?raw=true "Screenshot tiles")
 </details>
 
@@ -36,6 +41,6 @@ Ranger preview support includes code with highlights, images, file meta-data, et
 
 <details>
   <summary>Click to preview!</summary>
-  
+
 ![screenshot-ranger](screenshots/screenshot03.png?raw=true "Screenshot ranger")
 </details>
