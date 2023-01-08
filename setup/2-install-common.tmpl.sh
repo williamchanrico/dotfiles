@@ -100,9 +100,10 @@ sudo pacman -S --needed --noconfirm \
 	asciinema \
 	# PNG compression
 	pngquant \
-	# Image viewer
+	# Image viewer and simple image editor
 	feh \
 	eog \
+	shotwell \
 	# Player
 	mpv \
 	# PulseAudio plugin
@@ -236,6 +237,7 @@ sudo pacman -S --needed --noconfirm \
 	# For it's iwgetid used by bumblebee-status
 	wireless_tools \
 	# For spotify plugin
+	playerctl \
 	python-dbus
 
 
