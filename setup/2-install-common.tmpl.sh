@@ -5,6 +5,9 @@
 
 # Install common packages
 sudo pacman -S --needed --noconfirm \
+	# OCR
+	tesseract \
+	tesseract-data-eng  \
 	# Subtitle Editor
 	gaupol \
 	# Graph Visualizer
@@ -42,6 +45,7 @@ sudo pacman -S --needed --noconfirm \
 	# File manager
 	ranger \
 	nemo \
+	nemo-fileroller \
 	# Terminal multiplexer
 	tmux \
 	# Tree view of directory
