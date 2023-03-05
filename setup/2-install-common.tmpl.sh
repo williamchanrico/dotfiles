@@ -87,6 +87,7 @@ sudo pacman -S --needed --noconfirm \
 	zathura-pdf-mupdf \
 	# Converts sourcecode to HTML, XHTML, RTF, LaTeX, TeX, SVG, BBCode and terminal escape sequences with coloured syntax highlighting
 	highlight \
+	pdftk \
 
 	#
 	# Multimedia (Audio/Video)
