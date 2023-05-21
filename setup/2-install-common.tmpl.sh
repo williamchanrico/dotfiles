@@ -284,11 +284,13 @@ sudo pacman -S --needed --noconfirm python python-pip pyenv python-pipenv \
 # Fonts
 sudo pacman -S --needed --noconfirm \
 	ttf-dejavu \
+	ttf-dejavu-nerd \
+	ttf-nerd-fonts-symbols \
+	ttf-nerd-fonts-symbols-mono \
 	ttf-font-awesome \
-	noto-fonts \
 	noto-fonts-cjk \
 	noto-fonts-emoji \
 	ttf-hanazono \
 	adobe-source-han-sans-otc-fonts
-yay -S --needed --noconfirm nerd-fonts-dejavu-complete \
-	ttf-nerd-fonts-symbols-common ttf-font-icons ttf-ms-fonts
+yay -S --needed --noconfirm \
+	ttf-font-icons ttf-ms-fonts

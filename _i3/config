@@ -4,17 +4,21 @@ set $mod Mod4
 set $primary_font pango:DejaVu Sans Mono for Powerline 10
 font $primary_font
 
+set $borderwidth 2
+
 # Set variables for floating
-set $float_options floating enable, border none
+set $float_options floating enable, border $borderwidth
 
 hide_edge_borders       none
-default_floating_border normal
-default_border          pixel   1
+default_floating_border none
+# Disable titlebar for i3-gaps
+default_border          pixel   $borderwidth
 smart_gaps              on
 smart_borders           on
 
 # class                 border  bground text    indicator child_border
-client.focused          #4C7899 #ff0074 #FFFFFF #2E9EF4   #D30000
+# client.focused          #4C7899 #FF0074 #FFFFFF #009688   #009688
+client.focused          #4C7899 #ff0074 #FFFFFF #D30000   #D30000
 client.focused_inactive #333333 #5F676A #FFFFFF #484E50   #5F676A
 client.unfocused        #333333 #222222 #888888 #292D2E   #222222
 client.urgent           #2F343A #900000 #FFFFFF #900000   #900000
@@ -155,7 +159,6 @@ bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent
 
 # Set the border width for all windows
-set $borderwidth 8
 for_window [class="^.*"] border pixel $borderwidth
 
 # Correct handling of floating windows
@@ -186,7 +189,7 @@ for_window [class="PrismLauncher"]              $float_options
 for_window [class="MultiMC"]                    $float_options
 for_window [class="Minecraft*"]                 $float_options
 for_window [class="gnome-calculator"]           $float_options
-for_window [class="Transmission-gtk"]           $float_options
+for_window [class="(?i)transmission-gtk"]       $float_options
 for_window [class="Deadbeef"]                   $float_options
 for_window [class="File-roller"]                $float_options
 for_window [class="mpv"]                        $float_options
@@ -371,7 +374,7 @@ bindsym XF86TouchpadToggle exec /some/path/toggletouchpad.sh
 bar {
   position                bottom
   # output                  primary
-  status_command          bumblebee-status --debug --logfile /var/log/bumblebee-status.log -m spotify cpu memory traffic pulseout pulsein datetime dunst -t mytheme
+  status_command          bumblebee-status --logfile /var/log/bumblebee-status.log -m playerctl cpu memory traffic pulseout pulsein datetime dunst -t mytheme
   font                    $primary_font
   tray_output             none
   tray_padding            0
@@ -411,7 +414,7 @@ mode "$mode_system" {
 exec --no-startup-id xautolock -time 20 -locker "$lock"
 exec --no-startup-id /usr/bin/dropbox start -i
 exec --no-startup-id clipmenud
-exec --no-startup-id /usr/bin/picom --config ~/.config/picom/picom.conf -b
+# exec --no-startup-id /usr/bin/picom --config ~/.config/picom/picom.conf -b
 # exec --no-startup-id /usr/bin/compton --config ~/.config/compton.conf -b
 # exec --no-startup-id /usr/bin/nm-applet
 
