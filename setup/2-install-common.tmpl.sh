@@ -142,6 +142,9 @@ sudo pacman -S --needed --noconfirm \
 	peek \
 	vokoscreen \
 
+	# MIME Manager
+	handlr \
+
 	#
 	# Parser
 	#
@@ -232,6 +235,8 @@ yay -S --needed --noconfirm \
 	i3-volume \
 	# Text editor
 	sublime-text-dev \
+	# MIME Manager
+	handlr \
 	# Messaging
 	ferdium-bin
 
