@@ -67,7 +67,7 @@ git clone --depth=1 https://github.com/romkatv/powerlevel10k "${ZSH_CUSTOM:-$HOM
 yay -S --needed --noconfirm python-aws-mfa aws-cli
 
 # Setup kubectl
-yay -S --needed --noconfirm google-cloud-cli kubectl-bin kubectx
+yay -S --needed --noconfirm google-cloud-cli kubectl-bin kubectx google-cloud-cli-gke-gcloud-auth-plugin
 git clone https://github.com/williamchanrico/kube-ps1 ~/.oh-my-zsh/custom/plugins/kube-ps1
 git clone https://github.com/williamchanrico/gcloud-zsh-completion ~/.zsh_completion/gcloud-zsh-completion
 
