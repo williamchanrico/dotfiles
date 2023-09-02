@@ -254,6 +254,7 @@ sudo pacman -S --needed --noconfirm \
 # Network related tools
 sudo pacman -S --needed --noconfirm \
 	# Network troubleshooting
+	net-tools \
 	netcat \
 	tcpdump \
 	iftop \
