@@ -83,6 +83,11 @@ cp ./wallpapers/* ~/Pictures/Wallpapers/
 betterlockscreen -u vim ~/Pictures/Wallpapers/wallpaper-2-2560x1440.png
 sudo systemctl enable betterlockscreen@william
 
+# Fix random crashes on memory intensive softwares (i.e. AAA games)
+# Sets the maximum number of memory map areas a process may have. Defaults to 65530.
+echo "Setting vm.max_map_count=1048576 to increase the max amount of memory map areas a process may have."
+echo "vm.max_map_count=1048576" | sudo tee /usr/lib/sysctl.d/99-vm-max_map_count.conf
+
 # Setup DNSCrypt and Unbound
 # sudo pacman -S --needed --noconfirm dnscrypt-proxy unbound
 
@@ -149,7 +154,9 @@ sudo systemctl enable betterlockscreen@william
 
 # env $WINE_LINE wine regedit /tmp/fontsmoothing 2> /dev/null
 
+#
 # Post-install messages
+#
 echo "Notes:"
 echo ""
 echo "> https://github.com/fphoenix88888/ttf-mswin10-arch for MS fonts"
