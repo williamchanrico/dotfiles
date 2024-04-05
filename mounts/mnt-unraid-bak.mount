@@ -1,0 +1,14 @@
+[Unit]
+Description=Mount Share at boot - unraid.zendomu.local/bak
+Requires=network.target
+After=network.target
+
+[Mount]
+What=//unraid.zendomu.local/bak
+Where=/mnt/unraid/bak
+Options=uid=1000,gid=1000,_netdev,credentials=/etc/samba/credentials/william,iocharset=utf8,rw
+Type=cifs
+TimeoutSec=10
+
+[Install]
+WantedBy=multi-user.target
