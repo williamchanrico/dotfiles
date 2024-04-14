@@ -83,6 +83,9 @@ cp ./wallpapers/* ~/Pictures/Wallpapers/
 betterlockscreen -u vim ~/Pictures/Wallpapers/wallpaper-2-2560x1440.png
 sudo systemctl enable betterlockscreen@william
 
+# Setup ntfy (notification tool)
+yay -S --needed --noconfirm ntfy-git
+
 # Setup node exporter
 sudo pacman -S prometheus-node-exporter
 
