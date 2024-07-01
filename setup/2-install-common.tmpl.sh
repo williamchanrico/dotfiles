@@ -39,7 +39,8 @@ sudo pacman -S --needed --noconfirm \
 	rofi \
 	rofi-calc \
 	# Terminal
-	rxvt-unicode \
+	# rxvt-unicode \
+	wezterm \
 	# Directory jumper
 	z \
 	# File manager
@@ -80,7 +81,7 @@ sudo pacman -S --needed --noconfirm \
 	#
 
 	# Office suite
-	libreoffice-fresh \
+	# libreoffice-fresh \
 	# PDF reader
 	zathura \
 	# Support mupd rendering (MuPDF library can parse and render PDF, XPS, and EPUB)
@@ -229,8 +230,8 @@ yay -S --needed --noconfirm \
 	ntfy \
 	# dmenu support for NetworkManager
 	networkmanager-dmenu-git \
-	# Rxvt terminal Perl extension
-	urxvt-perls-git \
+	# Rxvt terminal Perl extension (deprecated over wezterm)
+	# urxvt-perls-git \
 	# Volume control for i3
 	i3-volume \
 	# Text editor
