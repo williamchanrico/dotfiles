@@ -126,8 +126,12 @@ config.keys = {
     -- Turn off the default CMD-m Hide action, allowing CMD-m to
     -- be potentially recognized and handled by the tab
     {key = 'm', mods = 'CMD', action = wezterm.action.DisableDefaultAssignment},
-
+    {key = 'w', mods = 'CTRL', action = wezterm.action.DisableDefaultAssignment},
     {
+        key = 'w',
+        mods = 'SUPER',
+        action = wezterm.action.DisableDefaultAssignment
+    }, {
         key = "V",
         mods = "SHIFT|SUPER",
         action = wezterm.action.PasteFrom("Clipboard")
@@ -225,10 +229,6 @@ config.keys = {
         key = "t",
         mods = "CTRL",
         action = wezterm.action.SpawnTab("CurrentPaneDomain")
-    }, {
-        key = "w",
-        mods = "CTRL",
-        action = wezterm.action.CloseCurrentTab {confirm = true}
     },
     {key = "Tab", mods = "CTRL", action = wezterm.action.ActivateTabRelative(1)},
     {
