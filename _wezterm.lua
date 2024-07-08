@@ -8,6 +8,9 @@ wezterm.on("gui-startup", function()
     window:gui_window():maximize()
 end)
 
+-- Hide title bar, but allow resize.
+config.window_decorations = "RESIZE"
+
 -- Visual Bell
 config.visual_bell = {
     fade_in_function = 'EaseIn',
