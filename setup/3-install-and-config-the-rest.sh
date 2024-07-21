@@ -87,7 +87,7 @@ sudo systemctl enable betterlockscreen@william
 yay -S --needed --noconfirm ntfy-git
 
 # Setup node exporter
-sudo pacman -S prometheus-node-exporter
+sudo pacman -S prometheus-node-exporter prometheus-blackbox-exporter
 
 # Fix random crashes on memory intensive softwares (i.e. AAA games)
 # Sets the maximum number of memory map areas a process may have. Defaults to 65530.
