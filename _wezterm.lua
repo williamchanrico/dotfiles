@@ -124,6 +124,14 @@ if wezterm.gui then
     })
 end
 
+config.mouse_bindings = {
+    {
+        event = {Up = {streak = 1, button = "Left"}},
+        mods = "NONE",
+        action = wezterm.action.Nop
+    }
+}
+
 config.key_tables = {copy_mode = copy_mode, search_mode = search_mode}
 config.keys = {
     -- Turn off the default CMD-m Hide action, allowing CMD-m to
