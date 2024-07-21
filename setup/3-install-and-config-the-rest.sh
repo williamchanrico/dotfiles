@@ -88,6 +88,27 @@ yay -S --needed --noconfirm ntfy-git
 
 # Setup node exporter
 sudo pacman -S prometheus-node-exporter prometheus-blackbox-exporter
+sudo mkdir -p /etc/prometheus
+cat <<-EOF | sudo tee /etc/prometheus/blackbox.yml
+	modules:
+	  icmp:
+	    prober: icmp
+	    timeout: 5s
+	    icmp:
+	      preferred_ip_protocol: "ip4"
+	  http_2xx:
+	    prober: http
+	    http:
+	      preferred_ip_protocol: "ip4"
+	  http_post_2xx:
+	    prober: http
+	    http:
+	      method: POST
+EOF
+sudo systemctl restart prometheus-node-exporter
+sudo systemctl restart prometheus-blackbox-exporter
+sudo systemctl enable prometheus-node-exporter
+sudo systemctl enable prometheus-blackbox-exporter
 
 # Fix random crashes on memory intensive softwares (i.e. AAA games)
 # Sets the maximum number of memory map areas a process may have. Defaults to 65530.
