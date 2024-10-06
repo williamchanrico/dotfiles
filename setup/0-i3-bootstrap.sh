@@ -6,9 +6,6 @@ sudo sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
 # Synchronize package databases
 sudo pacman -Sy
 
-sudo pacman -S --noconfirm xorg-server xorg-apps \
-	gnome i3 networkmanager nm-connection-editor
-
 # Install yay
 if [ ! -x "$(command -v yay)" ]; then
 	# Install dependencies
@@ -27,11 +24,10 @@ if [ ! -x "$(command -v yay)" ]; then
 	rm -rf /tmp/yay_install
 fi
 
-yay -S --noconfirm i3-gnome
-
 # Disable beep noises
 sudo rmmod pcspkr
 echo "blacklist pcspkr" | sudo tee /etc/modprobe.d/nobeep.conf
 
-sudo systemctl enable NetworkManager
-sudo systemctl enable gdm
+sudo pacman -S --noconfirm neovim
+
+echo "Visit https://github.com/prasanthrangan/hyprdots"

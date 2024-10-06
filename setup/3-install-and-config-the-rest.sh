@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Setup neovim
-sudo pacman -S --needed --noconfirm gvim neovim
+sudo pacman -S --needed --noconfirm neovim
 mkdir -p ~/.config/nvim
 ln -fs ~/.vimrc ~/.config/nvim/init.vim
 
@@ -15,11 +15,11 @@ sudo usermod -aG docker william
 sudo pacman -S --needed --noconfirm podman fuse-overlayfs slirp4netns
 
 # Setup Ansible LSP (though will be using virtualenv for the Ansible itself)
-sudo pacman -S --needed --noconfirm ansible ansible-lint
-yay -S --needed --noconfirm ansible-language-server
+# sudo pacman -S --needed --noconfirm ansible ansible-lint
+# yay -S --needed --noconfirm ansible-language-server
 
 # Setup ...
-sudo pacman -S --needed --noconfirm binwalk tmux fzf clipmenu s-tui rofi
+sudo pacman -S --needed --noconfirm binwalk fzf
 
 # Setup pass
 sudo pacman -S --needed --noconfirm pass pass-otp
@@ -42,8 +42,8 @@ go get -u -v github.com/cweill/gotests/...
 GO111MODULE=on go get mvdan.cc/gofumpt/gofumports
 
 # Setup SQL Formatter
-curl -o ~/bin/sqlfmt -L https://github.com/lopezator/sqlfmt/releases/download/v1.2.0/sqlfmt-v1.2.0-linux-amd64
-chmod +x ~/bin/sqlfmt
+# curl -o ~/bin/sqlfmt -L https://github.com/lopezator/sqlfmt/releases/download/v1.2.0/sqlfmt-v1.2.0-linux-amd64
+# chmod +x ~/bin/sqlfmt
 
 # Setup exploits
 # yay -S --noconfirm exploit-db-git nikto gobuster-git burpsuite
@@ -51,40 +51,44 @@ chmod +x ~/bin/sqlfmt
 # git clone git@github.com:williamchanrico/wordlist.git ~/wordlist
 
 # Setup fzf-tab
-git clone https://github.com/Aloxaf/fzf-tab "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fzf-tab"
+# Requires sudo due to ZSH_CUSTOM now using /usr/share/oh-my-zsh/custom global path.
+sudo git clone https://github.com/Aloxaf/fzf-tab "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fzf-tab"
+
+# Setup zsh-completions
+sudo git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions
 
 # Setup zsh-completions from https://github.com/zchee/zsh-completions
 git clone https://github.com/zchee/zsh-completions ~/.zsh_completion/zchee_zsh-completions/
 
 # Setup zsh-autosuggestions and completions from https://github.com/zsh-users
-git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/plugins/zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-completions "${ZSH_CUSTOM:=$HOME/.oh-my-zsh/custom}"/plugins/zsh-completions
+# git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/plugins/zsh-autosuggestions
+# git clone https://github.com/zsh-users/zsh-completions "${ZSH_CUSTOM:=$HOME/.oh-my-zsh/custom}"/plugins/zsh-completions
 
 # Setup powerlevel10k
-git clone --depth=1 https://github.com/romkatv/powerlevel10k "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/themes/powerlevel10k
+# git clone --depth=1 https://github.com/romkatv/powerlevel10k "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/themes/powerlevel10k
 
 # Setup AWS
 yay -S --needed --noconfirm python-aws-mfa aws-cli
 
 # Setup kubectl
-yay -S --needed --noconfirm google-cloud-cli kubectl-bin kubectx google-cloud-cli-gke-gcloud-auth-plugin
+yay -S --needed --noconfirm google-cloud-cli kubectl kubectx google-cloud-cli-gke-gcloud-auth-plugin
 git clone https://github.com/williamchanrico/kube-ps1 ~/.oh-my-zsh/custom/plugins/kube-ps1
 git clone https://github.com/williamchanrico/gcloud-zsh-completion ~/.zsh_completion/gcloud-zsh-completion
 
 # Prevent dropbox automatic updates
-yay -S --needed --noconfirm dropbox nautilus-dropbox
+yay -S --needed --noconfirm dropbox
 rm -rf ~/.dropbox-dist
 install -dm0 ~/.dropbox-dist
 
 # Setup wallpapers and betterlockscreen-git cache image
-yay -S --needed --noconfirm betterlockscreen-git
-mkdir -p ~/Pictures/Wallpapers
-cp ./wallpapers/* ~/Pictures/Wallpapers/
-betterlockscreen -u vim ~/Pictures/Wallpapers/wallpaper-2-2560x1440.png
-sudo systemctl enable betterlockscreen@william
+# yay -S --needed --noconfirm betterlockscreen-git
+# mkdir -p ~/Pictures/Wallpapers
+# cp ./wallpapers/* ~/Pictures/Wallpapers/
+# betterlockscreen -u vim ~/Pictures/Wallpapers/wallpaper-2-2560x1440.png
+# sudo systemctl enable betterlockscreen@william
 
 # Setup ntfy (notification tool)
-yay -S --needed --noconfirm ntfy-git
+# yay -S --needed --noconfirm ntfy-git
 
 # Setup node exporter
 sudo pacman -S prometheus-node-exporter prometheus-blackbox-exporter

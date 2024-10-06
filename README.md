@@ -15,7 +15,7 @@ yay -S --noconfirm yadm-git
 # https://support.atlassian.com/bitbucket-cloud/docs/create-an-app-password/
 
 # Clone (skip shell history)
- yadm clone https://williamchanrico@gmail.com:<BITBUCKET_TEMPORARY_APP_PASSWORD>@bitbucket.org/williamchanrico/dotfiles
+ yadm clone https://williamchanrico:<BITBUCKET_TEMPORARY_APP_PASSWORD>@bitbucket.org/williamchanrico/dotfiles
 
 # Decrypt yadm encrypt archive
 yadm decrypt
