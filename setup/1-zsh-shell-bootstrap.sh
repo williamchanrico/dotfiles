@@ -2,7 +2,32 @@
 
 # Install google-chrome and gnome-shell-integration
 yay -S --needed --noconfirm google-chrome
-sudo pacman -S --needed --noconfirm tmux less git-delta
+sudo pacman -S --needed --noconfirm tmux less git-delta keyd
+
+# For hyprpm add https://github.com/outfoxxed/hy3
+sudo pacman -S --needed --noconfirm cmake meson cpio
+# hyprpm update
+# hyprpm add https://github.com/outfoxxed/hy3
+
+# Setup keyring: https://wiki.archlinux.org/title/GNOME/Keyring#SSH_keys
+systemctl enable --user gcr-ssh-agent.socket
+systemctl start --user gcr-ssh-agent.socket
+echo "$SSH_AUTH_SOCK"
+
+# Disable Nautilus recent files.
+gsettings set org.gnome.desktop.privacy remember-recent-files false
+
+# Add default config until YADM replaces it.
+# mkdir -p ~/.config/keyd
+# cat <<EOF | tee ~/.config/keyd/default.conf
+# [ids]
+# *
+
+# [main]
+# shift+esc = macro("~")
+# EOF
+# sudo systemctl enable keyd
+# sudo systemctl start keyd
 
 # Set up YADM and dotfiles
 yay -S --needed --noconfirm yadm-git

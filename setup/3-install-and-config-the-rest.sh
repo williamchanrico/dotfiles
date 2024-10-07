@@ -57,6 +57,9 @@ sudo git clone https://github.com/Aloxaf/fzf-tab "${ZSH_CUSTOM:-$HOME/.oh-my-zsh
 # Setup zsh-completions
 sudo git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions
 
+# Setup 256color
+sudo git clone https://github.com/chrissicool/zsh-256color ${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-256color
+
 # Setup zsh-completions from https://github.com/zchee/zsh-completions
 git clone https://github.com/zchee/zsh-completions ~/.zsh_completion/zchee_zsh-completions/
 
@@ -77,6 +80,7 @@ git clone https://github.com/williamchanrico/gcloud-zsh-completion ~/.zsh_comple
 
 # Prevent dropbox automatic updates
 yay -S --needed --noconfirm dropbox
+sudo pacman -S --needed --noconfirm dolphin-plugins
 rm -rf ~/.dropbox-dist
 install -dm0 ~/.dropbox-dist
 

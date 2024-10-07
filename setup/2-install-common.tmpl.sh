@@ -29,15 +29,16 @@ sudo pacman -S --needed --noconfirm \
 	# Man pages but TLDR version
 	tldr \
 	# Clipboard manager
-	clipmenu \
-	clipnotify \
+	# clipmenu \
+	# clipnotify \
+	wl-clipboard \
 	# Notification daemon
-	dunst \
+	# dunst \
 	# Launcher
-	dmenu \
+	# dmenu \
 	# Dmenu alternative
-	rofi \
-	rofi-calc \
+	# rofi \
+	# rofi-calc \
 	# Terminal
 	# rxvt-unicode \
 	wezterm \
@@ -45,8 +46,9 @@ sudo pacman -S --needed --noconfirm \
 	z \
 	# File manager
 	ranger \
-	nemo \
-	nemo-fileroller \
+	nautilus \
+	# nemo \
+	# nemo-fileroller \
 	# Terminal multiplexer
 	tmux \
 	# Tree view of directory
@@ -64,22 +66,19 @@ sudo pacman -S --needed --noconfirm \
 	# DesktopEntry Execution, generate and execute DesktopEntry
 	dex \
 	# GNOME-based File Manager extension to allow launching programs via context menu
-	filemanager-actions \
+	# filemanager-actions \
 	# Calendar
 	gsimplecal \
 	# GTK+ theme switcher of the LXDE
-	lxappearance \
-
+	# lxappearance \
 	# Files management (compress/backup)
 	p7zip \
 	unrar \
 	# Backup tool
 	restic \
-
 	#
 	# Docs
 	#
-
 	# Office suite
 	# libreoffice-fresh \
 	# PDF reader
@@ -89,11 +88,9 @@ sudo pacman -S --needed --noconfirm \
 	# Converts sourcecode to HTML, XHTML, RTF, LaTeX, TeX, SVG, BBCode and terminal escape sequences with coloured syntax highlighting
 	highlight \
 	pdftk \
-
 	#
 	# Multimedia (Audio/Video)
 	#
-
 	# Image compression/manipulation
 	imagemagick \
 	# Screenshot
@@ -107,7 +104,7 @@ sudo pacman -S --needed --noconfirm \
 	# PNG compression
 	pngquant \
 	# Image viewer and simple image editor
-	feh \
+	# feh \
 	eog \
 	shotwell \
 	# Player
@@ -137,19 +134,17 @@ sudo pacman -S --needed --noconfirm \
 	gst-libav \
 	gstreamer-vaapi \
 	gst-plugins-ugly \
-	# Thumbnails for video
+	# Thumbnails for video (remember to enable show thumbnails for remote devices on file manager)
 	ffmpegthumbnailer \
+	totem \
 	# Screen recorder
-	peek \
-	vokoscreen \
-
+	# peek \
+	# vokoscreen \
 	# MIME Manager
 	handlr \
-
 	#
 	# Parser
 	#
-
 	# SQL Parser
 	sqlfluff \
 	# Hex dump/viewer
@@ -171,14 +166,12 @@ sudo pacman -S --needed --noconfirm \
 	bash-language-server \
 	# Show audio/video files
 	mediainfo \
-
 	#
 	# Hardware monitor/troubleshooting
 	#
-
 	# Bluetooth
-	blueman \
-	bluez-utils \
+	# blueman \
+	# bluez-utils \
 	# Hardware list
 	lshw \
 	# Disk health
@@ -190,29 +183,29 @@ sudo pacman -S --needed --noconfirm \
 	# Monitoring nvme disk
 	nvme-cli \
 	# Monitoring system
-	htop \
+	htop
 	# Monitoring sensor (removed due to bloat icons dependency)
 	# psensor \
-
 	#
 	# X Server
 	#
-
 	# X automation
-	xdotool \
+	# xdotool \
 	# Clipboard selection and manipulation
-	xsel \
+	# xsel \
 	# XCB utility functions for the X resource manager
-	xcb-util-xrm \
+	# xcb-util-xrm \
 	# Configure modifier keys to act as other keys
-	xcape \
+	# xcape \
 	# Monitor X activity and can trigger a lock program
-	xautolock
+	# xautolock
 yay -S --needed --noconfirm \
+	# Default apps setting
+	selectdefaultapplication \
 	# Backblaze cloud storage CLI
 	backblaze-b2 \
 	# Linter for Docker
-	hadolint-bin \
+	# hadolint-bin \
 	# Linter for shell scripts (replaced shellcheck with shellcheck-bin from AUR to avoid haskell runtime dep)
 	shellcheck-bin \
 	# NodeJS manager
@@ -220,37 +213,26 @@ yay -S --needed --noconfirm \
 	# Audio streaming
 	spotify \
 	# GTK theme
-	nordic-theme-git \
-	papirus-folders-nordic \
+	# nordic-theme-git \
+	# papirus-folders-nordic \
 	# PulseAudio SDK
 	python-pulsectl \
 	# Rofi SDK
-	python-rofi \
+	# python-rofi \
 	# Notification tool
 	ntfy \
 	# dmenu support for NetworkManager
-	networkmanager-dmenu-git \
+	# networkmanager-dmenu-git \
 	# Rxvt terminal Perl extension (deprecated over wezterm)
 	# urxvt-perls-git \
 	# Volume control for i3
-	i3-volume \
+	# i3-volume \
 	# Text editor
 	sublime-text-dev \
 	# MIME Manager
 	handlr \
 	# Messaging
 	ferdium-bin
-
-# Setup i3 status bar
-yay -S --needed --noconfirm \
-	bumblebee-status
-sudo pacman -S --needed --noconfirm \
-	# For it's iwgetid used by bumblebee-status
-	wireless_tools \
-	# For spotify plugin
-	playerctl \
-	python-dbus
-
 
 # Network related tools
 sudo pacman -S --needed --noconfirm \
@@ -283,15 +265,12 @@ sudo pacman -S --needed --noconfirm python python-pip pyenv python-pipenv \
 	python-virtualenv \
 	python-pylint \
 	python-black \
-	flake8 \
 	python-pynvim \
 	python-psutil \
 	python-netifaces
 
 # Fonts
 sudo pacman -S --needed --noconfirm \
-	ttf-dejavu \
-	ttf-dejavu-nerd \
 	ttf-nerd-fonts-symbols \
 	ttf-nerd-fonts-symbols-mono \
 	ttf-font-awesome \
