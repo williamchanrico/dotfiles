@@ -28,6 +28,7 @@ fi
 sudo rmmod pcspkr
 echo "blacklist pcspkr" | sudo tee /etc/modprobe.d/nobeep.conf
 
-sudo pacman -S --noconfirm neovim
-
-echo "Visit https://github.com/prasanthrangan/hyprdots"
+yay -S --sudoloop --noconfirm \
+	neovim hyprland dunst rofi-lbonn-wayland-git waybar swww swaylock-effects-git wlogout \
+	polkit-gnome xdg-desktop-portal-hyprland python-pyamdgpuinfo parallel jq imagemagick libnotify \
+	nautilus ark oh-my-zsh-git

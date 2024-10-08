@@ -23,7 +23,7 @@ sudo pacman -S --needed --noconfirm binwalk fzf
 
 # Setup pass
 sudo pacman -S --needed --noconfirm pass pass-otp
-yay -S --needed --noconfirm rofi-pass
+yay -S --needed --noconfirm rofi-pass-wayland-git # somehow requires rofi-lbonn-wayland-git
 
 # Setup golang
 sudo pacman -S --needed --noconfirm go go-tools
@@ -84,6 +84,10 @@ sudo pacman -S --needed --noconfirm dolphin-plugins
 rm -rf ~/.dropbox-dist
 install -dm0 ~/.dropbox-dist
 
+# Setup openrgb
+sudo pacman -S --needed --noconfirm openrgb
+sudo modprobe i2c-dev
+
 # Setup wallpapers and betterlockscreen-git cache image
 # yay -S --needed --noconfirm betterlockscreen-git
 # mkdir -p ~/Pictures/Wallpapers
@@ -117,6 +121,9 @@ sudo systemctl restart prometheus-node-exporter
 sudo systemctl restart prometheus-blackbox-exporter
 sudo systemctl enable prometheus-node-exporter
 sudo systemctl enable prometheus-blackbox-exporter
+
+# Configure HUD
+sudo pacman -S --needed --noconfirm mangohud goverlay
 
 # Fix random crashes on memory intensive softwares (i.e. AAA games)
 # Sets the maximum number of memory map areas a process may have. Defaults to 65530.
@@ -197,6 +204,7 @@ echo ""
 echo "> https://github.com/fphoenix88888/ttf-mswin10-arch for MS fonts"
 echo ""
 echo "> /etc/fstab for data hard disk (prevent update failures for linux steam)"
+echo "Adding library in steam may be problematic: https://github.com/ValveSoftware/steam-for-linux/issues/9640#issuecomment-1825064739"
 echo "UUID=2C7D50BE09066582 /run/media/william/data ntfs-3g  defaults,locale=en_US.utf8,uid=1000,gid=1000  0 0"
 echo ""
 echo "Docker will need vsyscall=emulate kernel parameter"

@@ -5,6 +5,8 @@
 
 # Install common packages
 sudo pacman -S --needed --noconfirm \
+	# Gaming Mouse Software
+	piper \
 	# OCR
 	tesseract \
 	tesseract-data-eng  \
@@ -32,6 +34,7 @@ sudo pacman -S --needed --noconfirm \
 	# clipmenu \
 	# clipnotify \
 	wl-clipboard \
+	cliphist \
 	# Notification daemon
 	# dunst \
 	# Launcher
@@ -94,15 +97,21 @@ sudo pacman -S --needed --noconfirm \
 	# Image compression/manipulation
 	imagemagick \
 	# Screenshot
-	flameshot \
+	# flameshot \
+	grimblast-git \
+	slurp \
+	swappy \
 	# Color picker
-	gcolor3 \
+	# gcolor3 \
+	hyprpicker \
 	# Image Editor
-	gimp \
+	# gimp \
 	# Recorder for terminal
 	asciinema \
 	# PNG compression
 	pngquant \
+	# Manage removable media
+	udiskie \
 	# Image viewer and simple image editor
 	# feh \
 	eog \
@@ -113,11 +122,15 @@ sudo pacman -S --needed --noconfirm \
 	# pulseaudio-alsa \
 	# pulseaudio-bluetooth \
 	pipewire \
-	pipewire-pulse \
 	pipewire-alsa \
+	pipewire-audio \
+	pipewire-jack \
+	pipewire-pulse \
+	gst-plugin-pipewire \
 	wireplumber \
 	pipewire-v4l2 \
 	lib32-pipewire-v4l2 \
+	pamixer \
 	# PulseAudio GTK volume control
 	pavucontrol \
 	qpwgraph \
@@ -223,6 +236,8 @@ yay -S --needed --noconfirm \
 	ntfy \
 	# dmenu support for NetworkManager
 	# networkmanager-dmenu-git \
+	# Network Manager system tray utility
+	network-manager-applet \
 	# Rxvt terminal Perl extension (deprecated over wezterm)
 	# urxvt-perls-git \
 	# Volume control for i3
