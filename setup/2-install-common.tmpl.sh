@@ -4,7 +4,9 @@
 # sed '/^.*#/d;/^$/d' ./setup/2-install-common.tmpl.sh >./setup/2-install-common.sh && chmod +x ./setup/2-install-common.sh
 
 # Install common packages
-sudo pacman -S --needed --noconfirm \
+yay -S --needed --noconfirm \
+	# Binary/firmware analysis
+	binwalk \
 	# Gaming Mouse Software
 	piper \
 	# OCR
@@ -27,7 +29,7 @@ sudo pacman -S --needed --noconfirm \
 	# Internationalization and localization system
 	gettext \
 	# Display blue light dimmer
-	redshift \
+	# redshift \
 	# Man pages but TLDR version
 	tldr \
 	# Clipboard manager
@@ -36,7 +38,7 @@ sudo pacman -S --needed --noconfirm \
 	wl-clipboard \
 	cliphist \
 	# Notification daemon
-	# dunst \
+    dunst \
 	# Launcher
 	# dmenu \
 	# Dmenu alternative
@@ -196,7 +198,7 @@ sudo pacman -S --needed --noconfirm \
 	# Monitoring nvme disk
 	nvme-cli \
 	# Monitoring system
-	htop
+	htop \
 	# Monitoring sensor (removed due to bloat icons dependency)
 	# psensor \
 	#
@@ -212,9 +214,10 @@ sudo pacman -S --needed --noconfirm \
 	# xcape \
 	# Monitor X activity and can trigger a lock program
 	# xautolock
-yay -S --needed --noconfirm \
 	# Default apps setting
 	selectdefaultapplication \
+	# MIME Manager
+	handlr \
 	# Backblaze cloud storage CLI
 	backblaze-b2 \
 	# Linter for Docker
@@ -224,12 +227,14 @@ yay -S --needed --noconfirm \
 	# NodeJS manager
 	nvm \
 	# Audio streaming
-	spotify \
+	# spotify \
+    spotify-launcher \
+    spicetify-cli \
 	# GTK theme
 	# nordic-theme-git \
 	# papirus-folders-nordic \
 	# PulseAudio SDK
-	python-pulsectl \
+	# python-pulsectl \
 	# Rofi SDK
 	# python-rofi \
 	# Notification tool
@@ -243,9 +248,7 @@ yay -S --needed --noconfirm \
 	# Volume control for i3
 	# i3-volume \
 	# Text editor
-	sublime-text-dev \
-	# MIME Manager
-	handlr \
+	# sublime-text-dev \
 	# Messaging
 	ferdium-bin
 
@@ -256,7 +259,7 @@ sudo pacman -S --needed --noconfirm \
 	netcat \
 	tcpdump \
 	iftop \
-	nethogs \
+	# nethogs \
 	bind-tools \
 	traceroute \
 	tcpdump \
@@ -264,7 +267,7 @@ sudo pacman -S --needed --noconfirm \
 	mtr \
 	aria2 \
 	whois \
-	vpnc \
+	# vpnc \
 	# Youtube-dl alternative
 	yt-dlp \
 	rsync
@@ -294,4 +297,4 @@ sudo pacman -S --needed --noconfirm \
 	ttf-hanazono \
 	adobe-source-han-sans-otc-fonts
 yay -S --needed --noconfirm \
-	ttf-font-icons ttf-ms-fonts
+	ttf-font-icons

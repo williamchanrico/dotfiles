@@ -1,14 +1,5 @@
 #!/usr/bin/env bash
 
-# Setup neovim
-sudo pacman -S --needed --noconfirm neovim
-mkdir -p ~/.config/nvim
-ln -fs ~/.vimrc ~/.config/nvim/init.vim
-
-# Install vundle, Vim plugin manager
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-vim +PluginInstall +qall
-
 # Setup docker
 sudo pacman -S --needed --noconfirm docker docker-compose
 sudo usermod -aG docker william
@@ -18,17 +9,8 @@ sudo pacman -S --needed --noconfirm podman fuse-overlayfs slirp4netns
 # sudo pacman -S --needed --noconfirm ansible ansible-lint
 # yay -S --needed --noconfirm ansible-language-server
 
-# Setup ...
-sudo pacman -S --needed --noconfirm binwalk fzf
-
-# Setup pass
-sudo pacman -S --needed --noconfirm pass pass-otp
-yay -S --needed --noconfirm rofi-pass-wayland-git # somehow requires rofi-lbonn-wayland-git
-
 # Setup golang
 sudo pacman -S --needed --noconfirm go go-tools
-mkdir -p ~/src/go/{src,bin}
-
 export GOPATH=~/go
 # Replaced by pass
 # go get -u -v rsc.io/2fa
@@ -49,26 +31,6 @@ GO111MODULE=on go get mvdan.cc/gofumpt/gofumports
 # yay -S --noconfirm exploit-db-git nikto gobuster-git burpsuite
 
 # git clone git@github.com:williamchanrico/wordlist.git ~/wordlist
-
-# Setup fzf-tab
-# Requires sudo due to ZSH_CUSTOM now using /usr/share/oh-my-zsh/custom global path.
-sudo git clone https://github.com/Aloxaf/fzf-tab "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fzf-tab"
-
-# Setup zsh-completions
-sudo git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions
-
-# Setup 256color
-sudo git clone https://github.com/chrissicool/zsh-256color ${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-256color
-
-# Setup zsh-completions from https://github.com/zchee/zsh-completions
-git clone https://github.com/zchee/zsh-completions ~/.zsh_completion/zchee_zsh-completions/
-
-# Setup zsh-autosuggestions and completions from https://github.com/zsh-users
-# git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/plugins/zsh-autosuggestions
-# git clone https://github.com/zsh-users/zsh-completions "${ZSH_CUSTOM:=$HOME/.oh-my-zsh/custom}"/plugins/zsh-completions
-
-# Setup powerlevel10k
-# git clone --depth=1 https://github.com/romkatv/powerlevel10k "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/themes/powerlevel10k
 
 # Setup AWS
 yay -S --needed --noconfirm python-aws-mfa aws-cli
