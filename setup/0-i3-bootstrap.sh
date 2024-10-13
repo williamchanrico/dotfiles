@@ -77,6 +77,8 @@ declare -A packages=(
 	["google-chrome"]="Google Chrome - Browser"
 )
 
+hyprctl setcursor bibata 20
+
 # Loop through the associative array to extract the keys (package names)
 package_list=()
 for pkg in "${!packages[@]}"; do
