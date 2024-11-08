@@ -48,7 +48,8 @@ yay -S --needed --noconfirm \
 	# rxvt-unicode \
 	wezterm \
 	# Directory jumper
-	z \
+	# z \
+    zoxide \
 	# File manager
 	ranger \
 	nautilus \

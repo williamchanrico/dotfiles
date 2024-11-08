@@ -90,7 +90,7 @@ sudo pacman -S --needed --noconfirm mangohud goverlay
 # Fix random crashes on memory intensive softwares (i.e. AAA games)
 # Sets the maximum number of memory map areas a process may have. Defaults to 65530.
 echo "Setting vm.max_map_count=1048576 to increase the max amount of memory map areas a process may have."
-echo "vm.max_map_count=1048576" | sudo tee /usr/lib/sysctl.d/99-vm-max_map_count.conf
+echo "vm.max_map_count=1147483642" | sudo tee /usr/lib/sysctl.d/99-vm-max_map_count.conf
 
 # Setup DNSCrypt and Unbound
 # sudo pacman -S --needed --noconfirm dnscrypt-proxy unbound
