@@ -138,6 +138,13 @@ sudo git clone https://github.com/chrissicool/zsh-256color ${ZSH_CUSTOM:-${ZSH:-
 # Setup zsh-completions from https://github.com/zchee/zsh-completions
 git clone https://github.com/zchee/zsh-completions ~/.zsh_completion/zchee_zsh-completions/
 
+#
+# ydotool
+# Required by rofi-pass
+#
+systemctl --user enable ydotool.service
+systemctl --user start ydotool.service
+
 # Setup zsh-autosuggestions
 # git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/plugins/zsh-autosuggestions
 
