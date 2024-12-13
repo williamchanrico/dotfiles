@@ -115,7 +115,11 @@ gsettings set org.gtk.gtk4.Settings.FileChooser sort-order 'ascending'
 #
 sudo pacman -S --needed --noconfirm neovim
 mkdir -p ~/.config/nvim
-ln -fs ~/.vimrc ~/.config/nvim/init.vim
+ln -sf ~/.vimrc ~/.config/nvim/init.vim
+# Some softwares may open vim using full path like /usr/bin/vim.
+# Override it with nvim.
+sudo cp /usr/bin/vim{,.original}
+sudo ln -sf /usr/bin/nvim /usr/bin/vim
 
 # Install vundle, Vim plugin manager
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
