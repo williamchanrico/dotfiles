@@ -5,6 +5,12 @@ sudo pacman -S --needed --noconfirm docker docker-compose
 sudo usermod -aG docker william
 sudo pacman -S --needed --noconfirm podman fuse-overlayfs slirp4netns
 
+# Setup k6
+K6_PWD="${HOME}/src/xk6"
+mkdir -p "$K6_PWD"
+podman run --userns=keep-id --rm -it -u "$(id -u):$(id -g)" -v "${K6_PWD}:/xk6" grafana/xk6 build latest \
+	--with github.com/grafana/xk6-dashboard@latest
+
 # Setup Ansible LSP (though will be using virtualenv for the Ansible itself)
 # sudo pacman -S --needed --noconfirm ansible ansible-lint
 # yay -S --needed --noconfirm ansible-language-server
