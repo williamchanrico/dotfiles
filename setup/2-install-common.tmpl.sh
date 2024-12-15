@@ -5,6 +5,12 @@
 
 # Install common packages
 yay -S --needed --noconfirm \
+	# File Viewer
+	glow \
+	rich-cli \
+	# Find/Search
+	ripgrep \
+	fd \
 	# Binary/firmware analysis
 	binwalk \
 	# Gaming Mouse Software
@@ -51,7 +57,8 @@ yay -S --needed --noconfirm \
 	# z \
     zoxide \
 	# File manager
-	ranger \
+	# ranger \
+	yazi \
 	nautilus \
 	# nemo \
 	# nemo-fileroller \
@@ -97,6 +104,8 @@ yay -S --needed --noconfirm \
 	#
 	# Multimedia (Audio/Video)
 	#
+	# Image metadata
+	perl-image-exiftool \
 	# Image compression/manipulation
 	imagemagick \
 	# Screenshot
@@ -253,6 +262,9 @@ yay -S --needed --noconfirm \
 	# Messaging
 	ferdium-bin
 
+# Exiftool binary installed by perl-image-exiftool package.
+sudo ln -s /usr/bin/vendor_perl/exiftool /usr/bin/exiftool
+
 # Network related tools
 sudo pacman -S --needed --noconfirm \
 	# Network troubleshooting
@@ -299,3 +311,13 @@ sudo pacman -S --needed --noconfirm \
 	adobe-source-han-sans-otc-fonts
 yay -S --needed --noconfirm \
 	ttf-font-icons
+
+# Yazi
+mkdir -p ~/.config/yazi
+git clone https://github.com/BennyOe/onedark.yazi.git ~/.config/yazi/flavors/onedark.yazi
+ya pack -a yazi-rs/flavors:catppuccin-mocha
+ya pack -a yazi-rs/plugins:full-border
+ya pack -a yazi-rs/plugins:hide-preview
+ya pack -a Sonico98/exifaudio
+ya pack -a Ape/mediainfo
+ya pack -a AnirudhG07/rich-preview
