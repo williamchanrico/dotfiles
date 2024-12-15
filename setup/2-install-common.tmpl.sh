@@ -231,7 +231,7 @@ yay -S --needed --noconfirm \
 	# Backblaze cloud storage CLI
 	backblaze-b2 \
 	# Linter for Docker
-	# hadolint-bin \
+	hadolint-bin \
 	# Linter for shell scripts (replaced shellcheck with shellcheck-bin from AUR to avoid haskell runtime dep)
 	shellcheck-bin \
 	# NodeJS manager
@@ -298,6 +298,7 @@ sudo pacman -S --needed --noconfirm python python-pip pyenv python-pipenv \
 	python-black \
 	python-pynvim \
 	python-psutil \
+	pyright \
 	python-netifaces
 
 # Fonts
