@@ -12,22 +12,20 @@ podman run --userns=keep-id --rm -it -u "$(id -u):$(id -g)" -v "${K6_PWD}:/xk6" 
 	--with github.com/grafana/xk6-dashboard@latest
 
 # Setup Ansible LSP (though will be using virtualenv for the Ansible itself)
-# sudo pacman -S --needed --noconfirm ansible ansible-lint
-# yay -S --needed --noconfirm ansible-language-server
+sudo pacman -S --needed --noconfirm ansible ansible-lint
+yay -S --needed --noconfirm ansible-language-server
 
 # Setup golang
 sudo pacman -S --needed --noconfirm go go-tools
 export GOPATH=~/go
 # Replaced by pass
 # go get -u -v rsc.io/2fa
-go get -u -v mvdan.cc/sh/cmd/shfmt
-go get -u -v github.com/fatih/hclfmt
-go get -u -v github.com/golang/dep/cmd/dep
-go get -u -v github.com/mrtazz/checkmake
-go get -u -v github.com/yudppp/json2struct/cmd/json2struct
-go get -u github.com/skip2/go-qrcode/...
-go get -u -v github.com/cweill/gotests/...
-GO111MODULE=on go get mvdan.cc/gofumpt/gofumports
+go install mvdan.cc/sh/cmd/shfmt@latest
+go install github.com/fatih/hclfmt@latest
+go install github.com/mrtazz/checkmake@latest
+go install github.com/yudppp/json2struct/cmd/json2struct@latest
+go install github.com/skip2/go-qrcode/...@latest
+go install github.com/cweill/gotests/...@latest
 
 # Setup SQL Formatter
 # curl -o ~/bin/sqlfmt -L https://github.com/lopezator/sqlfmt/releases/download/v1.2.0/sqlfmt-v1.2.0-linux-amd64
