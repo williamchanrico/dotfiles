@@ -322,3 +322,4 @@ ya pack -a yazi-rs/plugins:hide-preview
 ya pack -a Sonico98/exifaudio
 ya pack -a Ape/mediainfo
 ya pack -a AnirudhG07/rich-preview
+ya pack -a pirafrank/what-size
