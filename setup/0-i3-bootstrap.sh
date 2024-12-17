@@ -75,6 +75,7 @@ declare -A packages=(
 	["neovim-luasnip-git"]="Luasnip - Snippet Engine for Neovim written in Lua"
 	["nodejs-compose-language-service"]="Compose Language Server - Language service for Docker Compose documents"
 	["dockerfile-language-server"]="Docker Language Server - Language server for Dockerfile"
+	["dprint"]="Dprint - Pluggable and configurable code formatting platform"
 	["vscode-langservers-extracted"]="VSCode Language Server Extracted - Language server extracted from VSCode"
 	["nautilus"]="Nautilus - File manager"
 	["ark"]="Ark - GUI archiver"
