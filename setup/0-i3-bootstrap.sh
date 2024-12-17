@@ -59,7 +59,6 @@ declare -A packages=(
 	["polkit-gnome"]="Polkit-gnome - Auth agent"
 	["dunst"]="Dunst - Notification daemon"
 	["libnotify"]="Libnotify - Notification library"
-
 	["oh-my-zsh-git"]="Oh-my-zsh - Zsh configuration framework"
 	["fzf"]="Fzf - Fuzzy finder"
 	["parallel"]="GNU Parallel"
@@ -75,7 +74,6 @@ declare -A packages=(
 	["neovim-luasnip-git"]="Luasnip - Snippet Engine for Neovim written in Lua"
 	["nodejs-compose-language-service"]="Compose Language Server - Language service for Docker Compose documents"
 	["dockerfile-language-server"]="Docker Language Server - Language server for Dockerfile"
-	["dprint-bin"]="Dprint - Pluggable and configurable code formatting platform"
 	["vscode-langservers-extracted"]="VSCode Language Server Extracted - Language server extracted from VSCode"
 	["nautilus"]="Nautilus - File manager"
 	["ark"]="Ark - GUI archiver"
