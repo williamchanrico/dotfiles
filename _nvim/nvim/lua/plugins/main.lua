@@ -17,21 +17,309 @@ return {
 	-- Plugin manager for lazy loading
 	{ "folke/lazy.nvim" },
 
+	-- Completion: https://cmp.saghen.dev/recipes.html
+	{
+		'saghen/blink.cmp',
+		-- optional: provides snippets for the snippet source
+		dependencies = 'rafamadriz/friendly-snippets',
+
+		version = '*',
+
+		-- @module 'blink.cmp'
+		-- @type blink.cmp.Config
+		opts = {
+			-- 'default' for mappings similar to built-in completion
+			-- 'super-tab' for mappings similar to vscode (tab to accept, arrow keys to navigate)
+			-- 'enter' for mappings similar to 'super-tab' but with 'enter' to accept
+			-- See the full "keymap" documentation for information on defining your own keymap.
+			keymap = {
+				preset = 'enter',
+				['<A-1>'] = { function(cmp) cmp.accept({ index = 1 }) end },
+				['<A-2>'] = { function(cmp) cmp.accept({ index = 2 }) end },
+				['<A-3>'] = { function(cmp) cmp.accept({ index = 3 }) end },
+				['<A-4>'] = { function(cmp) cmp.accept({ index = 4 }) end },
+				['<A-5>'] = { function(cmp) cmp.accept({ index = 5 }) end },
+				['<A-6>'] = { function(cmp) cmp.accept({ index = 6 }) end },
+				['<A-7>'] = { function(cmp) cmp.accept({ index = 7 }) end },
+				['<A-8>'] = { function(cmp) cmp.accept({ index = 8 }) end },
+				['<A-9>'] = { function(cmp) cmp.accept({ index = 9 }) end },
+				['<A-0>'] = { function(cmp) cmp.accept({ index = 10 }) end },
+			},
+
+			appearance = {
+				-- Sets the fallback highlight groups to nvim-cmp's highlight groups
+				-- Useful for when your theme doesn't support blink.cmp
+				-- Will be removed in a future release
+				use_nvim_cmp_as_default = false,
+				-- Set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
+				-- Adjusts spacing to ensure icons are aligned
+				nerd_font_variant = 'mono'
+			},
+
+			-- Dynamically picking providers by treesitter node/filetype
+			sources = {
+				default = function(ctx)
+					local success, node = pcall(vim.treesitter.get_node)
+					if vim.bo.filetype == 'lua' then
+						return { 'lsp', 'path' }
+					elseif success and node and vim.tbl_contains({ 'comment', 'line_comment', 'block_comment' }, node:type()) then
+						return { 'buffer' }
+					else
+						return { 'lsp', 'path', 'snippets', 'buffer' }
+					end
+				end,
+			},
+
+			completion = {
+				menu = {
+					min_width = 15,
+					max_height = 10,
+					auto_show = function(ctx)
+						-- Don't show on cmdline / searches
+						return ctx.mode ~= "cmdline" or not vim.tbl_contains({ '/', '?' }, vim.fn.getcmdtype())
+					end,
+
+
+					draw = {
+						columns = { { 'item_idx' }, { 'kind_icon' }, { 'label', 'label_description', gap = 1 } },
+						components = {
+
+							-- Index for keymap
+							item_idx = {
+								text = function(ctx) return ctx.idx == 10 and '0' or ctx.idx >= 10 and ' ' or tostring(ctx.idx) end,
+								highlight = 'BlinkCmpItemIdx' -- optional, only if you want to change its color
+							},
+
+							-- Adjust icons
+							-- kind_icon = {
+							-- 	ellipsis = false,
+							-- 	text = function(ctx)
+							-- 		local kind_icon, _, _ = require('mini.icons').get('lsp', ctx.kind)
+							-- 		return kind_icon
+							-- 	end,
+							-- 	-- Optionally, you may also use the highlights from mini.icons
+							-- 	highlight = function(ctx)
+							-- 		local _, hl, _ = require('mini.icons').get('lsp', ctx.kind)
+							-- 		return hl
+							-- 	end,
+							-- }
+						},
+						-- Use treesitter to highlight the label for the given list of sources (experimental)
+						treesitter = { 'lsp' },
+					},
+				},
+
+				-- Show documentation when selecting a completion item
+				documentation = {
+					auto_show = true,
+					auto_show_delay_ms = 2,
+				},
+
+				-- 'prefix' will fuzzy match on the text before the cursor
+				-- 'full' will fuzzy match on the text before *and* after the cursor
+				-- example: 'foo_|_bar' will match 'foo_' for 'prefix' and 'foo__bar' for 'full'
+				keyword = { range = 'prefix' },
+
+				-- Insert completion item on selection, don't select by default
+				list = { selection = 'auto_insert' },
+
+			},
+			signature = { enabled = true },
+			fuzzy = {
+				-- When enabled, allows for a number of typos relative to the length of the query
+				-- Disabling this matches the behavior of fzf
+				use_typo_resistance = true,
+				-- Frecency tracks the most recently/frequently used items and boosts the score of the item
+				use_frecency = true,
+				-- Proximity bonus boosts the score of items matching nearby words
+				use_proximity = true,
+				-- max_items = 200,
+				-- Controls which sorts to use and in which order, falling back to the next sort if the first one returns nil
+				-- You may pass a function instead of a string to customize the sorting
+				sorts = { 'score', 'sort_text' },
+
+				prebuilt_binaries = {
+					-- Whether or not to automatically download a prebuilt binary from github. If this is set to `false`
+					-- you will need to manually build the fuzzy binary dependencies by running `cargo build --release`
+					download = true,
+					-- Extra arguments that will be passed to curl like { 'curl', ..extra_curl_args, ..built_in_args }
+					extra_curl_args = {}
+				},
+			}
+
+		},
+		opts_extend = { "sources.default" }
+	},
 	-- Docs: https://lsp-zero.netlify.app/docs/language-server-configuration.html
 	{
-		"neovim/nvim-lspconfig",
-		config = function()
-			-- Reserve a space in the gutter
-			-- This will avoid an annoying layout shift in the screen
-			vim.opt.signcolumn = "yes"
+		'neovim/nvim-lspconfig',
+		dependencies = { 'saghen/blink.cmp' },
 
-			-- Add cmp_nvim_lsp capabilities settings to lspconfig
-			-- This should be executed before you configure any language server
-			local lspconfig_defaults = require("lspconfig").util.default_config
-			lspconfig_defaults.capabilities = vim.tbl_deep_extend("force", lspconfig_defaults.capabilities, require("cmp_nvim_lsp").default_capabilities())
+		opts = {
+			servers = {
+				lua_ls = {
+					on_attach = on_attach,
 
-			-- This is where you enable features that only work
-			-- if there is a language server active in the file
+					on_init = function(client)
+						if client.workspace_folders then
+							local path = client.workspace_folders[1].name
+							if vim.loop.fs_stat(path .. "/.luarc.json") or vim.loop.fs_stat(path .. "/.luarc.jsonc") then
+								return
+							end
+						end
+
+						client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
+							runtime = {
+								-- Tell the language server which version of Lua you're using
+								-- (most likely LuaJIT in the case of Neovim)
+								version = "LuaJIT",
+							},
+							-- Make the server aware of Neovim runtime files
+							workspace = {
+								checkThirdParty = false,
+								library = {
+									vim.env.VIMRUNTIME,
+									-- Depending on the usage, you might want to add additional paths here.
+									"${3rd}/luv/library"
+									-- "${3rd}/busted/library",
+								},
+								-- or pull in all of 'runtimepath'. NOTE: this is a lot slower and will cause issues when working on your own configuration (see https://github.com/neovim/nvim-lspconfig/issues/3189)
+								-- library = vim.api.nvim_get_runtime_file("", true)
+							},
+						})
+					end,
+
+					settings = {
+						Lua = {
+							diagnostics = {
+								globals = { "vim" }, -- Prevent linting errors for 'vim'
+							},
+							workspace = {
+								library = vim.api.nvim_get_runtime_file("", true), -- Include neovim's runtime files
+							},
+							format = {
+								enable = true,
+								defaultConfig = {
+									indent_style = "space",
+									max_line_length = "180",
+									indent_size = "2",
+								}
+							},
+							telemetry = {
+								enable = false
+							}
+						},
+					},
+				},
+
+
+				gopls = {
+					on_attach = on_attach,
+					cmd = { "gopls", "--remote=auto" },
+					settings = {
+						gopls = {
+							experimentalWorkspaceModule = true,
+							analyses = {
+								unusedparams = true,
+								shadow = true,
+							},
+							staticcheck = true,
+						},
+					},
+				},
+
+
+				yamlls = {
+					-- Modeline:
+					-- # yaml-language-server: $schema=<urlToTheSchema|relativeFilePath|absoluteFilePath}>
+
+					on_attach = function(client, bufnr)
+						-- Enable formatting capability if supported
+						-- Force enable formatting
+						client.server_capabilities.documentFormattingProvider = true
+
+						if client.server_capabilities.documentFormattingProvider then
+							vim.api.nvim_create_autocmd("BufWritePre", {
+								buffer = bufnr,
+								callback = function()
+									vim.lsp.buf.format({ async = false })
+								end,
+							})
+						end
+					end,
+
+					filetypes = { "yaml", "yaml.docker-compose", "yaml.gitlab" },
+
+					settings = {
+						yaml = {
+							schemas = {
+								["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
+								-- ["../path/relative/to/file.yml"] = "/.github/workflows/*",
+								-- ["/path/from/root/of/project"] = "/.github/workflows/*",
+							},
+							schemaStore = {
+								enable = true,                     -- Automatically fetch schemas from schema store
+								url = "https://www.schemastore.org/api/json/catalog.json", -- URL for the schema store
+							},
+							validate = true,                       -- Enable/disable validation
+							hover = true,                          -- Enable hover support
+							completion = true,                     -- Enable completion support
+							format = {
+								enable = true,                     -- Enable/disable formatting
+								singleQuote = false,               -- Use single quotes for scalars
+								bracketSpacing = true,             -- Add spaces between brackets
+								proseWrap = "preserve",            -- Wrap text in scalars: "always", "never", or "preserve"
+								printWidth = 180,                  -- Wrap text longer than printWidth
+							},
+							customTags = {
+								"!fn", "!fn sequence", "!And scalar", "!If mapping", "!Not sequence", "!Equals sequence",
+								"!Or sequence", "!FindInMap sequence", "!Base64 scalar", "!Cidr sequence",
+								"!Ref scalar", "!Ref mapping", "!Ref sequence", "!Sub scalar", "!Sub sequence",
+								"!GetAtt scalar", "!GetAtt sequence", "!GetAZs scalar", "!ImportValue scalar",
+								"!ImportValue mapping", "!Select sequence", "!Split sequence", "!Join sequence",
+							},
+							trace = {
+								server = "off", -- Options: "off", "messages", or "verbose"
+							},
+						},
+					},
+				},
+
+				jsonls = {
+					on_attach = on_attach,
+					cmd = { "vscode-json-language-server", "--stdio" },
+				},
+
+				pyright = {
+					on_attach = on_attach,
+					cmd = { "pyright-langserver", "--stdio" },
+					filetypes = { "python" },
+					settings = {
+						python = {
+							analysis = {
+								autoSearchPaths = true,
+								diagnosticMode = "openFilesOnly",
+								useLibraryCodeForTypes = true,
+							},
+						},
+					},
+				},
+
+				bashls = {
+					on_attach = on_attach,
+				},
+
+				dockerls = {
+					on_attach = on_attach,
+				},
+
+				docker_compose_language_service = {
+					cmd = { "docker-compose-langserver", "--stdio" }
+				},
+			}
+		},
+
+		config = function(_, opts)
 			vim.api.nvim_create_autocmd("LspAttach", {
 				desc = "LSP actions",
 				callback = function(event)
@@ -81,337 +369,17 @@ return {
 				end,
 			})
 
-			require("lspconfig").lua_ls.setup({
-				-- Disable formatter from language server
-				-- on_attach = function(client)
-				-- 	client.server_capabilities.documentFormattingProvider = false
-				-- 	client.server_capabilities.documentFormattingRangeProvider = false
-				-- end,
-				on_attach = on_attach,
-
-				on_init = function(client)
-					if client.workspace_folders then
-						local path = client.workspace_folders[1].name
-						if vim.loop.fs_stat(path .. "/.luarc.json") or vim.loop.fs_stat(path .. "/.luarc.jsonc") then
-							return
-						end
-					end
-
-					client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
-						runtime = {
-							-- Tell the language server which version of Lua you're using
-							-- (most likely LuaJIT in the case of Neovim)
-							version = "LuaJIT",
-						},
-						-- Make the server aware of Neovim runtime files
-						workspace = {
-							checkThirdParty = false,
-							library = {
-								vim.env.VIMRUNTIME,
-								-- Depending on the usage, you might want to add additional paths here.
-								"${3rd}/luv/library"
-								-- "${3rd}/busted/library",
-							},
-							-- or pull in all of 'runtimepath'. NOTE: this is a lot slower and will cause issues when working on your own configuration (see https://github.com/neovim/nvim-lspconfig/issues/3189)
-							-- library = vim.api.nvim_get_runtime_file("", true)
-						},
-					})
-				end,
-
-				settings = {
-					Lua = {
-						diagnostics = {
-							globals = { "vim" }, -- Prevent linting errors for 'vim'
-						},
-						workspace = {
-							library = vim.api.nvim_get_runtime_file("", true), -- Include neovim's runtime files
-						},
-						format = {
-							enable = true,
-							defaultConfig = {
-								indent_style = "space",
-								max_line_length = "180",
-								indent_size = "2",
-							}
-						},
-						telemetry = {
-							enable = false
-						}
-					},
-				},
-			})
-
-			-- require("lspconfig").ansiblels.setup({
-			-- 	on_attach = function(client, bufnr)
-			-- 		-- Enable formatting capability if supported
-			-- 		-- Force enable formatting
-			-- 		client.server_capabilities.documentFormattingProvider = true
-			--
-			-- 		if client.server_capabilities.documentFormattingProvider then
-			-- 			vim.api.nvim_create_autocmd("BufWritePre", {
-			-- 				buffer = bufnr,
-			-- 				callback = function()
-			-- 					vim.lsp.buf.format({ async = false })
-			-- 				end,
-			-- 			})
-			-- 		end
-			-- 	end,
-			-- })
-
-			require("lspconfig").yamlls.setup({
-				-- Modeline:
-				-- # yaml-language-server: $schema=<urlToTheSchema|relativeFilePath|absoluteFilePath}>
-
-				on_attach = function(client, bufnr)
-					-- Enable formatting capability if supported
-					-- Force enable formatting
-					client.server_capabilities.documentFormattingProvider = true
-
-					if client.server_capabilities.documentFormattingProvider then
-						vim.api.nvim_create_autocmd("BufWritePre", {
-							buffer = bufnr,
-							callback = function()
-								vim.lsp.buf.format({ async = false })
-							end,
-						})
-					end
-				end,
-
-				filetypes = { "yaml", "yaml.docker-compose", "yaml.gitlab" },
-
-				settings = {
-					yaml = {
-						schemas = {
-							["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
-							-- ["../path/relative/to/file.yml"] = "/.github/workflows/*",
-							-- ["/path/from/root/of/project"] = "/.github/workflows/*",
-						},
-						schemaStore = {
-							enable = true,                        -- Automatically fetch schemas from schema store
-							url = "https://www.schemastore.org/api/json/catalog.json", -- URL for the schema store
-						},
-						validate = true,                          -- Enable/disable validation
-						hover = true,                             -- Enable hover support
-						completion = true,                        -- Enable completion support
-						format = {
-							enable = true,                        -- Enable/disable formatting
-							singleQuote = false,                  -- Use single quotes for scalars
-							bracketSpacing = true,                -- Add spaces between brackets
-							proseWrap = "preserve",               -- Wrap text in scalars: "always", "never", or "preserve"
-						},
-						customTags = {
-							"!fn", "!fn sequence", "!And scalar", "!If mapping", "!Not sequence", "!Equals sequence",
-							"!Or sequence", "!FindInMap sequence", "!Base64 scalar", "!Cidr sequence",
-							"!Ref scalar", "!Ref mapping", "!Ref sequence", "!Sub scalar", "!Sub sequence",
-							"!GetAtt scalar", "!GetAtt sequence", "!GetAZs scalar", "!ImportValue scalar",
-							"!ImportValue mapping", "!Select sequence", "!Split sequence", "!Join sequence",
-						},
-						trace = {
-							server = "off", -- Options: "off", "messages", or "verbose"
-						},
-					},
-				},
-			})
-
-			require("lspconfig").jsonls.setup({
-				on_attach = on_attach,
-				cmd = { "vscode-json-language-server", "--stdio" },
-			})
-
-			require("lspconfig").gopls.setup({
-				on_attach = on_attach,
-				cmd = { "gopls", "--remote=auto" },
-				settings = {
-					gopls = {
-						experimentalWorkspaceModule = true,
-						analyses = {
-							unusedparams = true,
-							shadow = true,
-						},
-						staticcheck = true,
-					},
-				},
-			})
-
-			require("lspconfig").pyright.setup({
-				on_attach = on_attach,
-				cmd = { "pyright-langserver", "--stdio" },
-				filetypes = { "python" },
-				settings = {
-					python = {
-						analysis = {
-							autoSearchPaths = true,
-							diagnosticMode = "openFilesOnly",
-							useLibraryCodeForTypes = true,
-						},
-					},
-				},
-			})
-
-			require("lspconfig").bashls.setup {
-				on_attach = on_attach,
-			}
-
-			require("lspconfig").dockerls.setup {
-				on_attach = on_attach,
-			}
-
-			require("lspconfig").docker_compose_language_service.setup({
-				cmd = { "docker-compose-langserver", "--stdio" }
-			})
-
-			-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
-			-- require("lspconfig").abc.setup({})
-
-			local cmp = require("cmp")
-			cmp.setup({
-			})
-		end,
-	},
-	{
-		'onsails/lspkind.nvim',
-		config = function()
-			local lspkind = require('lspkind')
-			require("lspkind").setup({
-				formatting = {
-					format = lspkind.cmp_format({
-						mode = 'symbol', -- show only symbol annotations
-						maxwidth = {
-							-- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
-							-- can also be a function to dynamically calculate max width such as
-							-- menu = function() return math.floor(0.45 * vim.o.columns) end,
-							menu = 50, -- leading text (labelDetails)
-							abbr = 50, -- actual suggestion item
-						},
-						ellipsis_char = '...', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
-						show_labelDetails = true, -- show labelDetails in menu. Disabled by default
-					})
-				}
-			})
-		end,
+			local lspconfig = require('lspconfig')
+			for server, config in pairs(opts.servers) do
+				-- passing config.capabilities to blink.cmp merges with the capabilities in your
+				-- `opts[server].capabilities, if you've defined it
+				config.capabilities = require('blink.cmp').get_lsp_capabilities(config.capabilities)
+				lspconfig[server].setup(config)
+			end
+		end
 	},
 
-	{
-		'L3MON4D3/LuaSnip',
-		dependencies = {
-			{ 'rafamadriz/friendly-snippets' },
-		},
-		build = "make install_jsregexp",
-		config = function()
-			require("luasnip.loaders.from_vscode").lazy_load()
-			local ls = require("luasnip")
-
-			vim.keymap.set({ "i" }, "<C-K>", function() ls.expand() end, { silent = true })
-			vim.keymap.set({ "i", "s" }, "<C-L>", function() ls.jump(1) end, { silent = true })
-			vim.keymap.set({ "i", "s" }, "<C-J>", function() ls.jump(-1) end, { silent = true })
-
-			vim.keymap.set({ "i", "s" }, "<C-E>", function()
-				if ls.choice_active() then
-					ls.change_choice(1)
-				end
-			end, { silent = true })
-		end,
-
-	},
-
-	{
-		"hrsh7th/nvim-cmp",
-		event = { "InsertEnter", "CmdlineEnter" },
-		config = function()
-			local cmp = require("cmp")
-			local luasnip = require("luasnip")
-
-			cmp.setup({
-				-- these dependencies will only be loaded when cmp loads
-				-- dependencies are always lazy-loaded unless specified otherwise
-				dependencies = {
-					"L3MON4D3/LuaSnip",
-					"hrsh7th/cmp-nvim-lsp",
-					"hrsh7th/cmp-buffer",
-				},
-				sources = {
-					{ name = "nvim_lsp" },
-					{ name = "luasnip" },
-					{
-						name = 'buffer',
-						option = {
-							get_bufnrs = function()
-								return vim.api.nvim_list_bufs()
-							end
-						}
-					},
-				},
-
-				-- snippet = {
-				-- 	expand = function(args)
-				-- 		require("luasnip").lsp_expand(args.body)
-				-- 	end,
-				-- },
-
-				mapping = {
-					-- ["<Tab>"] = cmp.mapping(function(fallback)
-					-- 	-- This little snippet will confirm with tab, and if no entry is selected, will confirm the first item
-					-- 	if cmp.visible() then
-					-- 		local entry = cmp.get_selected_entry()
-					-- 		if not entry then
-					-- 			cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-					-- 		end
-					-- 		cmp.confirm()
-					-- 	else
-					-- 		fallback()
-					-- 	end
-					-- end, { "i", "s", "c", }),
-
-					-- ['<CR>'] = cmp.mapping(function(fallback)
-					-- 	if cmp.visible() then
-					-- 		if luasnip.expandable() then
-					-- 			luasnip.expand()
-					-- 		else
-					-- 			cmp.confirm({
-					-- 				select = false,
-					-- 			})
-					-- 		end
-					-- 	else
-					-- 		fallback()
-					-- 	end
-					-- end),
-
-					["<Tab>"] = cmp.mapping(function(fallback)
-						if cmp.visible() then
-							cmp.select_next_item()
-						elseif luasnip.locally_jumpable(1) then
-							luasnip.jump(1)
-						else
-							fallback()
-						end
-					end, { "i", "s" }),
-
-					["<S-Tab>"] = cmp.mapping(function(fallback)
-						if cmp.visible() then
-							cmp.select_prev_item()
-						elseif luasnip.locally_jumpable(-1) then
-							luasnip.jump(-1)
-						else
-							fallback()
-						end
-					end, { "i", "s" }),
-				},
-
-				formatting = {
-					format = require("lspkind").cmp_format({
-						mode = 'symbol_text',
-						maxwidth = 50,
-
-						before = function(_, vim_item)
-							return vim_item
-						end
-					})
-				},
-			})
-		end,
-	},
-	{ "hrsh7th/cmp-nvim-lsp" },
-
+	-- Notification progress messages
 	{
 		"j-hui/fidget.nvim",
 		config = function()
@@ -451,27 +419,12 @@ return {
 	-- 	"joshdick/onedark.vim",
 	-- 	config = function()
 	-- 		vim.cmd("colorscheme onedark")
+	-- 		vim.cmd("highlight MatchParen gui=underline guibg=black guifg=NONE")
 	-- 	end,
 	-- },
 
 	-- Syntax highlighting
-	{ "sheerun/vim-polyglot" },
-
-	-- Popup to show shortcuts as we type
-	-- {
-	-- 	"folke/which-key.nvim",
-	-- 	event = "VeryLazy",
-	-- 	opts = {},
-	-- 	keys = {
-	-- 		{
-	-- 			"<leader>?",
-	-- 			function()
-	-- 				require("which-key").show({ global = false })
-	-- 			end,
-	-- 			desc = "Buffer Local Keymaps (which-key)",
-	-- 		},
-	-- 	},
-	-- },
+	-- { "sheerun/vim-polyglot" },
 
 	-- File tree explorer
 	{ "nvim-tree/nvim-web-devicons", lazy = true },
@@ -1043,9 +996,25 @@ return {
 			})
 		end,
 	},
+	-- Popup to show shortcuts as we type (replaced by mini.clue)
+	-- {
+	-- 	"folke/which-key.nvim",
+	-- 	event = "VeryLazy",
+	-- 	opts = {},
+	-- 	keys = {
+	-- 		{
+	-- 			"<leader>?",
+	-- 			function()
+	-- 				require("which-key").show({ global = false })
+	-- 			end,
+	-- 			desc = "Buffer Local Keymaps (which-key)",
+	-- 		},
+	-- 	},
+	-- },
 
 	{ 'buoto/gotests-vim' },
 
+	-- Open your Kitty scrollback buffer with Neovim
 	{
 		'mikesmithgh/kitty-scrollback.nvim',
 		enabled = true,
@@ -1059,6 +1028,7 @@ return {
 		end,
 	},
 
+	-- Show scope of current indent
 	{
 		'echasnovski/mini.indentscope',
 		version = '*',
