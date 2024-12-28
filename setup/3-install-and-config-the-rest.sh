@@ -1,90 +1,68 @@
 #!/usr/bin/env bash
 
-# Setup neovim
-sudo pacman -S --needed --noconfirm gvim neovim
-mkdir -p ~/.config/nvim
-ln -fs ~/.vimrc ~/.config/nvim/init.vim
-
-# Install vundle, Vim plugin manager
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-vim +PluginInstall +qall
-
 # Setup docker
 sudo pacman -S --needed --noconfirm docker docker-compose
 sudo usermod -aG docker william
 sudo pacman -S --needed --noconfirm podman fuse-overlayfs slirp4netns
 
+# Setup k6
+K6_PWD="${HOME}/src/xk6"
+mkdir -p "$K6_PWD"
+podman run --userns=keep-id --rm -it -u "$(id -u):$(id -g)" -v "${K6_PWD}:/xk6" grafana/xk6 build latest \
+	--with github.com/grafana/xk6-dashboard@latest
+
 # Setup Ansible LSP (though will be using virtualenv for the Ansible itself)
 sudo pacman -S --needed --noconfirm ansible ansible-lint
 yay -S --needed --noconfirm ansible-language-server
 
-# Setup ...
-sudo pacman -S --needed --noconfirm binwalk tmux fzf clipmenu s-tui rofi
-
-# Setup pass
-sudo pacman -S --needed --noconfirm pass pass-otp
-yay -S --needed --noconfirm rofi-pass
-
 # Setup golang
 sudo pacman -S --needed --noconfirm go go-tools
-mkdir -p ~/src/go/{src,bin}
-
 export GOPATH=~/go
 # Replaced by pass
 # go get -u -v rsc.io/2fa
-go get -u -v mvdan.cc/sh/cmd/shfmt
-go get -u -v github.com/fatih/hclfmt
-go get -u -v github.com/golang/dep/cmd/dep
-go get -u -v github.com/mrtazz/checkmake
-go get -u -v github.com/yudppp/json2struct/cmd/json2struct
-go get -u github.com/skip2/go-qrcode/...
-go get -u -v github.com/cweill/gotests/...
-GO111MODULE=on go get mvdan.cc/gofumpt/gofumports
+go install mvdan.cc/sh/cmd/shfmt@latest
+go install github.com/fatih/hclfmt@latest
+go install github.com/mrtazz/checkmake@latest
+go install github.com/yudppp/json2struct/cmd/json2struct@latest
+go install github.com/skip2/go-qrcode/...@latest
+go install github.com/cweill/gotests/...@latest
 
 # Setup SQL Formatter
-curl -o ~/bin/sqlfmt -L https://github.com/lopezator/sqlfmt/releases/download/v1.2.0/sqlfmt-v1.2.0-linux-amd64
-chmod +x ~/bin/sqlfmt
+# curl -o ~/bin/sqlfmt -L https://github.com/lopezator/sqlfmt/releases/download/v1.2.0/sqlfmt-v1.2.0-linux-amd64
+# chmod +x ~/bin/sqlfmt
 
 # Setup exploits
 # yay -S --noconfirm exploit-db-git nikto gobuster-git burpsuite
 
 # git clone git@github.com:williamchanrico/wordlist.git ~/wordlist
 
-# Setup fzf-tab
-git clone https://github.com/Aloxaf/fzf-tab "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fzf-tab"
-
-# Setup zsh-completions from https://github.com/zchee/zsh-completions
-git clone https://github.com/zchee/zsh-completions ~/.zsh_completion/zchee_zsh-completions/
-
-# Setup zsh-autosuggestions and completions from https://github.com/zsh-users
-git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/plugins/zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-completions "${ZSH_CUSTOM:=$HOME/.oh-my-zsh/custom}"/plugins/zsh-completions
-
-# Setup powerlevel10k
-git clone --depth=1 https://github.com/romkatv/powerlevel10k "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/themes/powerlevel10k
-
 # Setup AWS
 yay -S --needed --noconfirm python-aws-mfa aws-cli
 
 # Setup kubectl
-yay -S --needed --noconfirm google-cloud-cli kubectl-bin kubectx google-cloud-cli-gke-gcloud-auth-plugin
+yay -S --needed --noconfirm google-cloud-cli kubectl kubectx google-cloud-cli-gke-gcloud-auth-plugin
 git clone https://github.com/williamchanrico/kube-ps1 ~/.oh-my-zsh/custom/plugins/kube-ps1
 git clone https://github.com/williamchanrico/gcloud-zsh-completion ~/.zsh_completion/gcloud-zsh-completion
 
 # Prevent dropbox automatic updates
-yay -S --needed --noconfirm dropbox nautilus-dropbox
+yay -S --needed --noconfirm dropbox
+sudo pacman -S --needed --noconfirm dolphin-plugins
 rm -rf ~/.dropbox-dist
 install -dm0 ~/.dropbox-dist
 
+# Setup openrgb
+sudo pacman -S --needed --noconfirm openrgb
+sudo modprobe i2c-dev
+
 # Setup wallpapers and betterlockscreen-git cache image
-yay -S --needed --noconfirm betterlockscreen-git
-mkdir -p ~/Pictures/Wallpapers
-cp ./wallpapers/* ~/Pictures/Wallpapers/
-betterlockscreen -u vim ~/Pictures/Wallpapers/wallpaper-2-2560x1440.png
-sudo systemctl enable betterlockscreen@william
+# yay -S --needed --noconfirm betterlockscreen-git
+# mkdir -p ~/Pictures/Wallpapers
+# cp ./wallpapers/* ~/Pictures/Wallpapers/
+# betterlockscreen -u vim ~/Pictures/Wallpapers/wallpaper-2-2560x1440.png
+# sudo systemctl enable betterlockscreen@william
 
 # Setup ntfy (notification tool)
-yay -S --needed --noconfirm ntfy-git
+# yay -S --needed --noconfirm ntfy-git
 
 # Setup node exporter
 sudo pacman -S prometheus-node-exporter prometheus-blackbox-exporter
@@ -110,10 +88,13 @@ sudo systemctl restart prometheus-blackbox-exporter
 sudo systemctl enable prometheus-node-exporter
 sudo systemctl enable prometheus-blackbox-exporter
 
+# Configure HUD
+sudo pacman -S --needed --noconfirm mangohud goverlay
+
 # Fix random crashes on memory intensive softwares (i.e. AAA games)
 # Sets the maximum number of memory map areas a process may have. Defaults to 65530.
 echo "Setting vm.max_map_count=1048576 to increase the max amount of memory map areas a process may have."
-echo "vm.max_map_count=1048576" | sudo tee /usr/lib/sysctl.d/99-vm-max_map_count.conf
+echo "vm.max_map_count=1147483642" | sudo tee /usr/lib/sysctl.d/99-vm-max_map_count.conf
 
 # Setup DNSCrypt and Unbound
 # sudo pacman -S --needed --noconfirm dnscrypt-proxy unbound
@@ -189,6 +170,7 @@ echo ""
 echo "> https://github.com/fphoenix88888/ttf-mswin10-arch for MS fonts"
 echo ""
 echo "> /etc/fstab for data hard disk (prevent update failures for linux steam)"
+echo "Adding library in steam may be problematic: https://github.com/ValveSoftware/steam-for-linux/issues/9640#issuecomment-1825064739"
 echo "UUID=2C7D50BE09066582 /run/media/william/data ntfs-3g  defaults,locale=en_US.utf8,uid=1000,gid=1000  0 0"
 echo ""
 echo "Docker will need vsyscall=emulate kernel parameter"

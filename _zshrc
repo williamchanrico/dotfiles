@@ -1,64 +1,90 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block, everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-# Function path
-# Prefer plugins instead of manual fpath settings
-# fpath=(
-#     "$HOME/.zsh_completion/zchee_zsh-completions/src/go"
-#     "$HOME/.zsh_completion/zchee_zsh-completions/src/zsh"
-#     $fpath
-# )
-
-# PATH environment variables
-export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$PATH
-
-# Path to oh-my-zsh installation.
-export ZSH=/home/william/.oh-my-zsh
+# Oh-my-zsh installation path
+ZSH=/usr/share/oh-my-zsh/
 
 # Enable virtualenv prompt
 export VIRTUAL_ENV_DISABLE_PROMPT=0
 
-# Different options for virtual consoles
-if [ "$TERM" = "linux" ]; then
-	ZSH_THEME="refined"
-else
-	# ZSH_THEME="mytheme"
-	ZSH_THEME=powerlevel10k/powerlevel10k
+# PATH environment variables
+export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$PATH
+
+# Display red dots whilst waiting for completion.
+export COMPLETION_WAITING_DOTS="true"
+
+# Keyring                                                                                                                            │    │
+export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/gcr/ssh
+
+# Powerlevel10k theme path
+source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+
+# List of plugins used
+plugins=( git sudo zsh-256color zsh-completions zsh-autosuggestions zsh-syntax-highlighting
+	fzf fzf-tab gcloud gitignore helm aws tmux dirhistory last-working-dir redis-cli z)
+source $ZSH/oh-my-zsh.sh
+
+# In case a command is not found, try to find the package that has it
+function command_not_found_handler {
+    local purple='\e[1;35m' bright='\e[0;1m' green='\e[1;32m' reset='\e[0m'
+    printf 'zsh: command not found: %s\n' "$1"
+    local entries=( ${(f)"$(/usr/bin/pacman -F --machinereadable -- "/usr/bin/$1")"} )
+    if (( ${#entries[@]} )) ; then
+        printf "${bright}$1${reset} may be found in the following packages:\n"
+        local pkg
+        for entry in "${entries[@]}" ; do
+            local fields=( ${(0)entry} )
+            if [[ "$pkg" != "${fields[2]}" ]]; then
+                printf "${purple}%s/${bright}%s ${green}%s${reset}\n" "${fields[1]}" "${fields[2]}" "${fields[3]}"
+            fi
+            printf '    /%s\n' "${fields[4]}"
+            pkg="${fields[2]}"
+        done
+    fi
+    return 127
+}
+
+# Detect AUR wrapper
+if pacman -Qi yay &>/dev/null; then
+   aurhelper="yay"
+elif pacman -Qi paru &>/dev/null; then
+   aurhelper="paru"
 fi
+
+function in {
+    local -a inPkg=("$@")
+    local -a arch=()
+    local -a aur=()
+
+    for pkg in "${inPkg[@]}"; do
+        if pacman -Si "${pkg}" &>/dev/null; then
+            arch+=("${pkg}")
+        else
+            aur+=("${pkg}")
+        fi
+    done
+
+    if [[ ${#arch[@]} -gt 0 ]]; then
+        sudo pacman -S "${arch[@]}"
+    fi
+
+    if [[ ${#aur[@]} -gt 0 ]]; then
+        ${aurhelper} -S "${aur[@]}"
+    fi
+}
+
+# zsh-autosuggestions
+export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
+export ZSH_AUTOSUGGEST_USE_ASYNC=true
+export DISABLE_UPDATE_PROMPT=true
+export DISABLE_MAGIC_FUNCTIONS=true
 
 export EDITOR=vim
 export VISUAL=vim
 export BROWSER=google-chrome-stable
 
-# Display red dots whilst waiting for completion.
-COMPLETION_WAITING_DOTS="true"
-
-# Load oh-my-zsh plugins
-plugins=(
-	git helm aws tmux fzf fzf-tab gitignore gcloud
-	dirhistory last-working-dir redis-cli z zsh-autosuggestions zsh-completions
-)
-
-# zsh-autosuggestions
-export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
-export ZSH_AUTOSUGGEST_USE_ASYNC=true
-
-export DISABLE_UPDATE_PROMPT=true
-
-export DISABLE_MAGIC_FUNCTIONS=true
-
-source $ZSH/oh-my-zsh.sh
-
-autoload -U compinit && compinit
-autoload -U select-word-style && select-word-style bash
-
-# From zsh-syntax-highlighting package
-# sudo pacman -S zsh-syntax-highlighting
-# source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# Use neovim if available
+if [[ -x "$(command -v nvim)" ]]; then
+       alias vim="nvim"
+       alias vi="nvim"
+fi
 
 ###################
 #   Keybindings   #
@@ -77,6 +103,69 @@ bindkey "^n" down-line-or-beginning-search
 
 # Adjust file listing colors for other-writables
 export LS_COLORS="$LS_COLORS:ow=1;34;107:tw=1;34:"
+
+
+########################
+# Other programs setup #
+########################
+
+# Alicloud
+# source ~/.aliyun/.rc
+
+# Go directory env
+export GOPATH=/home/william/go
+export GOBIN=/home/william/go/bin
+export GOPRIVATE=github.com/tokopedia
+export PATH=$GOBIN:$PATH
+
+# Restic Backup Setup
+export RESTIC_REPOSITORY=/run/media/william/HD-E1/backup/personal
+
+# Ruby Setup. RVM to PATH for scripting. Make sure this is the last PATH variable change.
+# export PATH="$PATH:$HOME/.rvm/bin"
+# [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+
+# Set up Node Version Manager
+# export NVM_DIR="$HOME/.nvm"
+# export NVM_SOURCE="/usr/share/nvm"	# The AUR package installs it to here.
+# [ -s "$NVM_SOURCE/nvm.sh" ] && . "$NVM_SOURCE/nvm.sh"	# Load NVM
+
+# Setup NPM user-wide installation, but are replaced by nvm specific
+PATH="$HOME/.node_modules/bin:$PATH"
+export npm_config_prefix=~/.node_modules
+
+# Set up Composer
+export PATH=$HOME/.config/composer/vendor/bin:$PATH
+
+# Set up kubectl plugin krew
+if [[ -x "$(command -v kubectl-krew)" ]]; then
+	export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+fi
+export USE_GKE_GCLOUD_AUTH_PLUGIN=True
+
+# Setup Terragrunt Cache Download Directory
+export TERRAGRUNT_DOWNLOAD="$HOME/.terragrunt-cache"
+
+# Wine
+export BASE_WINEPREFIX64="$HOME/.wine-prefixes/64bit"
+export BASE_WINEPREFIX32="$HOME/.wine-prefixes/32bit"
+# Defaults
+export WINEARCH="win64"
+export WINEPREFIX="${BASE_WINEPREFIX64}/default"
+
+# Naver Line
+export WINE_LINE="WINEPREFIX=${BASE_WINEPREFIX64}/naver-line WINEARCH=win64"
+alias winecfg-line="env $WINE_LINE winecfg"
+alias winetricks-line="env $WINE_LINE winetricks line"
+# Replace with ~/bin/wine-line script
+# alias wine-line="dex ~/LINE.desktop"
+
+# Gcloud (https://cloud.google.com/sdk/crypto#cloudsdk_python_sitepackages=1)
+export CLOUDSDK_PYTHON_SITEPACKAGES=1
+
+# Password Store
+export PASSWORD_STORE_CHARACTER_SET='[:alnum:].,!?&*%_$#^@{}[]()<>/\+'
+
 
 ###################
 # Auto-completion #
@@ -126,207 +215,27 @@ socks() {
 
 	SOCKS_TMUX_SESSION_NAME=socks
 	tmux kill-session -t "$SOCKS_TMUX_SESSION_NAME" >/dev/null 2>&1
-	tmux new-session -s "$SOCKS_TMUX_SESSION_NAME" -d 'ssh -D 8080 william@arzhon-vps.arzhon.id'
+	tmux new-session -s "$SOCKS_TMUX_SESSION_NAME" -d 'ssh -D 8080 william@vps.arzhon.id'
 	tmux split-window -t "$SOCKS_TMUX_SESSION_NAME" -v 'iftop -c ~/.iftoprc -f "port ssh or port 2222"' # Need cap_net_raw=eip cap
 	tmux select-pane -t "$SOCKS_TMUX_SESSION_NAME:1.1"
 	tmux -2 attach-session -t "$SOCKS_TMUX_SESSION_NAME" -d
 }
 
-myxrandr() {
-	if [[ -z "$(command -v xrandr)" ]]; then
-		echo "Xrandr is not installed"
-		return 1
-	fi
-
-	if [ $# -ne 1 ]; then
-		echo "usage: $0 PRESET"
-		return 1
-	fi
-
-	MYXRANDR_PRESET="${1:-reset}"
-
-	case "$MYXRANDR_PRESET" in
-		reset)
-			xrandr -s 0
-			xrandr --auto
-			return 0
-			;;
-
-		home)
-			myxrandr reset
-			xrandr --output HDMI-0 --primary --auto
-			;;
-
-		work)
-			myxrandr reset
-			# xrandr --output DP1 -s 2560x1440 --primary --auto --output eDP1 --left-of DP1
-			# xrandr --output eDP1 --mode 1920x1080 --pos 0x0 --rotate normal --output DP1 --primary --mode 1920x1080 --pos 3840x0 --rotate normal --output HDMI1 --mode 1920x1080 --pos 1920x0 --rotate normal --output HDMI2 --off --output VIRTUAL1 --off
-			xrandr --output eDP1 --primary --mode 1920x1080 --pos 0x0 --rotate normal --output DP1 --off --output HDMI1 --mode 1920x1080 --pos 1920x0 --rotate normal --output HDMI2 --off --output VIRTUAL1 --off
-			;;
-
-		lt)
-			myxrandr reset
-			xrandr --output eDP1 --auto
-			;;
-	esac
-
-	echo "Using preset: $MYXRANDR_PRESET"
-}
-
-################
-# Prompt setup #
-################
-
-kube() {
-  if (( ${+POWERLEVEL9K_KUBECONTEXT_SHOW_ON_COMMAND} )); then
-    unset POWERLEVEL9K_KUBECONTEXT_SHOW_ON_COMMAND
-  else
-    POWERLEVEL9K_KUBECONTEXT_SHOW_ON_COMMAND='kubectl|helm|kubens|kubectx|oc|istioctl|kogito|k9s|helmfile'
-  fi
-  p10k reload
-  if zle; then
-    zle push-input
-    zle accept-line
-  fi
-}
-
-export KUBE_PS1_ENABLED=off
-kubeon() {
-	KUBE_PS1_ENABLED=on
-	p10k_reload
-}
-
-kubeoff() {
-	KUBE_PS1_ENABLED=off
-	p10k_reload
-}
-
-venvon() {
-	source ${1:-venv/bin/activate}
-	p10k_reload
-}
-
-venvoff() {
-	deactivate
-	p10k_reload
-}
-
-
-########################
-# Other programs setup #
-########################
-
-# Alicloud
-# source ~/.aliyun/.rc
-
-# Go directory env
-export GOPATH=/home/william/go
-export GOBIN=/home/william/go/bin
-export GOPRIVATE=github.com/tokopedia
-export PATH=$GOBIN:$PATH
-
-# Restic Backup Setup
-export RESTIC_REPOSITORY=/run/media/william/HD-E1/backup/personal
-
-# Ruby Setup. RVM to PATH for scripting. Make sure this is the last PATH variable change.
-# export PATH="$PATH:$HOME/.rvm/bin"
-# [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
-
-# Set up Node Version Manager
-# export NVM_DIR="$HOME/.nvm"
-# export NVM_SOURCE="/usr/share/nvm"	# The AUR package installs it to here.
-# [ -s "$NVM_SOURCE/nvm.sh" ] && . "$NVM_SOURCE/nvm.sh"	# Load NVM
-
-# Setup NPM user-wide installation, but are replaced by nvm specific
-PATH="$HOME/.node_modules/bin:$PATH"
-export npm_config_prefix=~/.node_modules
-
-# Set up Composer
-export PATH=$HOME/.config/composer/vendor/bin:$PATH
-
-# Set up kubectl plugin krew
-if [[ -x "$(command -v kubectl-krew)" ]]; then
-	export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
-fi
-
-# Setup Terragrunt Cache Download Directory
-export TERRAGRUNT_DOWNLOAD="$HOME/.terragrunt-cache"
-
-# Wine
-export BASE_WINEPREFIX64="$HOME/.wine-prefixes/64bit"
-export BASE_WINEPREFIX32="$HOME/.wine-prefixes/32bit"
-# Defaults
-export WINEARCH="win64"
-export WINEPREFIX="${BASE_WINEPREFIX64}/default"
-
-# Naver Line
-export WINE_LINE="WINEPREFIX=${BASE_WINEPREFIX64}/naver-line WINEARCH=win64"
-alias winecfg-line="env $WINE_LINE winecfg"
-alias winetricks-line="env $WINE_LINE winetricks line"
-# Replace with ~/bin/wine-line script
-# alias wine-line="dex ~/LINE.desktop"
-
-# Gcloud (https://cloud.google.com/sdk/crypto#cloudsdk_python_sitepackages=1)
-export CLOUDSDK_PYTHON_SITEPACKAGES=1
-
-# Password Store
-export PASSWORD_STORE_CHARACTER_SET='[:alnum:].,!?&*%_$#^@{}[]()<>=/\+'
-
 ###########
 # Aliases #
 ###########
 
-# Use neovim if available
-if [[ -x "$(command -v nvim)" ]]; then
-	alias vim="nvim"
-	alias vi="nvim"
-fi
+alias c='clear' # clear terminal
 
-# Ntfy to send push notification, token is stored in ~/.ntfy.yml
-alias nf="ntfy"
-# Mobile pushbullet
-alias nfmb="ntfy -o device_iden ujviRNYx41csjwCSoo2Xx6 -b pushbullet"
+# Directory navigation shortcuts
+alias ..='cd ..'
+alias ...='cd ../..'
+alias .3='cd ../../..'
+alias .4='cd ../../../..'
+alias .5='cd ../../../../..'
 
-# Yeecli to control Yee Lightbulb
-alias yee="yeecli"
-alias yeeb="yeecli brightness"
-alias yeet="yeecli toggle"
-alias yeew="yeecli rgb FFFFFF"
-alias yeeo="yeecli rgb FFFFFF && yeecli temperature 4500"
-alias yeer="yeecli rgb FF6600 && yeeb 50"
-
-# Turn off display
-alias dpoff="xset dpms force off"
-
-# Suspend
-alias spnd="systemctl suspend"
-
-# Change dirs
-alias cdgo="cd $GOPATH/src"
-alias cdgoo="cd $GOPATH/src/github.com/williamchanrico"
-alias cdgot="cd $GOPATH/src/github.com/tokopedia"
-alias cdwork="cd ~/work"
-
-# Better ls
-alias ls="ls --color=auto --group-directories-first"
-
-# Easy open from terminal
-alias o="xdg-open"
-
-# Sometimes used to bypass aliases
-alias c="command"
-
-# Terraform and Terragrunt
-alias tf-auth="export GOOGLE_OAUTH_ACCESS_TOKEN=\$(gcloud auth print-access-token)"
-alias tf="terraform"
-alias tg-gcp="TERRAGRUNT_TFPATH=/usr/local/bin/terraform-0-12-13 terragrunt"
-alias tg="TERRAGRUNT_TFPATH=terraform-v1.3.7 terragrunt-v0.42.7"
-alias tg-tf-v1.0.6="TERRAGRUNT_TFPATH=terraform-v1.0.6 terragrunt-v0.32.4"
-alias tg-tf-v1.0.7="TERRAGRUNT_TFPATH=terraform-v1.0.7 terragrunt-v0.32.4"
-alias tg-tf-v1.1.3="TERRAGRUNT_TFPATH=terraform-v1.1.3 terragrunt-v0.32.4"
-alias tg-tf-v1.2.1="TERRAGRUNT_TFPATH=terraform-v1.2.1 terragrunt-v0.32.4"
-alias tg-tf-v1.3.7="TERRAGRUNT_TFPATH=terraform-v1.3.7 terragrunt-v0.42.7"
-alias tg-tf-v1.5.72="TERRAGRUNT_TFPATH=terraform-v1.5.2 terragrunt-v0.48.0"
+# Always mkdir a path (this doesn't inhibit functionality to make a single dir)
+alias mkdir='mkdir -p'
 
 # Webcam Access
 alias wcam="mpv --demuxer-lavf-format video4linux2 --demuxer-lavf-o-set input_format=mjpeg av://v4l2:/dev/video0"
@@ -334,16 +243,11 @@ alias wcam="mpv --demuxer-lavf-format video4linux2 --demuxer-lavf-o-set input_fo
 # SQLFormat
 alias sqlformat="sqlformat --reindent --keywords upper --identifiers lower"
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-p10k_reload(){
-	[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-}
-p10k_reload
+# Terraform
+alias tf-auth="export GOOGLE_OAUTH_ACCESS_TOKEN=\$(gcloud auth print-access-token)"
 
-if [ -f "/opt/google-cloud-sdk/completion.zsh.inc" ]; then source "/opt/google-cloud-sdk/completion.zsh.inc"; fi
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# Miniconda3
-[ -f /opt/miniconda3/etc/profile.d/conda.sh ] && source /opt/miniconda3/etc/profile.d/conda.sh
-
-# Kubectl
-export USE_GKE_GCLOUD_AUTH_PLUGIN=True
+# Display Pokemon
+# pokemon-colorscripts --no-title -r 1,3,6
