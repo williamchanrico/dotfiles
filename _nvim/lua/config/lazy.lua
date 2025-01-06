@@ -51,6 +51,7 @@ vim.opt.mouse = "a"
 vim.opt.clipboard = "unnamedplus"
 vim.opt.splitbelow = true
 vim.opt.splitright = true
+vim.opt.scrolloff = 2
 
 -- Set match pairs and highlight
 vim.opt.matchpairs:append("<:>")
@@ -178,6 +179,17 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 			vim.cmd("normal! g`\"") -- Go to the last cursor position
 		end
 	end,
+})
+
+-- Code action
+vim.api.nvim_buf_set_keymap(0, "n", "<M-CR>", "<Cmd>lua vim.lsp.buf.code_action()<CR>", { noremap = true, silent = true })
+
+-- Fix quickfix <CR> opening file exporer instead of going to target file.
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "qf", -- Apply to the quickfix window
+    callback = function()
+        vim.keymap.set("n", "<CR>", "<CR>", { buffer = true, noremap = true, silent = true })
+    end,
 })
 
 -- Setup lazy.nvim
