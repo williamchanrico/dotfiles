@@ -121,7 +121,18 @@ return {
                 keyword = { range = 'prefix' },
 
                 -- Insert completion item on selection, don't select by default
-                list = { selection = 'auto_insert' },
+                list = {
+                    selection = {
+                        -- auto_insert = true,
+                        auto_insert = function(ctx) return ctx.mode ~= 'cmdline' end,
+
+                        -- preselect = true,
+                        -- or a function
+                        preselect = function(ctx)
+                            return ctx.mode ~= 'cmdline' and not require('blink.cmp').snippet_active({ direction = 1 })
+                        end,
+                    }
+                },
 
             },
             signature = { enabled = true },
@@ -674,16 +685,16 @@ return {
 
                 -- Module mappings. Use `''` (empty string) to disable one.
                 mappings = {
-                    add = 'ra', -- Add surrounding in Normal and Visual modes
-                    delete = 'rd', -- Delete surrounding
-                    find = 'rf', -- Find surrounding (to the right)
-                    find_left = 'rF', -- Find surrounding (to the left)
-                    highlight = 'rh', -- Highlight surrounding
-                    replace = 'rr', -- Replace surrounding
+                    add = 'ra',            -- Add surrounding in Normal and Visual modes
+                    delete = 'rd',         -- Delete surrounding
+                    find = 'rf',           -- Find surrounding (to the right)
+                    find_left = 'rF',      -- Find surrounding (to the left)
+                    highlight = 'rh',      -- Highlight surrounding
+                    replace = 'rr',        -- Replace surrounding
                     update_n_lines = 'rn', -- Update `n_lines`
 
-                    suffix_last = 'l', -- Suffix to search with "prev" method
-                    suffix_next = 'n', -- Suffix to search with "next" method
+                    suffix_last = 'l',     -- Suffix to search with "prev" method
+                    suffix_next = 'n',     -- Suffix to search with "next" method
                 },
 
                 -- Number of lines within which surrounding is searched
@@ -904,6 +915,9 @@ return {
         "godlygeek/tabular",
         config = function()
             -- Align text using Tabularize
+            vim.keymap.set("n", "<Leader>a ", ":Tabularize / <CR>", { desc = "Align text around ' '" })
+            vim.keymap.set("x", "<Leader>a ", ":Tabularize / <CR>", { desc = "Align visually selected text around ' '" })
+
             vim.keymap.set("n", "<Leader>a=", ":Tabularize /=<CR>", { desc = "Align text around '='" })
             vim.keymap.set("x", "<Leader>a=", ":Tabularize /=<CR>", { desc = "Align visually selected text around '='" })
 
