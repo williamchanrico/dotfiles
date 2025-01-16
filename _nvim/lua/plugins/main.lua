@@ -229,7 +229,6 @@ return {
                     cmd = { "gopls", "--remote=auto" },
                     settings = {
                         gopls = {
-                            experimentalWorkspaceModule = true,
                             analyses = {
                                 unusedparams = true,
                                 shadow = true,
@@ -335,14 +334,32 @@ return {
                 desc = "LSP actions",
                 callback = function(event)
                     local opts = { buffer = event.buf }
+                    local telescope_builtin = require("telescope.builtin")
+
+                    vim.keymap.set("n", "gf", telescope_builtin.find_files, { desc = "Find files in the current project" })
+                    vim.keymap.set("n", "gc", telescope_builtin.git_commits,
+                        { desc = "Lists git commits with diff preview, checkout action <cr>, reset mixed <C-r>m, reset soft <C-r>s and reset hard <C-r>h" })
+                    vim.keymap.set("n", "gC", telescope_builtin.git_bcommits, { desc = "Lists buffer's git commits with diff preview and checks them out on <cr>" })
+                    vim.keymap.set("n", "gr", telescope_builtin.live_grep, { desc = "Search for text in project using live grep" })
+                    vim.keymap.set("n", "gb", telescope_builtin.buffers, { desc = "List and switch between open buffers" })
+                    vim.keymap.set("n", "gs", telescope_builtin.search_history, { desc = "Browse search history" })
+                    vim.keymap.set("n", "gh", telescope_builtin.command_history, { desc = "Browse command history" })
+                    vim.keymap.set("n", "gq", telescope_builtin.quickfix, { desc = "Browse quickfix" })
+                    vim.keymap.set("n", "gj", telescope_builtin.diagnostics, { desc = "Browse diagnostics" })
+                    vim.keymap.set("n", "gd", telescope_builtin.lsp_definitions, { desc = "Browse lsp_definitions" })
+                    vim.keymap.set("n", "gD", telescope_builtin.lsp_type_definitions, { desc = "Browse lsp_type_definitions" })
+                    vim.keymap.set("n", "gl", telescope_builtin.lsp_references, { desc = "Browse lsp_references" })
+                    vim.keymap.set("n", "gi", telescope_builtin.lsp_implementations, { desc = "Browse lsp_implementations" })
+                    vim.keymap.set("n", "gs", telescope_builtin.lsp_document_symbols, { desc = "Browse lsp_document_symbols" })
+                    vim.keymap.set("n", "gS", telescope_builtin.treesitter, { desc = "Browse Function names, variables, from Treesitter" })
 
                     vim.keymap.set("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>", vim.tbl_extend("force", opts, { desc = "Show hover information" }))
-                    vim.keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<cr>", vim.tbl_extend("force", opts, { desc = "Go to definition" }))
-                    vim.keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>", vim.tbl_extend("force", opts, { desc = "Go to declaration" }))
-                    vim.keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<cr>", vim.tbl_extend("force", opts, { desc = "Go to implementation" }))
+                    -- vim.keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<cr>", vim.tbl_extend("force", opts, { desc = "Go to definition" }))
+                    -- vim.keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>", vim.tbl_extend("force", opts, { desc = "Go to declaration" }))
+                    -- vim.keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<cr>", vim.tbl_extend("force", opts, { desc = "Go to implementation" }))
                     vim.keymap.set("i", "<c-i>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", { desc = "Show signature help" })
-                    vim.keymap.set("n", "go", "<cmd>lua vim.lsp.buf.type_definition()<cr>", vim.tbl_extend("force", opts, { desc = "Go to type definition" }))
-                    vim.keymap.set("n", "gl", "<cmd>lua vim.lsp.buf.references()<cr>", vim.tbl_extend("force", opts, { desc = "Show references" }))
+                    -- vim.keymap.set("n", "go", "<cmd>lua vim.lsp.buf.type_definition()<cr>", vim.tbl_extend("force", opts, { desc = "Go to type definition" }))
+                    -- vim.keymap.set("n", "gl", "<cmd>lua vim.lsp.buf.references()<cr>", vim.tbl_extend("force", opts, { desc = "Show references" }))
                     vim.keymap.set("n", "<leader>r", function()
                         -- Automatically "press" CTRL-F to enter the command-line window `:h cmdwin`
                         local cmdId
@@ -820,12 +837,25 @@ return {
         dependencies = { "nvim-lua/plenary.nvim" },
         config = function()
             local telescope_builtin = require("telescope.builtin")
-            vim.keymap.set("n", "<leader>ff", telescope_builtin.find_files, { desc = "Find files in the current project" })
-            vim.keymap.set("n", "<C-p>", telescope_builtin.resume, { desc = "Resume the last Telescope search" })
-            vim.keymap.set("n", "<leader>fg", telescope_builtin.live_grep, { desc = "Search for text in project using live grep" })
-            vim.keymap.set("n", "<leader>fb", telescope_builtin.buffers, { desc = "List and switch between open buffers" })
-            vim.keymap.set("n", "<leader>fh", telescope_builtin.help_tags, { desc = "Browse available help tags" })
-            vim.keymap.set('n', '<leader>o', function()
+            -- vim.keymap.set("n", "<leader>ff", telescope_builtin.find_files, { desc = "Find files in the current project" })
+            -- vim.keymap.set("n", "<C-p>", telescope_builtin.resume, { desc = "Resume the last Telescope search" })
+            -- -- vim.keymap.set("n", "<leader>fh", telescope_builtin.help_tags, { desc = "Browse available help tags" })
+            -- vim.keymap.set("n", "<leader>fgc", telescope_builtin.git_commits,
+            --     { desc = "Lists git commits with diff preview, checkout action <cr>, reset mixed <C-r>m, reset soft <C-r>s and reset hard <C-r>h" })
+            -- vim.keymap.set("n", "<leader>fgC", telescope_builtin.git_bcommits, { desc = "Lists buffer's git commits with diff preview and checks them out on <cr>" })
+            -- vim.keymap.set("n", "<leader>fr", telescope_builtin.live_grep, { desc = "Search for text in project using live grep" })
+            -- vim.keymap.set("n", "<leader>fb", telescope_builtin.buffers, { desc = "List and switch between open buffers" })
+            -- vim.keymap.set("n", "<leader>fs", telescope_builtin.search_history, { desc = "Browse search history" })
+            -- vim.keymap.set("n", "<leader>fc", telescope_builtin.command_history, { desc = "Browse command history" })
+            -- vim.keymap.set("n", "<leader>fq", telescope_builtin.quickfix, { desc = "Browse quickfix" })
+            -- vim.keymap.set("n", "<leader>fj", telescope_builtin.diagnostics, { desc = "Browse diagnostics" })
+            -- vim.keymap.set("n", "<leader>fd", telescope_builtin.lsp_definitions, { desc = "Browse lsp_definitions" })
+            -- vim.keymap.set("n", "<leader>fD", telescope_builtin.lsp_type_definitions, { desc = "Browse lsp_type_definitions" })
+            -- vim.keymap.set("n", "<leader>fl", telescope_builtin.lsp_references, { desc = "Browse lsp_references" })
+            -- vim.keymap.set("n", "<leader>fi", telescope_builtin.lsp_implementations, { desc = "Browse lsp_implementations" })
+            -- vim.keymap.set("n", "<leader>fs", telescope_builtin.lsp_document_symbols, { desc = "Browse lsp_document_symbols" })
+            -- vim.keymap.set("n", "<leader>fS", telescope_builtin.treesitter, { desc = "Browse Function names, variables, from Treesitter" })
+            vim.keymap.set('n', "go", function()
                 require('telescope.builtin').oldfiles({ only_cwd = false })
             end, { noremap = true, silent = true, desc = 'Open recently used files' })
         end,
