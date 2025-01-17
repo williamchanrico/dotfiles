@@ -20,6 +20,8 @@ yay -S --needed --noconfirm \
 	tesseract-data-eng  \
 	# Subtitle Editor
 	gaupol \
+	# Python library and CLI tool for searching and downloading subtitles
+	subliminal \
 	# Graph Visualizer
 	graphviz \
 	# List open files
