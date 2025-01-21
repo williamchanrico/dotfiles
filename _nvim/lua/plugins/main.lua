@@ -336,16 +336,6 @@ return {
                     local opts = { buffer = event.buf }
                     local telescope_builtin = require("telescope.builtin")
 
-                    vim.keymap.set("n", "gf", telescope_builtin.find_files, { desc = "Find files in the current project" })
-                    vim.keymap.set("n", "gc", telescope_builtin.git_commits,
-                        { desc = "Lists git commits with diff preview, checkout action <cr>, reset mixed <C-r>m, reset soft <C-r>s and reset hard <C-r>h" })
-                    vim.keymap.set("n", "gC", telescope_builtin.git_bcommits, { desc = "Lists buffer's git commits with diff preview and checks them out on <cr>" })
-                    vim.keymap.set("n", "gr", telescope_builtin.live_grep, { desc = "Search for text in project using live grep" })
-                    vim.keymap.set("n", "gb", telescope_builtin.buffers, { desc = "List and switch between open buffers" })
-                    vim.keymap.set("n", "ghs", telescope_builtin.search_history, { desc = "Browse search history" })
-                    vim.keymap.set("n", "ghc", telescope_builtin.command_history, { desc = "Browse command history" })
-                    vim.keymap.set("n", "gq", telescope_builtin.quickfix, { desc = "Browse quickfix" })
-                    vim.keymap.set("n", "gj", telescope_builtin.diagnostics, { desc = "Browse diagnostics" })
                     vim.keymap.set("n", "gd", telescope_builtin.lsp_definitions, { desc = "Browse lsp_definitions" })
                     vim.keymap.set("n", "gD", telescope_builtin.lsp_type_definitions, { desc = "Browse lsp_type_definitions" })
                     vim.keymap.set("n", "gl", telescope_builtin.lsp_references, { desc = "Browse lsp_references" })
@@ -385,7 +375,7 @@ return {
 
                     vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, vim.tbl_extend("force", opts, { desc = "Show code actions" }))
                     vim.keymap.set('n', '<leader>cf', vim.lsp.buf.format, vim.tbl_extend("force", opts, { desc = "Format code" }))
-                    -- vim.keymap.set("n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<cr>", vim.tbl_extend("force", opts, { desc = "Show signature help" }))
+                    vim.keymap.set("n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<cr>", vim.tbl_extend("force", opts, { desc = "Show signature help" }))
                     vim.keymap.set("n", "<F2>", "<cmd>lua vim.lsp.buf.rename()<cr>", vim.tbl_extend("force", opts, { desc = "Rename symbol" }))
                     vim.keymap.set({ "n", "x" }, "<F3>", "<cmd>lua vim.lsp.buf.format({async = true})<cr>", vim.tbl_extend("force", opts, { desc = "Format code" }))
                     vim.keymap.set("n", "<F4>", "<cmd>lua vim.lsp.buf.code_action()<cr>", vim.tbl_extend("force", opts, { desc = "Show code actions" }))
@@ -837,26 +827,19 @@ return {
         dependencies = { "nvim-lua/plenary.nvim" },
         config = function()
             local telescope_builtin = require("telescope.builtin")
-            -- vim.keymap.set("n", "<leader>ff", telescope_builtin.find_files, { desc = "Find files in the current project" })
-            -- vim.keymap.set("n", "<C-p>", telescope_builtin.resume, { desc = "Resume the last Telescope search" })
-            -- -- vim.keymap.set("n", "<leader>fh", telescope_builtin.help_tags, { desc = "Browse available help tags" })
-            -- vim.keymap.set("n", "<leader>fgc", telescope_builtin.git_commits,
-            --     { desc = "Lists git commits with diff preview, checkout action <cr>, reset mixed <C-r>m, reset soft <C-r>s and reset hard <C-r>h" })
-            -- vim.keymap.set("n", "<leader>fgC", telescope_builtin.git_bcommits, { desc = "Lists buffer's git commits with diff preview and checks them out on <cr>" })
-            -- vim.keymap.set("n", "<leader>fr", telescope_builtin.live_grep, { desc = "Search for text in project using live grep" })
-            -- vim.keymap.set("n", "<leader>fb", telescope_builtin.buffers, { desc = "List and switch between open buffers" })
-            -- vim.keymap.set("n", "<leader>fs", telescope_builtin.search_history, { desc = "Browse search history" })
-            -- vim.keymap.set("n", "<leader>fc", telescope_builtin.command_history, { desc = "Browse command history" })
-            -- vim.keymap.set("n", "<leader>fq", telescope_builtin.quickfix, { desc = "Browse quickfix" })
-            -- vim.keymap.set("n", "<leader>fj", telescope_builtin.diagnostics, { desc = "Browse diagnostics" })
-            -- vim.keymap.set("n", "<leader>fd", telescope_builtin.lsp_definitions, { desc = "Browse lsp_definitions" })
-            -- vim.keymap.set("n", "<leader>fD", telescope_builtin.lsp_type_definitions, { desc = "Browse lsp_type_definitions" })
-            -- vim.keymap.set("n", "<leader>fl", telescope_builtin.lsp_references, { desc = "Browse lsp_references" })
-            -- vim.keymap.set("n", "<leader>fi", telescope_builtin.lsp_implementations, { desc = "Browse lsp_implementations" })
-            -- vim.keymap.set("n", "<leader>fs", telescope_builtin.lsp_document_symbols, { desc = "Browse lsp_document_symbols" })
-            -- vim.keymap.set("n", "<leader>fS", telescope_builtin.treesitter, { desc = "Browse Function names, variables, from Treesitter" })
+
+            vim.keymap.set("n", "gf", telescope_builtin.find_files, { desc = "Find files in the current project" })
+            vim.keymap.set("n", "gc", telescope_builtin.git_commits,
+                { desc = "Lists git commits with diff preview, checkout action <cr>, reset mixed <C-r>m, reset soft <C-r>s and reset hard <C-r>h" })
+            vim.keymap.set("n", "gC", telescope_builtin.git_bcommits, { desc = "Lists buffer's git commits with diff preview and checks them out on <cr>" })
+            vim.keymap.set("n", "gr", telescope_builtin.live_grep, { desc = "Search for text in project using live grep" })
+            vim.keymap.set("n", "gb", telescope_builtin.buffers, { desc = "List and switch between open buffers" })
+            vim.keymap.set("n", "ghs", telescope_builtin.search_history, { desc = "Browse search history" })
+            vim.keymap.set("n", "ghc", telescope_builtin.command_history, { desc = "Browse command history" })
+            vim.keymap.set("n", "gq", telescope_builtin.quickfix, { desc = "Browse quickfix" })
+            vim.keymap.set("n", "gj", telescope_builtin.diagnostics, { desc = "Browse diagnostics" })
             vim.keymap.set('n', "go", function()
-                require('telescope.builtin').oldfiles({ only_cwd = false })
+                telescope_builtin.oldfiles({ only_cwd = false })
             end, { noremap = true, silent = true, desc = 'Open recently used files' })
         end,
     },
@@ -1229,13 +1212,14 @@ return {
     },
 
     -- Show scope of current indent
-    {
-        'echasnovski/mini.indentscope',
-        version = '*',
-        config = function()
-            require('mini.indentscope').setup()
-        end,
-    },
+    -- Replaced by Snacks.indent
+    -- {
+    --     'echasnovski/mini.indentscope',
+    --     version = '*',
+    --     config = function()
+    --         require('mini.indentscope').setup()
+    --     end,
+    -- },
 
     -- Navigate using brackets
     {
@@ -1274,6 +1258,49 @@ return {
         config = function()
             require("oil").setup()
         end
+    },
+
+    {
+        "folke/snacks.nvim",
+        priority = 1000,
+        lazy = false,
+        opts = {
+            indent = { enabled = true },
+            input = { enabled = true },
+            -- scroll = { enabled = true },
+        },
+        keys = {
+            { "<leader>z", function() Snacks.zen() end,      desc = "Toggle Zen Mode" },
+            { "<leader>Z", function() Snacks.zen.zoom() end, desc = "Toggle Zoom" },
+        },
+        init = function()
+            vim.api.nvim_create_autocmd("User", {
+                pattern = "VeryLazy",
+                callback = function()
+                    -- Setup some globals for debugging (lazy-loaded)
+                    _G.dd = function(...)
+                        Snacks.debug.inspect(...)
+                    end
+                    _G.bt = function()
+                        Snacks.debug.backtrace()
+                    end
+                    vim.print = _G.dd -- Override print to use snacks for `:=` command
+
+                    -- Create some toggle mappings
+                    Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>us")
+                    Snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>uw")
+                    Snacks.toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>uL")
+                    Snacks.toggle.diagnostics():map("<leader>ud")
+                    Snacks.toggle.line_number():map("<leader>ul")
+                    Snacks.toggle.option("conceallevel", { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 }):map("<leader>uc")
+                    Snacks.toggle.treesitter():map("<leader>uT")
+                    Snacks.toggle.option("background", { off = "light", on = "dark", name = "Dark Background" }):map("<leader>ub")
+                    Snacks.toggle.inlay_hints():map("<leader>uh")
+                    Snacks.toggle.indent():map("<leader>ug")
+                    Snacks.toggle.dim():map("<leader>uD")
+                end,
+            })
+        end,
     },
 
 }
