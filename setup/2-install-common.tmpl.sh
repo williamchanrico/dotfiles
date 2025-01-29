@@ -114,7 +114,7 @@ yay -S --needed --noconfirm \
 	# flameshot \
 	grimblast-git \
 	slurp \
-	swappy \
+	satty \
 	# Color picker
 	# gcolor3 \
 	hyprpicker \
