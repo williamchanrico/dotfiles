@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Setup docker
-sudo pacman -S --needed --noconfirm docker docker-compose
+sudo pacman -S --needed --noconfirm docker docker-compose docker-buildx
 sudo usermod -aG docker william
 sudo pacman -S --needed --noconfirm podman fuse-overlayfs slirp4netns
 
