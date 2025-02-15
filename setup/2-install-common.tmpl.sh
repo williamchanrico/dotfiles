@@ -327,3 +327,4 @@ ya pack -a AnirudhG07/rich-preview
 ya pack -a pirafrank/what-size
 ya pack -a imsi32/yatline
 ya pack -a yazi-rs/plugins:git
+ya pack -a dedukun/bookmarks
