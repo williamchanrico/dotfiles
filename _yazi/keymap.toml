@@ -47,11 +47,11 @@ keymap = [
 	{ on = "J", run = "seek 5",  desc = "Seek down 5 units in the preview" },
 
 	# Selection
-	{ on = "<Space>", run = [ "select --state=none", "arrow 1" ], desc = "Toggle the current selection state" },
+	{ on = "<Space>", run = [ "toggle --state=none", "arrow 1" ], desc = "Toggle the current selection state" },
 	{ on = "v",       run = "visual_mode",                        desc = "Enter visual mode (selection mode)" },
 	{ on = "V",       run = "visual_mode --unset",                desc = "Enter visual mode (unset mode)" },
-	{ on = "<C-a>",   run = "select_all --state=true",            desc = "Select all files" },
-	{ on = "<C-r>",   run = "select_all --state=none",            desc = "Inverse selection of all files" },
+	{ on = "<C-a>",   run = "toggle_all --state=true",            desc = "Select all files" },
+	{ on = "<C-r>",   run = "toggle_all --state=none",            desc = "Inverse selection of all files" },
 
 	# Operation
 	{ on = "o",         run = "open",                        desc = "Open selected files" },
@@ -81,12 +81,12 @@ keymap = [
 	{ on = "Z",         run = "plugin fzf",                  desc = "Jump to a directory or reveal a file using fzf" },
 
 	# Linemode
-	{ on = [ "m", "s" ], run = "linemode size",        desc = "Set linemode to size" },
-	{ on = [ "m", "p" ], run = "linemode permissions", desc = "Set linemode to permissions" },
-	{ on = [ "m", "c" ], run = "linemode ctime",       desc = "Set linemode to ctime" },
-	{ on = [ "m", "m" ], run = "linemode mtime",       desc = "Set linemode to mtime" },
-	{ on = [ "m", "o" ], run = "linemode owner",       desc = "Set linemode to owner" },
-	{ on = [ "m", "n" ], run = "linemode none",        desc = "Set linemode to none" },
+	# { on = [ "m", "s" ], run = "linemode size",        desc = "Set linemode to size" },
+	# { on = [ "m", "p" ], run = "linemode permissions", desc = "Set linemode to permissions" },
+	# { on = [ "m", "c" ], run = "linemode ctime",       desc = "Set linemode to ctime" },
+	# { on = [ "m", "m" ], run = "linemode mtime",       desc = "Set linemode to mtime" },
+	# { on = [ "m", "o" ], run = "linemode owner",       desc = "Set linemode to owner" },
+	# { on = [ "m", "n" ], run = "linemode none",        desc = "Set linemode to none" },
 
 	# Copy
 	{ on = [ "c", "c" ], run = "copy path",             desc = "Copy the file path" },
@@ -152,6 +152,17 @@ keymap = [
 
 	# What Size
 	{ on   = [ ".", "s" ], run  = "plugin what-size", desc = "Calc size of selection or cwd" },
+
+	# Drop into shell
+	{ on   = "!", run  = 'shell --confirm "$SHELL" --block', desc = "Open shell here" },
+
+	# Hide Preview
+    { on   = "T", run  = "plugin hide-preview", desc = "Hide or show preview" },
+
+    # dedukun/bookmarks.yazi
+    { on   = "m", run  = "plugin bookmarks save", desc = "Save current position as a bookmark" },
+    { on   = "'", run  = "plugin bookmarks jump", desc = "Jump to bookmark" },
+
 ]
 
 [tasks]

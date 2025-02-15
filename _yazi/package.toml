@@ -1,5 +1,49 @@
-[plugin]
-deps = [{ use = "yazi-rs/plugins:full-border", rev = "62f0789" }, { use = "yazi-rs/plugins:hide-preview", rev = "62f0789" }, { use = "Sonico98/exifaudio", rev = "d794614" }, { use = "Ape/mediainfo", rev = "c69314e" }, { use = "AnirudhG07/rich-preview", rev = "8be4d27" }, { use = "pirafrank/what-size", rev = "f08f7f2" }]
+[[plugin.deps]]
+use = "yazi-rs/plugins:full-border"
+rev = "71c4fc2"
+hash = "a61bb2d21a08bf1d18f0a549e5eb1475"
 
-[flavor]
-deps = [{ use = "yazi-rs/flavors:catppuccin-mocha", rev = "8458d25" }]
+[[plugin.deps]]
+use = "yazi-rs/plugins:hide-preview"
+rev = "71c4fc2"
+hash = "5be5885898ca9df783bdec0d402bf4b0"
+
+[[plugin.deps]]
+use = "Sonico98/exifaudio"
+rev = "d794614"
+hash = "a8e15d3c21c02a5af41d46ed04778a02"
+
+[[plugin.deps]]
+use = "Ape/mediainfo"
+rev = "df17c4f"
+hash = "74c2b0063f30c6b4e4ede533f9ca03f2"
+
+[[plugin.deps]]
+use = "AnirudhG07/rich-preview"
+rev = "8be4d27"
+hash = "c9a3d0731e7d7340e2c6d6126b1f3aa3"
+
+[[plugin.deps]]
+use = "imsi32/yatline"
+rev = "600ed1f"
+hash = "99fc27c62b8efe3840bd237f9cbf8684"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:git"
+rev = "71c4fc2"
+hash = "e9cf1bfc03de7fee0f1d4260da0d1dfd"
+
+[[plugin.deps]]
+use = "dedukun/bookmarks"
+rev = "202e450"
+hash = "9e2f6f7381542d3adb3080b394b431b4"
+
+[[flavor.deps]]
+use = "yazi-rs/flavors:catppuccin-mocha"
+rev = "fc8eeaa"
+hash = "407710c2af9621a8351453e637d6c870"
+
+[[flavor.deps]]
+use = "yazi-rs/flavors:catppuccin-frappe"
+rev = "fc8eeaa"
+hash = "383f26124a09f1ec6f1f71014e966825"
