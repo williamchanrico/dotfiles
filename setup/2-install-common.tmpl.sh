@@ -241,7 +241,7 @@ yay -S --needed --noconfirm \
 	# Audio streaming
 	# spotify \
     spotify-launcher \
-    spicetify-cli \
+    # spicetify-cli \
 	# GTK theme
 	# nordic-theme-git \
 	# papirus-folders-nordic \
