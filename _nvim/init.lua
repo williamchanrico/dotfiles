@@ -4,5 +4,6 @@ vim.g.loaded_netrwPlugin = 1
 -- enable 24-bit colour
 vim.o.termguicolors = true
 
-require("config.lazy")
+vim.o.diffopt="internal,filler,closeoff,indent-heuristic,linematch:60,algorithm:histogram"
 
+require("config.lazy")

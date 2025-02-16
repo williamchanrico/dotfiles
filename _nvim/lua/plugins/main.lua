@@ -476,45 +476,6 @@ return {
         },
     },
 
-    -- {
-    -- 	"nvim-tree/nvim-tree.lua",
-    -- 	config = function()
-    -- 		require("nvim-tree").setup({
-    -- 			sort = {
-    -- 				sorter = "case_sensitive",
-    -- 			},
-    -- 			view = {
-    -- 				width = 30,
-    -- 			},
-    -- 			renderer = {
-    -- 				group_empty = true,
-    -- 			},
-    -- 			filters = {
-    -- 				dotfiles = true,
-    -- 			},
-    -- 		})
-    --
-    -- 		local api = require "nvim-tree.api"
-    -- 		vim.keymap.set('n', '<C-n>', api.tree.toggle, { desc = "Toggle Nvim Tree" })
-    -- 		vim.keymap.set('n', '<C-a>', require("nvim-tree.api").tree.expand_all, { desc = "Expand All Nodes" })
-    -- 		vim.keymap.set('n', '<C-a>', require("nvim-tree.api").tree.collapse_all, { desc = "Collapse All Nodes" })
-    -- 	end,
-    --
-    -- 	on_attach = function(bufnr)
-    -- 		local api = require "nvim-tree.api"
-    --
-    -- 		local function opts(desc)
-    -- 			return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
-    -- 		end
-    --
-    -- 		-- default mappings
-    -- 		api.config.mappings.default_on_attach(bufnr)
-    --
-    -- 		-- custom mappings
-    -- 		vim.keymap.set('n', '?', api.tree.toggle_help, opts('Help'))
-    -- 	end
-    -- },
-
     {
         "nvim-treesitter/nvim-treesitter",
         config = function()
@@ -1296,7 +1257,9 @@ return {
                     Snacks.toggle.treesitter():map("<leader>uT")
                     Snacks.toggle.option("background", { off = "light", on = "dark", name = "Dark Background" }):map("<leader>ub")
                     Snacks.toggle.inlay_hints():map("<leader>uh")
+                    -- Toggle indent line
                     Snacks.toggle.indent():map("<leader>ug")
+                    -- Toggle zen mode within primary window
                     Snacks.toggle.dim():map("<leader>uD")
                 end,
             })
