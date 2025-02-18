@@ -328,3 +328,4 @@ ya pack -a pirafrank/what-size
 ya pack -a imsi32/yatline
 ya pack -a yazi-rs/plugins:git
 ya pack -a dedukun/bookmarks
+ya pack -a yazi-rs/plugins:mount
