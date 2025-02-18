@@ -166,6 +166,8 @@ keymap = [
     { on   = "m", run  = "plugin bookmarks save", desc = "Save current position as a bookmark" },
     { on   = "'", run  = "plugin bookmarks jump", desc = "Jump to bookmark" },
 
+	# Toggle jump between last visited dir
+    { on   = "''", run  = "leave; last", desc = "Jump toggle between last visited directory" },
 ]
 
 [tasks]
