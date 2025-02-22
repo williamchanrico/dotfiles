@@ -1169,15 +1169,18 @@ return {
         end,
     },
 
-    -- Show scope of current indent
-    -- Replaced by Snacks.indent
-    -- {
-    --     'echasnovski/mini.indentscope',
-    --     version = '*',
-    --     config = function()
-    --         require('mini.indentscope').setup()
-    --     end,
-    -- },
+    -- Need the motion across scopes even though snacks.indent has indentation guides.
+    {
+        'echasnovski/mini.indentscope',
+        version = '*',
+        config = function()
+            require('mini.indentscope').setup({
+                draw = {
+                animation = require('mini.indentscope').gen_animation.none(),
+            }
+            })
+        end,
+    },
 
     -- Navigate using brackets
     {
@@ -1223,7 +1226,7 @@ return {
         priority = 1000,
         lazy = false,
         opts = {
-            indent = { enabled = true },
+            indent = { enabled = false },
             input = { enabled = true },
             -- scroll = { enabled = true },
         },

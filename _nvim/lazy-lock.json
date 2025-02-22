@@ -10,6 +10,7 @@
   "kitty-scrollback.nvim": { "branch": "main", "commit": "fd9f83f3f1141ef65de73fbe962f6c606ef02da8" },
   "lazy.nvim": { "branch": "main", "commit": "e5e9bf48211a13d9ee6c1077c88327c49c1ab4a0" },
   "lualine.nvim": { "branch": "master", "commit": "f4f791f67e70d378a754d02da068231d2352e5bc" },
+  "mini.ai": { "branch": "main", "commit": "ebb04799794a7f94628153991e6334c3304961b8" },
   "mini.animate": { "branch": "main", "commit": "d14190ac3040116540889e2ebc25f488b195799e" },
   "mini.bracketed": { "branch": "main", "commit": "937573c7e7d9be6cb29ffd0909d9ff83c92afbf0" },
   "mini.clue": { "branch": "main", "commit": "8e7681e9433766142e8c0977e7f9c31220c78cff" },
