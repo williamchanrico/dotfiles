@@ -168,6 +168,9 @@ keymap = [
 
 	# Toggle jump between last visited dir
     { on   = "''", run  = "leave; last", desc = "Jump toggle between last visited directory" },
+
+	# Mount plugin
+    { on   = "M", run  = "plugin mount", desc = "Mount plugin" },
 ]
 
 [tasks]

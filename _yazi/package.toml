@@ -38,6 +38,11 @@ use = "dedukun/bookmarks"
 rev = "202e450"
 hash = "9e2f6f7381542d3adb3080b394b431b4"
 
+[[plugin.deps]]
+use = "yazi-rs/plugins:mount"
+rev = "beb586a"
+hash = "5c4d8080367dd2561a18c1cf5a1dd295"
+
 [[flavor.deps]]
 use = "yazi-rs/flavors:catppuccin-mocha"
 rev = "fc8eeaa"
