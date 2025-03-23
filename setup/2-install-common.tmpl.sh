@@ -211,6 +211,8 @@ yay -S --needed --noconfirm \
 	nvme-cli \
 	# Monitoring system
 	htop \
+	# Android ADB
+	android-tools \
 	# Monitoring sensor (removed due to bloat icons dependency)
 	# psensor \
 	#
