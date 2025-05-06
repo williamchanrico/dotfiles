@@ -83,6 +83,9 @@ cat <<-EOF | sudo tee /etc/prometheus/blackbox.yml
 	    http:
 	      method: POST
 EOF
+cat <<-EOF | sudo tee /etc/conf.d/prometheus-blackbox-exporter
+BLACKBOX_EXPORTER_ARGS="--config.file='/etc/prometheus/blackbox.yml' --log.level=error"
+EOF
 sudo systemctl restart prometheus-node-exporter
 sudo systemctl restart prometheus-blackbox-exporter
 sudo systemctl enable prometheus-node-exporter
