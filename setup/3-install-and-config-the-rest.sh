@@ -96,18 +96,22 @@ sudo pacman -S --needed --noconfirm mangohud goverlay
 
 # Block random URI scheme
 mkdir -p ~/.local/share/applications
-cat <<-EOF | tee ~/.local/share/applications/block.desktop
+echo "Add block-uri.desktop desktop entry."
+cat <<-EOF | tee ~/.local/share/applications/block-uri.desktop
 [Desktop Entry]
-Name=Blocked Protocol Handler
-Exec=echo Blocked URI handler: %u
+Name=Blocked URI Handler
+Exec=/bin/true
 Type=Application
 NoDisplay=true
 EOF
-echo "Added block.desktop desktop entry."
+
+echo "Add block-uri for x-scheme-handler/bytedance"
+xdg-mime default block-uri.desktop x-scheme-handler/bytedance
+
 cat <<EOF
-; Example for ~/.config/mimeapps.list
-[Added Associations]
-x-scheme-handler/bytedance=block.desktop
+; Example block-uri registration command:
+xdg-mime default block-uri.desktop x-scheme-handler/bytedance
+xdg-mime query default x-scheme-handler/bytedance
 EOF
 
 # Fix random crashes on memory intensive softwares (i.e. AAA games)
