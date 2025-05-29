@@ -9,7 +9,7 @@ sudo pacman -S --needed --noconfirm podman fuse-overlayfs slirp4netns
 K6_PWD="${HOME}/src/xk6"
 mkdir -p "$K6_PWD"
 podman run --userns=keep-id --rm -it -u "$(id -u):$(id -g)" -v "${K6_PWD}:/xk6" grafana/xk6 build latest \
-	--with github.com/grafana/xk6-dashboard@latest
+    --with github.com/grafana/xk6-dashboard@latest
 
 # Setup Ansible LSP (though will be using virtualenv for the Ansible itself)
 sudo pacman -S --needed --noconfirm ansible ansible-lint
@@ -93,6 +93,22 @@ sudo systemctl enable prometheus-blackbox-exporter
 
 # Configure HUD
 sudo pacman -S --needed --noconfirm mangohud goverlay
+
+# Block random URI scheme
+mkdir -p ~/.local/share/applications
+cat <<-EOF | tee ~/.local/share/applications/block.desktop
+[Desktop Entry]
+Name=Blocked Protocol Handler
+Exec=echo Blocked URI handler: %u
+Type=Application
+NoDisplay=true
+EOF
+echo "Added block.desktop desktop entry."
+cat <<EOF
+; Example for ~/.config/mimeapps.list
+[Added Associations]
+x-scheme-handler/bytedance=block.desktop
+EOF
 
 # Fix random crashes on memory intensive softwares (i.e. AAA games)
 # Sets the maximum number of memory map areas a process may have. Defaults to 65530.
