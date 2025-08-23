@@ -182,7 +182,7 @@ yay -S --needed --noconfirm \
 	# Parser for JSON
 	jq \
 	# Parser for YAML
-	yq \
+	go-yq \
 	yaml-language-server \
 	# Parser for XML
 	expat \
