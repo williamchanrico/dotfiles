@@ -46,7 +46,7 @@ yay -S --needed --noconfirm \
 	wl-clipboard \
 	cliphist \
 	# Notification daemon
-    dunst \
+	dunst \
 	# Launcher
 	# dmenu \
 	# Dmenu alternative
@@ -57,7 +57,7 @@ yay -S --needed --noconfirm \
 	wezterm \
 	# Directory jumper
 	# z \
-    zoxide \
+	zoxide \
 	# File manager
 	# ranger \
 	yazi \
@@ -86,6 +86,8 @@ yay -S --needed --noconfirm \
 	gsimplecal \
 	# GTK+ theme switcher of the LXDE
 	# lxappearance \
+	adw-gtk-theme \
+	nwg-look \
 	# Files management (compress/backup)
 	p7zip \
 	unrar \
@@ -242,8 +244,8 @@ yay -S --needed --noconfirm \
 	nvm \
 	# Audio streaming
 	# spotify \
-    spotify-launcher \
-    # spicetify-cli \
+	spotify-launcher \
+	spicetify-cli \
 	# GTK theme
 	# nordic-theme-git \
 	# papirus-folders-nordic \
@@ -317,17 +319,7 @@ sudo pacman -S --needed --noconfirm \
 yay -S --needed --noconfirm \
 	ttf-font-icons
 
-# Yazi
-mkdir -p ~/.config/yazi
-git clone https://github.com/BennyOe/onedark.yazi.git ~/.config/yazi/flavors/onedark.yazi
-ya pack -a yazi-rs/flavors:catppuccin-mocha
-ya pack -a yazi-rs/plugins:full-border
-ya pack -a yazi-rs/plugins:hide-preview
-ya pack -a Sonico98/exifaudio
-ya pack -a Ape/mediainfo
-ya pack -a AnirudhG07/rich-preview
-ya pack -a pirafrank/what-size
-ya pack -a imsi32/yatline
-ya pack -a yazi-rs/plugins:git
-ya pack -a dedukun/bookmarks
-ya pack -a yazi-rs/plugins:mount
+# Noctalia plugin: Screen Toolkit dependencies
+sudo pacman -S grim slurp wl-clipboard tesseract tesseract-data-eng imagemagick zbar curl translate-shell ffmpeg jq
+yay -S gifski wl-screenrec
+
