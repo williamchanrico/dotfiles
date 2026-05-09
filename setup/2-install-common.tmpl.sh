@@ -191,8 +191,7 @@ yay -S --needed --noconfirm \
 	# Prettifier
 	prettier \
 	# Linter for shell scripts (replaced shellcheck with shellcheck-bin from AUR to avoid haskell runtime dep)
-	shfmt \
-	bash-language-server \
+	atuin \
 	# Show audio/video files
 	mediainfo \
 	#
